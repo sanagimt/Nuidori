@@ -1,20 +1,47 @@
-<header>
-  <div class="nav-container">
-    <div class="logo">
-      <%= link_to 'ロゴ', root_path %>
-    </div>
+<header class="container-fluid py-3" style="background-color: #f5deb3;">
+  <div class="container">
+    <div class="row align-items-start">
 
-    <nav class="nav-links">
-      <%= link_to 'トップページ', root_path %>
+      <div class="col-3 d-flex justify-content-start">
+        <%= link_to image_tag("logo.jpg", size: "100x75"), root_path %>
+      </div>
 
-      <% if admin_signed_in? %>
-        <%= link_to '管理者ログアウト', destroy_admin_session_path, method: :delete %>
-      <% elsif user_signed_in? %>
-        <%= link_to 'ログアウト', destroy_user_session_path, method: :delete %>
-      <% else %>
-        <%= link_to 'ログイン', new_user_session_path %>
-        <%= link_to '新規会員登録', new_user_registration_path %>
+      <div class="col-3 d-flex justify-content-start">
+      <% if user_signed_in? %>
+        <div class="navbar-text mt-2">
+          <span style="color: #8b4513;">ようこそ、<%= current_user.nickname %>さん！</span>
+        </div>
       <% end %>
-    </nav>
+      </div>
+
+      <div class="col-6 p-0 d-flex flex-column align-items-center">
+        <div class="mb-2 ml-auto">
+          <ul class="nav">
+            <% if admin_signed_in? %>
+              <li class="nav-item">
+              <%= link_to '管理者ログアウト', destroy_admin_session_path, method: :delete, class: 'btn btn-outline-secondary mx-1' %>
+              </li>
+            <% elsif user_signed_in? %>
+              <li class="nav-item">
+              <%= link_to 'ログアウト', destroy_user_session_path, method: :delete, class: 'btn btn-outline-secondary mx-1' %>
+              </li>
+            <% else %>
+              <li class="nav-item">
+              <%= link_to 'ログイン', new_user_session_path, class: 'btn btn-outline-secondary mx-1' %>
+              </li>
+              <li class="nav-item">
+              <%= link_to '新規会員登録', new_user_registration_path, class: 'btn btn-outline-secondary mx-1' %>
+              </li>
+            <% end %>
+            </ul>
+        </div>
+
+      <div class="ml-auto">
+      <form action="#" method="get" class="form-inline">
+        <input type="text" name="query" class="form-control mr-1" placeholder="Search">
+        <button type="submit" class="btn btn-outline-info">検索</button>
+      </form>
+      </div>
+    </div>
   </div>
 </header>

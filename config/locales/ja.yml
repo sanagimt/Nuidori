@@ -25,6 +25,10 @@ ja:
         unconfirmed_email: 未確認Eメール
         unlock_token: ロック解除用トークン
         updated_at: 更新日
+        last_name: 名前（姓）
+        first_name: 名前（名）
+        username: ユーザー名
+        nickname: ニックネーム
     models:
       user: ユーザー
   devise:
@@ -90,6 +94,9 @@ ja:
       updated: パスワードが正しく変更されました。
       updated_not_active: パスワードが正しく変更されました。
     registrations:
+      signed_up: アカウント登録が完了しました。
+      failure: アカウントの登録に失敗しました。入力内容を確認してください。
+      
       destroyed: アカウントを削除しました。またのご利用をお待ちしております。
       edit:
         are_you_sure: 本当によろしいですか？

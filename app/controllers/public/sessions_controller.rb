@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Public::SessionsController < Devise::SessionsController
-  # before_action :configure_sign_in_params, only: [:create]
+  before_action :reject_inactive_user, only: [:create]
 
   # GET /resource/sign_in
   # def new
@@ -9,9 +9,13 @@ class Public::SessionsController < Devise::SessionsController
   # end
 
   # POST /resource/sign_in
-  # def create
-  #   super
-  # end
+  def create
+    super do |resource|
+      if resource.errors.any?
+        flash[:alert] = I18n.t("devise.registrations.failure")
+      end
+    end
+  end
 
   # DELETE /resource/sign_out
   # def destroy
@@ -31,6 +35,16 @@ class Public::SessionsController < Devise::SessionsController
 
   def after_sign_out_path_for(resource)
     root_path
+  end
+
+  def reject_inactive_user
+    @user = User.find_by(email: params[:user][:email])
+    if @user
+      if @user.valid_password?(params[:user][:password]) && !@user.is_active
+        flash[:danger] = '退会済みのユーザーです。別のメールアドレスをお使いください。'
+        redirect_to new_user_session_path
+      end
+    end
   end
 
 end
