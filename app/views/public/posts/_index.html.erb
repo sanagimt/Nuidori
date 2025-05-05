@@ -1,0 +1,9 @@
+<% posts.each do |post| %>
+  <div>
+    <p><%= post.user.nickname %></p>
+    <p><%= post.user.username %></p>
+    <p><%= image_tag post.get_image (160x120), size: "160x120" %></p>
+    <p><%= post.title %></p>
+    <p><%= post.body %></p>
+  </div>
+<% end %>
