@@ -1,4 +1,8 @@
-<h1>Public::Users#show</h1>
-<p>Find me in app/views/public/users/show.html.erb</p>
+<h3>ユーザー詳細</h3>
 
-<%= link_to "ユーザー編集", edit_information_path %>
+<%= render 'introduction', user: @user %>
+
+<br>
+<h3>投稿一覧</h3>
+
+<%= render 'public/posts/index', user: @user, posts: @posts %>

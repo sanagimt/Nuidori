@@ -1,13 +1,19 @@
 class Public::UsersController < ApplicationController
-  before_action :authenticate_user!, only: [:mypage, :edit, :update]
+  before_action :authenticate_user!, only: [:mypage, :edit, :update, :unsubscribe, :withdraw]
 
   def show
-    @user = User.find[params[:id]]
-    @posts = @user.posts
+    @user = User.find_by!(username: params[:username])
+    @posts = @user.posts.order(created_at: :desc)
+
+    if !@user.is_active
+      redirect_to root_path, alert: "このユーザーは存在しないか、退会しています。"
+      return
+    end
   end
 
   def mypage
     @user = current_user
+    @posts = @user.posts.order(created_at: :desc)
     render :show
   end
 
@@ -28,12 +34,19 @@ class Public::UsersController < ApplicationController
   end
 
   def withdraw
-    @user = current_user
-    @user.update(is_active: false)
+    user = current_user
+    user.update(is_active: false)
     reset_session
     redirect_to root_path
   end
 
   def favorites
   end
+
+  private
+
+  def user_params
+    params.require(:user).permit(:profile_image, :last_name, :first_name, :email, :username, :nickname, :introduction)
+  end
+
 end

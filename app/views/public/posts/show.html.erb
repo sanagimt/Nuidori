@@ -1,0 +1,9 @@
+<div>
+<p><%= @post.user.nickname %></p>
+<p><%= @post.user.username %></p>
+<p><%= image_tag @post.get_image(200,200) %></p>
+<p><%= @post.title %></p>
+<%= simple_format(@post.body) %>
+<p>投稿日時：<%= @post.created_at.strftime('%y/%m/%d %H:%M') %></p>
+<p>更新日時：<%= @post.updated_at.strftime('%y/%m/%d %H:%M') %></p>
+</div>

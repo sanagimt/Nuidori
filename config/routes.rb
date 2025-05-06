@@ -9,13 +9,14 @@ Rails.application.routes.draw do
     root to: 'homes#top'
 
     get 'users/mypage' => 'users#mypage', as: 'mypage'
-    get 'users/:username' => 'users#show', as: 'user'
     get 'users/information/edit' => 'users#edit', as: 'edit_information'
     patch 'users/information' => 'users#update', as: 'update_information'
     get 'users/unsubscribe' => 'users#unsubscribe', as: 'confirm_unsubscribe'
     patch 'users/withdraw' => 'users#withdraw', as: 'withdraw_user'
 
     get 'users/favorites' => 'users#favorites', as: 'user_favorites'
+
+    get 'users/:username' => 'users#show', as: 'user'
 
     resources :posts
   end
@@ -25,7 +26,10 @@ Rails.application.routes.draw do
   }
 
   namespace :admin do
+    root to: 'homes#top'
+
     resources :posts, only: [:index, :show, :destroy]
+    resources :users, only: [:index, :show, :edit, :update]
   end
 
 end

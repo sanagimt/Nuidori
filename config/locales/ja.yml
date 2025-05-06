@@ -29,6 +29,10 @@ ja:
         first_name: 名前（名）
         username: ユーザー名
         nickname: ニックネーム
+      post:
+        image: 画像
+        title: タイトル
+        body: 説明
     models:
       user: ユーザー
   devise:

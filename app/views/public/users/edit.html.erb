@@ -1,2 +1,57 @@
-<h1>Public::Users#edit</h1>
-<p>Find me in app/views/public/users/edit.html.erb</p>
+<h3>ユーザー情報編集</h3>
+
+
+<% if @user.errors.any? %>
+<%= @user.errors.count %>件のエラーが発生しました
+<ul>
+  <% @user.errors.full_messages.each do |message| %>
+    <li><%= message %></li>
+  <% end %>
+</ul>
+<% end %>
+
+<%= form_with model: @user, url: update_information_path do |f| %>
+
+  <div class="field">
+  <%= f.label :profile_image, "プロフィール画像" %><br />
+  <%= f.file_field :profile_image, placeholder: "プロフィール画像", accept: "image/*" %>
+  </div>
+
+  <div class="field">
+  <%= f.label :last_name, "(姓)" %><br />
+  <%= f.text_field :last_name, autofocus: true, placeholder: "令和" %>
+  </div>
+
+  <div class="field">
+  <%= f.label :first_name, "(名)" %><br />
+  <%= f.text_field :first_name, autofocus: true, placeholder: "太郎" %>
+  </div>
+
+  <div class="field">
+    <%= f.label :email, "メールアドレス" %><br />
+    <%= f.email_field :email, autofocus: true, autocomplete: "email", placeholder: "nuidori@sample.com" %>
+  </div>
+ 
+  <div class="field">
+  <%= f.label :username, "ユーザー名（半角英数字4文字以上）" %><br />
+  <%= f.text_field :username, autofocus: true, placeholder: "半角英数字4文字以上" %>
+  </div>
+
+  <div class="field">
+  <%= f.label :nickname, "ニックネーム（表示名）" %><br />
+  <%= f.text_field :nickname, autofocus: true, placeholder: "表示名" %>
+  </div>
+
+  <div class="field">
+  <%= f.label :introduction, "自己紹介文" %><br />
+  <%= f.text_area :introduction, autofocus: true, placeholder: "自己紹介文を書いてみましょう" %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit "更新" %>
+  </div>
+
+<% end %>
+<br>
+<h5>退会ご希望の方はこちら</h5>
+<%= link_to "退会する", confirm_unsubscribe_path %>

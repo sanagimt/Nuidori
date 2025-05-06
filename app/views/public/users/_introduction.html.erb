@@ -1,0 +1,10 @@
+<div>
+  <%= image_tag user.get_profile_image(100,100) %>
+  <h3><%= user.username %></h3>
+  <h5><%= user.nickname %></h5>
+  <%= user.introduction %><br>
+  <% if user == current_user %>
+    <%= link_to "ユーザー情報編集", edit_information_path %>
+  <% end %>
+
+</div>
