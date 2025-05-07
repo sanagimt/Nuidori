@@ -1,14 +1,19 @@
-<% if posts.present? %>
-  <% posts.each do |post| %>
-    <div>
-      <p><%= post.user.nickname %></p>
-      <p><%= post.user.username %></p>
-      <p><%= image_tag post.get_image(200,200) %></p>
-      <%= post.title %>
-      <%= simple_format(post.body) %>
-      <%= time_ago_in_words(post.created_at) %>前
-    </div>
-  <% end %>
-<% else %>
-  <p>投稿はまだありません。</p>
+<% posts.each do |post| %>
+  <div>
+    <%= link_to post_path(post.id) do %>
+    <p><%= image_tag post.get_image(200,200) %></p>
+    <% end %>
+
+    <%= link_to user_path(post.user.username) do %>
+      <%= image_tag post.user.get_profile_image(25,25) %>
+      <%= post.user.nickname %>
+      (<%= post.user.username %>)
+    <% end %>
+
+    <%= link_to post_path(post.id) do %>
+    <h5><%= post.title %></h5>
+    <% end %>
+    <p><%= truncate(post.body, length: 30) %></p>
+    <%= time_ago_in_words(post.created_at) %>前
+  </div>
 <% end %>

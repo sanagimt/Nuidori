@@ -8,3 +8,7 @@
   </ul>
 <% end %>
 <%= render 'form', post: @post %>
+<br>
+<%= link_to "投稿に戻る", post_path(@post.id) %>
+<br>
+<%= link_to "投稿を削除する", post_path(@post), method: :delete, "data-confirm" => "本当に削除しますか？" %>
