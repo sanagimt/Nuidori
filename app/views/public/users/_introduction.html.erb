@@ -1,9 +1,11 @@
-<div>
-  <%= image_tag user.get_profile_image(100,100) %>
-  <h3><%= user.nickname %></h3>
-  <h5><%= user.username %></h5>
-  <%= simple_format(user.introduction) %>
-  <% if user == current_user %>
-    <%= link_to "ユーザー情報編集", edit_information_path %>
-  <% end %>
+<div class="d-flex align-items-center mb-3">
+  <%= image_tag user.get_profile_image(100,100), class: "rounded-circle mr-2" %>
+  <div>
+    <h3 class="mb-1"><%= user.nickname %></h3>
+    <h5 class="mb-2 text-muted">　(<%= user.username %>)</h5>
+    <%= simple_format(user.introduction) %>
+    <% if user == current_user %>
+      <%= link_to "ユーザー情報編集", edit_information_path %>
+    <% end %>
+  </div>
 </div>

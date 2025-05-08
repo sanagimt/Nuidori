@@ -1,8 +1,35 @@
-<h3>ユーザー詳細</h3>
+<div class="container">
+  <div class="row">
+    <div class="col-2 my-5 ml-4">
+      <h4 class="text-center">ユーザー詳細</h4>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-2"></div>
+    <div class="col-8">
+      <%= render 'introduction', user: @user %>
+    </div>
+    <div class="col-2"></div>
+  </div>
+</div>
 
-<%= render 'introduction', user: @user %>
+<div class="container">
+  <div class="row">
+    <div class="col-2 my-5 ml-4">
+      <h4 class="text-center">投稿一覧</h4>
+    </div>
+  </div>
+</div>
 
-<br>
-<h3>投稿一覧</h3>
-
-<%= render 'public/posts/index', user: @user, posts: @posts %>
+<div class="container">
+  <div class="row">
+    <div class="col">
+    <% if @posts.present? %>
+      <div class="d-flex flex-wrap mx-4">
+        <%= render 'public/posts/index', user: @user, posts: @posts %>
+      </div>
+    <% else %>
+      <p>投稿はまだありません。</p>
+    <% end %>
+  </div>
+</div>

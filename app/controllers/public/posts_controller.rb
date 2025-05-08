@@ -6,7 +6,7 @@ class Public::PostsController < ApplicationController
   end
 
   def index
-    @posts = Post.joins(:user).where(users: { is_active: true })
+    @posts = Post.joins(:user).where(users: { is_active: true }).order(created_at: :desc)
   end
 
   def show
@@ -36,6 +36,7 @@ class Public::PostsController < ApplicationController
   def update
     @post = Post.find(params[:id])
     if @post.update(post_params)
+      @post.touch unless @post.previous_changes.any?
       redirect_to post_path(@post.id), notice: "投稿が完了しました！"
     else
       render :edit

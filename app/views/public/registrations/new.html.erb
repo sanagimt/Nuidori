@@ -1,49 +1,85 @@
-<h2>Sign up</h2>
-
-<%= form_with model: @user, url: user_registration_path do |f| %>
-  <%= render "public/shared/error_messages", resource: resource %>
-
-  <div class="field">
-  <%= f.label :last_name, "(姓)" %><br />
-  <%= f.text_field :last_name, autofocus: true, placeholder: "令和" %>
+<div class="container">
+  <div class="row mt-4 my-2">
+    <div class="col-2"></div>
+    <div class="col-4">
+      <h4>新規ユーザー登録</h4>
+    </div>
+    <div class="col-6"></div>
   </div>
 
-  <div class="field">
-  <%= f.label :first_name, "(名)" %><br />
-  <%= f.text_field :first_name, autofocus: true, placeholder: "太郎" %>
-  </div>
+  <div class="row">
+    <div class="col-2"></div>
+    <div class="col-8">
+      <%= form_with model: @user, url: user_registration_path do |f| %>
+      <%= render "public/shared/error_messages", resource: resource %>
+      <table class="w-100">
+        <thead>
+          <th></th>
+          <th></th>
+          <th></th>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="pe-3 pb-3">名前</td>
+            <td class="pe-3 pb-3"><%= f.label :last_name, "(姓)" %>
+                <%= f.text_field :last_name, autofocus: true, placeholder: "令和" %></td>
+            <td class="pe-3 pb-3"><%= f.label :first_name, "(名)" %>
+                <%= f.text_field :first_name, autofocus: true, placeholder: "太郎" %></td>
+          </tr>
 
-  <div class="field">
-    <%= f.label :email, "メールアドレス" %><br />
-    <%= f.email_field :email, autofocus: true, autocomplete: "email", placeholder: "nuidori@sample.com" %>
-  </div>
+          <tr>
+            <td class="pe-3 pb-3"><%= f.label :email, "メールアドレス" %></td>
+            <td class="pe-3 pb-3" colspan="2"><%= f.email_field :email, autofocus: true, autocomplete: "email", placeholder: "nuidori@sample.com" %></td>
+          </tr>
 
-  <div class="field">
-    <%= f.label :password, "パスワード" %>
-    <% if @minimum_password_length %>
-    (<%= @minimum_password_length %> 文字以上)
-    <% end %><br />
-    <%= f.password_field :password, autocomplete: "new-password", placeholder: "半角英数字6文字以上" %>
-  </div>
+          <tr>
+            <td class="pe-3 pb-3"><%= f.label :password, "パスワード" %>
+            <% if @minimum_password_length %>
+            (半角英数字<%= @minimum_password_length %> 文字以上)
+            <% end %>
+            </td>
+            <td class="pe-3 pb-3" colspan="2"><%= f.password_field :password, autocomplete: "new-password", placeholder: "半角英数字6文字以上" %></td>
+          </tr>
 
-  <div class="field">
-    <%= f.label :password_confirmation, "パスワード（確認用）" %><br />
-    <%= f.password_field :password_confirmation, autocomplete: "new-password", placeholder: "再度入力してください" %>
-  </div>
- 
-  <div class="field">
-  <%= f.label :username, "ユーザー名（半角英数字4文字以上）" %><br />
-  <%= f.text_field :username, autofocus: true, placeholder: "半角英数字4文字以上" %>
-  </div>
+          <tr>
+            <td class="pe-3 pb-3"><%= f.label :password_confirmation, "パスワード（確認用）" %></td>
+            <td class="pe-3 pb-3" colspan="2"><%= f.password_field :password_confirmation, autocomplete: "new-password", placeholder: "再度入力してください" %></td>
+          </tr>
+        
+          <tr>
+            <td class="pe-3 pb-3"><%= f.label :username, "ユーザー名（半角英数字4～15文字以内）" %></td>
+            <td class="pe-3 pb-3" colspan="2"><%= f.text_field :username, autofocus: true, placeholder: "半角英数字4～15文字" %></td>
+          </tr>
 
-  <div class="field">
-  <%= f.label :nickname, "ニックネーム（表示名）" %><br />
-  <%= f.text_field :nickname, autofocus: true, placeholder: "表示名" %>
-  </div>
+          <tr>
+            <td class="pe-3 pb-3"><%= f.label :nickname, "ニックネーム（30文字以内）" %></td>
+            <td class="pe-3 pb-3" colspan="2"><%= f.text_field :nickname, autofocus: true, placeholder: "※表示名となります" %></td>
+          </tr>
 
-  <div class="actions">
-    <%= f.submit "登録" %>
+          <tr>
+            <td class="pe-3 pb-3"></td>
+            <td class="pe-3 pb-3" colspan="2"><%= f.submit "登録" %></td>
+          </tr>
+        </tbody>
+      </table>
+      <% end %>
+    </div>
+    <div class="col-2"></div>
   </div>
-<% end %>
-
-<%= render "public/shared/links" %>
+  <div class="row">
+    <div class="col-2"></div>
+    <div class="col-4 my-2" >
+      <h5 class="text-left">会員登録がお済みの方</h5>
+    </div>
+    <div class="col-6"></div>
+  </div>
+  <div class="row mb-3">
+    <div class="col-3"></div>
+    <div class="col-6">
+      <div class="d-flex align-items-center">
+        <%= render "public/shared/links" %>
+        <span>よりログインしてください</span>
+      </div>
+      <div class="col-3"></div>
+  </div>
+</div>

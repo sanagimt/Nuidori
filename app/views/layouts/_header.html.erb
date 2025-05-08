@@ -14,9 +14,7 @@
 
       <div class="col-3 d-flex justify-content-start">
         <div class="navbar-text mt-2">
-          <% if user_signed_in? %>
-            <span style="color: #8b4513;">ようこそ、<%= current_user.nickname %>さん！</span>
-          <% elsif admin_signed_in? %>
+          <% if admin_signed_in? %>
             <span style="color: #8b4513;">管理者ログイン中</span>
           <% end %>
         </div>
