@@ -5,7 +5,7 @@
     <% end %>
     <div class="card-body"  style="width: 300px;">
       <%= link_to user_path(post.user.username), class: "d-inline-flex align-items-center" do %>
-        <%= image_tag post.user.get_profile_image(25, 25), class: "rounded-circle mr-2" %>
+        <%= image_tag post.user.get_profile_image(25, 25), class: "rounded-circle mr-2", style: "width: 25px; height: 25px; object-fit: cover;" %>
         <span><%= post.user.nickname %>(<%= post.user.username %>)</span>
       <% end %>
 

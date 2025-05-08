@@ -3,7 +3,7 @@ class Public::UsersController < ApplicationController
 
   def show
     @user = User.find_by!(username: params[:username])
-    @posts = @user.posts.order(created_at: :desc)
+    @posts = @user.posts.page(params[:page]).per(9).joins(:user).where(users: { is_active: true }).order(created_at: :desc)
 
     if !@user.is_active
       redirect_to root_path, alert: "このユーザーは存在しないか、退会しています。"
@@ -13,7 +13,7 @@ class Public::UsersController < ApplicationController
 
   def mypage
     @user = current_user
-    @posts = @user.posts.order(created_at: :desc)
+    @posts = @user.posts.page(params[:page]).per(9).joins(:user).where(users: { is_active: true }).order(created_at: :desc)
     render :show
   end
 

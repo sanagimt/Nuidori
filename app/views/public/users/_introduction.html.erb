@@ -1,5 +1,5 @@
 <div class="d-flex align-items-center mb-3">
-  <%= image_tag user.get_profile_image(100,100), class: "rounded-circle mr-2" %>
+  <%= image_tag user.get_profile_image(100,100), class: "rounded-circle mr-2", style: "width: 100px; height: 100px; object-fit: cover;" %>
   <div>
     <h3 class="mb-1"><%= user.nickname %></h3>
     <h5 class="mb-2 text-muted">　(<%= user.username %>)</h5>

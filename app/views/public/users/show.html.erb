@@ -1,7 +1,11 @@
 <div class="container">
   <div class="row">
     <div class="col-2 my-5 ml-4">
+      <% if @user==current_user %>
+      <h4 class="text-center">マイページ</h4>
+      <% else %>
       <h4 class="text-center">ユーザー詳細</h4>
+      <% end %>
     </div>
   </div>
   <div class="row">
@@ -24,12 +28,16 @@
 <div class="container">
   <div class="row">
     <div class="col">
-    <% if @posts.present? %>
+      <% if @posts.present? %>
       <div class="d-flex flex-wrap mx-4">
         <%= render 'public/posts/index', user: @user, posts: @posts %>
       </div>
-    <% else %>
-      <p>投稿はまだありません。</p>
-    <% end %>
+      <% else %>
+        <p>投稿はまだありません。</p>
+      <% end %>
+      <div class="d-flex justify-content-center my-4">
+        <%= paginate @posts %>
+      </div>
+    </div>
   </div>
 </div>

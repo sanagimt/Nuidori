@@ -1,21 +1,19 @@
-<header class="container-fluid py-3" style="background-color: #f5deb3;">
+<header class="container-fluid py-3" style="background-color: #ffc0cb;">
   <div class="container">
     <div class="row align-items-start">
 
       <div class="col-3 d-flex justify-content-start">
-        <% if user_signed_in? %>
-          <%= link_to image_tag("logo.jpg", size: "100x100"), mypage_path %>
-        <% elsif admin_signed_in? %>
-          <%= link_to image_tag("logo.jpg", size: "100x100"), admin_root_path %>
-        <% else %>
           <%= link_to image_tag("logo.jpg", size: "100x100"), root_path %>
-        <% end %>
       </div>
 
       <div class="col-3 d-flex justify-content-start">
         <div class="navbar-text mt-2">
-          <% if admin_signed_in? %>
+          <% if user_signed_in? %>
+            <span style="color: #8b4513;">ログインしています</span>
+          <% elsif admin_signed_in? %>
             <span style="color: #8b4513;">管理者ログイン中</span>
+          <% else %>
+            <span style="color: #8b4513;">ログインしていません</span>
           <% end %>
         </div>
       </div>
@@ -59,10 +57,6 @@
       </div>
 
       <div class="ml-auto">
-      <form action="#" method="get" class="form-inline">
-        <input type="text" name="query" class="form-control mr-1" placeholder="Search">
-        <button type="submit" class="btn btn-outline-info">検索</button>
-      </form>
       </div>
     </div>
   </div>
