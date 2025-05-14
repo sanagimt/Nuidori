@@ -1,5 +1,6 @@
 class Public::UsersController < ApplicationController
   before_action :authenticate_user!, only: [:mypage, :edit, :update, :unsubscribe, :withdraw]
+  before_action :is_matching_login_user, only: [:edit, :update, :destroy, :unsubscribe, :withdraw]
 
   def show
     @user = User.find_by!(username: params[:username])
@@ -47,6 +48,13 @@ class Public::UsersController < ApplicationController
 
   def user_params
     params.require(:user).permit(:profile_image, :last_name, :first_name, :email, :username, :nickname, :introduction)
+  end
+
+  def is_matching_login_user
+    user = User.find(params[:id])
+    unless user.id == current_user.id
+      redirect_to mypage_path
+    end
   end
 
 end

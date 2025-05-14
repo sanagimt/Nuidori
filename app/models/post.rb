@@ -4,7 +4,7 @@ class Post < ApplicationRecord
   has_one_attached :image
 
   validates :image, presence: true
-  validates :title, presence: true, length: { in: 1..30 }
+  validates :title, presence: true, length: { in: 1..30, message: 'は1～30文字以内で入力してください' }
   validates :body, length: { maximum: 200 }
 
   def get_image(width, height)
