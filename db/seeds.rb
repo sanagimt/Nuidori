@@ -59,4 +59,5 @@ Post.find_or_create_by!(id: "3") do |post|
   post.user = hanako
 end
 
+
 puts "seedの実行が完了しました"
