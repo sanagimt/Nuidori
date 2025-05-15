@@ -51,8 +51,7 @@ class Public::UsersController < ApplicationController
   end
 
   def is_matching_login_user
-    user = User.find(params[:id])
-    unless user.id == current_user.id
+    unless current_user
       redirect_to mypage_path
     end
   end

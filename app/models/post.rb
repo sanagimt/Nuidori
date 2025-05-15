@@ -24,4 +24,11 @@ class Post < ApplicationRecord
     image.variant(resize_to_limit: [max_width, max_height]).processed
   end
 
+  def self.search_for(content)
+    sanitized = sanitize_sql_like(content)
+    Post.joins(:user)
+        .where(users: { is_active: true })
+        .where("title LIKE :keyword OR body LIKE :keyword", keyword: "%#{sanitized}%")
+  end
+
 end

@@ -1,0 +1,6 @@
+<% users.each do |user| %>
+  <%= link_to user_path(user.username) do %>
+  <%= image_tag user.get_profile_image(25, 25), class: "rounded-circle mr-2", style: "width: 25px; height: 25px; object-fit: cover;" %>
+  <span><%= user.nickname %>(<%= user.username %>)</span>
+  <% end %>
+<% end %>
