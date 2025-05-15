@@ -1,0 +1,20 @@
+<% if @model == 'post' %>
+  <h3>「<%= @content %>」の投稿検索結果（<%= @content.blank? ? 0 : @records.count %>件）</h3>
+  <% if @content.blank? %>
+    <p>検索キーワードを入力してください。</p>
+  <% elsif @records.any? %>
+    <%= render 'public/posts/index', posts: @records %>
+  <% else %>
+    <p>該当する投稿は見つかりませんでした。</p>
+  <% end %>
+
+<% elsif @model == 'user' %>
+  <h3>「<%= @content %>」のユーザー検索結果（<%= @content.blank? ? 0 : @records.count %>件）</h3>
+  <% if @content.blank? %>
+    <p>検索キーワードを入力してください。</p>
+  <% elsif @records.any? %>
+    <%= render 'public/users/index', users: @records %>
+  <% else %>
+    <p>該当するユーザーは見つかりませんでした。</p>
+  <% end %>
+<% end %>

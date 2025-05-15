@@ -19,6 +19,8 @@ Rails.application.routes.draw do
     get 'users/:username' => 'users#show', as: 'user'
 
     resources :posts
+    get 'search' => 'searches#search'
+
   end
 
   devise_for :admin, skip: [:registrations, :passwords],  controllers: {
