@@ -18,7 +18,10 @@ Rails.application.routes.draw do
 
     get 'users/:username' => 'users#show', as: 'user'
 
-    resources :posts
+    resources :posts do
+      resources :comments, only: [:create, :destroy]
+    end
+
     get 'search' => 'searches#search'
 
   end
