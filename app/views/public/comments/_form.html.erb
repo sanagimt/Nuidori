@@ -1,4 +1,4 @@
-<%= form_with model: [post, comment], local: false do |f| %>
+<%= form_with model: [post, comment], local: true do |f| %>
   <div class="d-flex">
     <%= f.text_area :comment, rows:'3', style:'width: 50%', class: 'form-control post_body', id: "comment_textarea" %>
     <div class="d-flex align-items-end ml-2">
