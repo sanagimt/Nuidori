@@ -3,12 +3,11 @@ class Public::SearchesController < ApplicationController
   def search
     @model = params[:model]
     @content=params[:content]
-    @records=Post.search_for(@content)
 
     if @model == "post"
-      @records = Post.search_for(@content)
+      @records = Post.search_for(@content).page(params[:page]).per(12)
     elsif @model == "user"
-      @records = User.search_for(@content)
+      @records = User.search_for(@content).page(params[:page]).per(10)
     end
   end
 

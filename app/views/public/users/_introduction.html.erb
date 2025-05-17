@@ -1,11 +1,19 @@
-<div class="d-flex align-items-center mb-3">
-  <%= image_tag user.get_profile_image(100,100), class: "rounded-circle mr-2", style: "width: 100px; height: 100px; object-fit: cover;" %>
-  <div>
-    <h3 class="mb-1"><%= user.nickname %></h3>
-    <h5 class="mb-2 text-muted">　(<%= user.username %>)</h5>
-    <%= simple_format(user.introduction) %>
-    <% if user == current_user %>
-      <%= link_to "ユーザー情報編集", edit_information_path %>
-    <% end %>
+<div class="mb-4 p-3 border rounded bg-white shadow-sm">
+  <div class="d-flex align-items-center mb-3">
+    <%= image_tag user.get_profile_image(100,100), class: "rounded-circle mr-3", style: "width: 100px; height: 100px; object-fit: cover;" %>
+    <div>
+      <h4 class="mb-1"><%= user.nickname %></h4>
+      <h6 class="mb-2 text-muted">（<%= user.username %>）</h6>
+    </div>
   </div>
+
+  <div class="mb-2">
+    <%= simple_format(user.introduction) %>
+  </div>
+
+  <% if user == current_user %>
+    <div class="d-flex justify-content-end">
+      <%= link_to "ユーザー情報編集", edit_information_path, class: "btn btn-outline-primary btn-sm" %>
+    </div>
+  <% end %>
 </div>
