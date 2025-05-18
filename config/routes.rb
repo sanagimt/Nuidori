@@ -1,5 +1,8 @@
 Rails.application.routes.draw do
 
+  namespace :admin do
+    get 'searches/search'
+  end
   devise_for :users, skip: [:passwords], controllers: {
     registrations: 'public/registrations',
     sessions: 'public/sessions',
@@ -33,8 +36,13 @@ Rails.application.routes.draw do
   namespace :admin do
     root to: 'homes#top'
 
-    resources :posts, only: [:index, :show, :destroy]
+    resources :posts, only: [:index, :show, :destroy] do
+      resources :comments, only: [:destroy]
+    end
+
     resources :users, only: [:index, :show, :edit, :update]
+    
+    get 'search' => 'searches#search'
   end
 
 end

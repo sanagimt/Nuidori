@@ -16,6 +16,7 @@ class User < ApplicationRecord
   validates :username, presence: true, uniqueness: true, format: { with: /\A[a-zA-Z0-9-]+\z/, message: 'は半角英数字、ハイフン(-)のみで入力してください' }, length: { in: 4..15, message: 'は4～15文字で入力してください' }
   validates :nickname, presence: true, length: { maximum: 30, message: 'は30文字以内で入力してください' }
   validates :introduction, length: { maximum: 300, message: 'は300文字以内で入力してください' }
+  validates :is_active, inclusion: { in: [true, false] }
 
   def get_profile_image(width, height)
     unless profile_image.attached?
