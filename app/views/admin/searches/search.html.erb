@@ -15,7 +15,7 @@
         <% if @content.blank? %>
           <p>検索キーワードを入力してください。</p>
         <% elsif @records.any? %>
-          <%= render 'public/posts/index', posts: @records %>
+          <%= render 'admin/posts/index', posts: @records %>
           <%= paginate @records %>
         <% else %>
           <p>該当する投稿は見つかりませんでした。</p>
@@ -25,7 +25,7 @@
         <% if @content.blank? %>
           <p>検索キーワードを入力してください。</p>
         <% elsif @records.any? %>
-          <%= render 'public/users/index', users: @records %>
+          <%= render 'admin/users/index', users: @records %>
           <%= paginate @records %>
         <% else %>
           <p>該当するユーザーは見つかりませんでした。</p>

@@ -1,6 +1,13 @@
 ja:
   activerecord:
     attributes:
+      admin:
+        email: メールアドレス
+        password: パスワード
+      post:
+        image: 画像
+        title: タイトル
+        body: 説明
       user:
         email: メールアドレス
         encrypted_password: 暗号化パスワード
@@ -12,10 +19,6 @@ ja:
         nickname: ニックネーム
         introduction: 自己紹介文
         profile_image: プロフィール画像
-      post:
-        image: 画像
-        title: タイトル
-        body: 説明
     models:
       user: ユーザー
       post: 投稿

@@ -19,6 +19,9 @@
       <% if comment.user == current_user %>
         <%= link_to '削除', post_comment_path(comment.post_id, comment), method: :delete, remote: true,
           class: "btn btn-sm btn-danger", data: { confirm: "コメントを削除してもよろしいですか？" } %>
+      <% elsif admin_signed_in? %>
+        <%= link_to '削除', admin_post_comment_path(comment.post_id, comment), method: :delete, remote: true,
+          class: "btn btn-sm btn-danger", data: { confirm: "コメントを削除してもよろしいですか？" } %>
       <% end %>
     </div>
   </div>

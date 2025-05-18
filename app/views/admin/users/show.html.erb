@@ -1,2 +1,93 @@
-<h1>Admin::Users#show</h1>
-<p>Find me in app/views/admin/users/show.html.erb</p>
+<div class="container">
+  <div class="row">
+    <div class="col-2 my-5 ml-4">
+      <h4 class="text-center">ユーザー詳細</h4>
+    </div>
+    <div class="col-2 my-5 ml-4">
+      <%= link_to "登録情報編集", edit_admin_user_path(@user.id), class: "btn btn-outline-secondary" %>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-2">
+      <%= image_tag @user.get_profile_image(100,100), class: "rounded-circle mr-3", style: "width: 100px; height: 100px; object-fit: cover;" %>
+    </div>
+    <div class="col-6">
+      <table>
+        <tr>
+          <td class="pe-3 pb-3">ユーザーID</td>
+          <td class="pb-3"><%= @user.id %></td>
+        </tr>
+        <tr>
+          <td class="pe-3 pb-3">ニックネーム</td>
+          <td class="pb-3"><%= @user.nickname %></td>
+        </tr>
+        <tr>
+          <td class="pe-3 pb-3">ユーザー名</td>
+          <td class="pb-3"><%= @user.username %></td>
+        </tr>
+        <tr>
+          <td class="pe-3 pb-3">氏名</td>
+          <td class="pb-3"><%= @user.last_name %>　<%= @user.first_name %></td>
+        </tr>
+        <tr>
+          <td class="pe-3 pb-3">メールアドレス</td>
+          <td class="pb-3"><%= @user.email %></td>
+        </tr>
+        <tr>
+          <td class="pe-3 pb-3 align-top">自己紹介文</td>
+          <td class="pb-3"><%= simple_format(@user.introduction) %></td>
+        </tr>
+        <tr>
+          <td class="pe-3 pb-3">ステータス</td>
+          <td class="pb-3"><span style="<%= "color: #{@user.is_active ? 'green' : 'gray'};" %>">
+          <%= @user.is_active ? '有効' : '退会' %>
+          </span></td>
+        </tr>
+      </table>
+    </div>
+    <div class="col-2"></div>
+  </div>
+
+  <div class="row">
+    <div class="col-2"></div>
+    <div class="col-6">
+      <%= link_to "ユーザー一覧へ戻る", admin_users_path %>
+    <div class="col-2"></div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="row">
+    <div class="col-2 my-5 ml-4">
+      <h4 class="text-center">投稿一覧</h4>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col">
+      <% if @posts.present? %>
+        <table class='table'>
+          <thead>
+            <tr class="table-secondary">
+              <th>投稿ID</th>
+              <th>投稿日時</th>
+              <th>タイトル</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <% @posts.each do |post| %>
+              <tr class="bg-white">
+                <td><%= post.id %></td>
+                <td><%= link_to post.created_at.strftime('%y/%m/%d %H:%M:%S'), admin_post_path(post.id) %></td>
+                <td><%= post.title %></td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      <% else %>
+        <p>投稿はまだありません。</p>
+      <% end %>
+    </div>
+  </div>
+</div>
