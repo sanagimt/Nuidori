@@ -20,12 +20,15 @@
       <%= simple_format(@post.body) %>
       <p>投稿日時：<%= @post.created_at.strftime('%y/%m/%d %H:%M') %></p>
       <p>更新日時：<%= @post.updated_at.strftime('%y/%m/%d %H:%M') %></p>
+      <div id="favorite-btn-<%= @post.id %>">
+        <%= render 'public/favorites/btn', post: @post %>
+      </div>
 
       <% if @post.user == current_user %>
         <%= link_to "投稿を編集する", edit_post_path(@post) %>
       <% end %>
       <br>
-        <%= link_to '投稿一覧へ戻る', posts_path %>
+      <%= link_to '投稿一覧へ戻る', posts_path %>
     </div>
     <div class="col-2"></div>
   </div>

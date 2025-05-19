@@ -11,7 +11,7 @@
     <div class="col">
       <% if @posts.present? %>
         <div class="d-flex flex-wrap mx-5">
-          <%= render 'index', posts: @posts, user: @user %>
+          <%= render 'index', posts: @posts %>
         </div>
       <% else %>
         <p>投稿はまだありません。</p>

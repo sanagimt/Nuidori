@@ -23,14 +23,11 @@
       <h4 class="text-center">投稿一覧</h4>
     </div>
   </div>
-</div>
-
-<div class="container">
   <div class="row">
     <div class="col">
       <% if @posts.present? %>
       <div class="d-flex flex-wrap mx-4">
-        <%= render 'public/posts/index', user: @user, posts: @posts %>
+        <%= render 'public/posts/index', posts: @posts %>
       </div>
       <% else %>
         <p>投稿はまだありません。</p>

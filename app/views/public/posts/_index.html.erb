@@ -4,16 +4,21 @@
     <p class="card-img-top"><%= image_tag post.image.variant(resize_to_fill: [300, 300]).processed %></p>
     <% end %>
     <div class="card-body"  style="width: 300px;">
-      <%= link_to user_path(post.user.username), class: "d-inline-flex align-items-center" do %>
+      <%= link_to user_path(post.user.username), class: "d-inline-flex align-items-center text-dark" do %>
         <%= image_tag post.user.get_profile_image(25, 25), class: "rounded-circle mr-2", style: "width: 25px; height: 25px; object-fit: cover;" %>
         <span><%= post.user.nickname %>(<%= post.user.username %>)</span>
       <% end %>
 
       <%= link_to post_path(post.id) do %>
-      <h5 class="my-2"><%= post.title %></h5>
+        <h5 class="my-2 text-dark"><%= post.title %></h5>
       <% end %>
       <p><%= truncate(post.body, length: 30) %></p>
-      <%= time_ago_in_words(post.created_at) %>前
+      <span class="mr-3">
+        <%= time_ago_in_words(post.created_at) %>前
+      </span>
+      <div id="favorite-btn-<%= post.id %>">
+        <%= render 'public/favorites/btn', post: post %>
+      </div>
     </div>
   </div>
 <% end %>

@@ -1,6 +1,6 @@
 class Public::UsersController < ApplicationController
-  before_action :authenticate_user!, only: [:mypage, :edit, :update, :unsubscribe, :withdraw]
-  before_action :is_matching_login_user, only: [:edit, :update, :destroy, :unsubscribe, :withdraw]
+  before_action :authenticate_user!, only: [:mypage, :edit, :update, :unsubscribe, :withdraw, :favorites]
+  before_action :is_matching_login_user, only: [:edit, :update, :destroy, :unsubscribe, :withdraw, :favorites]
 
   def show
     @user = User.find_by!(username: params[:username])
@@ -42,6 +42,9 @@ class Public::UsersController < ApplicationController
   end
 
   def favorites
+    @user = current_user
+    favorites = Favorite.where(user_id: @user.id).pluck(:post_id)
+    @posts = Post.joins(:user).where(id: favorites, users: { is_active: true }).page(params[:page]).per(12)
   end
 
   private

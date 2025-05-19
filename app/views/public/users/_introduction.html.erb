@@ -13,6 +13,7 @@
 
   <% if user == current_user %>
     <div class="d-flex justify-content-end">
+      <%= link_to "♥ いいねした投稿一覧", user_favorites_path, class: "btn btn-outline-danger btn-sm mr-2" %>
       <%= link_to "ユーザー情報編集", edit_information_path, class: "btn btn-outline-primary btn-sm" %>
     </div>
   <% end %>
