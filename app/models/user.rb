@@ -13,7 +13,7 @@ class User < ApplicationRecord
   validates :last_name, presence: true
   validates :first_name, presence: true
   validates :email, presence: true, uniqueness: true
-  validates :username, presence: true, uniqueness: true, format: { with: /\A[a-zA-Z0-9-]+\z/, message: 'は半角英数字、ハイフン(-)のみで入力してください' }, length: { in: 4..15, message: 'は4～15文字で入力してください' }
+  validates :username, presence: true, uniqueness: { message: "は既に使用されています" }, format: { with: /\A[a-zA-Z0-9-]+\z/, message: 'は半角英数字、ハイフン(-)のみで入力してください' }, length: { in: 4..15, message: 'は4～15文字で入力してください' }
   validates :nickname, presence: true, length: { maximum: 30, message: 'は30文字以内で入力してください' }
   validates :introduction, length: { maximum: 300, message: 'は300文字以内で入力してください' }
   validates :is_active, inclusion: { in: [true, false] }
@@ -26,10 +26,13 @@ class User < ApplicationRecord
     profile_image.variant(resize_to_limit: [width, height]).processed
   end
 
-  def self.search_for(content)
+  def self.search_for(content, include_inactive: false)
     sanitized = sanitize_sql_like(content)
-   User.where(is_active: true)
-       .where("username LIKE :keyword OR nickname LIKE :keyword", keyword: "%#{sanitized}%")
+
+    scope = User.all
+    scope = scope.where(is_active: true) unless include_inactive
+  
+    scope.where("username LIKE :keyword OR nickname LIKE :keyword", keyword: "%#{sanitized}%")
   end
 
 end
