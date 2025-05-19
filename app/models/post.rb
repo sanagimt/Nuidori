@@ -1,6 +1,7 @@
 class Post < ApplicationRecord
   belongs_to :user
   has_many :comments, dependent: :destroy
+  has_many :favorites, dependent: :destroy
 
   has_one_attached :image
 
@@ -33,6 +34,10 @@ class Post < ApplicationRecord
 
     scope.where("title LIKE :keyword OR body LIKE :keyword", keyword: "%#{sanitized}%")
   
+  end
+
+  def favorited_by?(user)
+    favorites.exists?(user_id: user.id)
   end
 
 end

@@ -20,6 +20,7 @@
       <%= simple_format(@post.body) %>
       <p>投稿日時：<%= @post.created_at.strftime('%y/%m/%d %H:%M') %></p>
       <p>更新日時：<%= @post.updated_at.strftime('%y/%m/%d %H:%M') %></p>
+      <p><%= render 'public/favorites/btn', post: @post %></p>
 
       <% if @post.user == current_user %>
         <%= link_to "投稿を編集する", edit_post_path(@post) %>

@@ -42,6 +42,9 @@ class Public::UsersController < ApplicationController
   end
 
   def favorites
+    @user = current_user
+    favorites = Favorite.where(user_id: @user.id).pluck(:post_id)
+    @posts = Post.joins(:user).where(id: favorites, users: { is_active: true }).page(params[:page]).per(12)
   end
 
   private
