@@ -1,6 +1,6 @@
 class Public::UsersController < ApplicationController
-  before_action :authenticate_user!, only: [:mypage, :edit, :update, :unsubscribe, :withdraw]
-  before_action :is_matching_login_user, only: [:edit, :update, :destroy, :unsubscribe, :withdraw]
+  before_action :authenticate_user!, only: [:mypage, :edit, :update, :unsubscribe, :withdraw, :favorites]
+  before_action :is_matching_login_user, only: [:edit, :update, :destroy, :unsubscribe, :withdraw, :favorites]
 
   def show
     @user = User.find_by!(username: params[:username])
