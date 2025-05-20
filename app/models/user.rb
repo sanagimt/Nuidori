@@ -5,6 +5,7 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
 
   has_many :posts, dependent: :destroy
+  has_many :toys, dependent: :destroy
   has_many :comments, dependent: :destroy
   has_many :favorites, dependent: :destroy
 
@@ -56,6 +57,10 @@ class User < ApplicationRecord
   #ユーザーのフォロー判定
   def following?(user)
     followings.include?(user)
+  end
+
+  def mutual_followings
+    following & followers
   end
 
 end

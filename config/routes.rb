@@ -1,5 +1,10 @@
 Rails.application.routes.draw do
 
+  namespace :public do
+    get 'toys/index'
+    get 'toys/show'
+    get 'toys/edit'
+  end
   namespace :admin do
     get 'searches/search'
   end
