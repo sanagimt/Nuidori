@@ -15,7 +15,7 @@
         <%= render'public/relationships/counter', user: user %>
       </div>
 
-      <div>
+      <div id="relationship_btn_<%= user.id %>">
         <% if current_user != user %>
           <%= render 'public/relationships/btn', user: user %>
         <% else %>
