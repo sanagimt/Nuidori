@@ -21,6 +21,12 @@ Rails.application.routes.draw do
 
     get 'users/:username' => 'users#show', as: 'user'
 
+    resources :users, only: [] do
+      resource :relationships, only: [:create, :destroy]
+        get "followings" => "relationships#followings", as: "followings"
+        get "followers" => "relationships#followers", as: "followers"
+    end
+
     resources :posts do
       resources :comments, only: [:create, :destroy]
       resources :favorites, only: [:create, :destroy]

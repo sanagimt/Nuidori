@@ -1,0 +1,11 @@
+<div class="mr-3">
+  <%= link_to user_followings_path(user), class: "text-dark text-decoration-none" do %>
+    フォロー数: <%= user.followings.count %>
+  <% end %>
+</div>
+
+<div>
+  <%= link_to user_followers_path(user), class: "text-dark text-decoration-none" do %>
+    フォロワー数: <%= user.followers.count %>
+  <% end %>
+</div>

@@ -1,0 +1,22 @@
+<div class="container">
+  <div class="row">
+    <div class="col mt-5 ml-5">
+      <h3>
+        <%= link_to user_path(@user.username), class: "text-dark text-decoration-none" do %>
+          <%= @user.nickname %>(<%= @user.username %>)
+        <% end %>
+        さんのフォロー一覧(<%= @user.followings.count %>人)
+      </h3>
+    </div>
+  </div>
+
+  <div class="row mt-3 mb-3">
+    <div class="col ml-5">
+      <% if @users.exists? %>
+        <%= render "public/users/index", users: @users %>
+      <% else %>
+        <p>フォロー中のユーザーはいません</p>
+      <% end %>
+    </div>
+  </div>
+</div>
