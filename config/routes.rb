@@ -1,13 +1,5 @@
 Rails.application.routes.draw do
 
-  namespace :public do
-    get 'toys/index'
-    get 'toys/show'
-    get 'toys/edit'
-  end
-  namespace :admin do
-    get 'searches/search'
-  end
   devise_for :users, skip: [:passwords], controllers: {
     registrations: 'public/registrations',
     sessions: 'public/sessions',
@@ -28,14 +20,17 @@ Rails.application.routes.draw do
 
     resources :users, only: [] do
       resource :relationships, only: [:create, :destroy]
-        get "followings" => "relationships#followings", as: "followings"
-        get "followers" => "relationships#followers", as: "followers"
+        get 'followings' => 'relationships#followings', as: 'followings'
+        get 'followers' => 'relationships#followers', as: 'followers'
     end
 
     resources :posts do
       resources :comments, only: [:create, :destroy]
       resources :favorites, only: [:create, :destroy]
     end
+
+    get 'users/:username/toys' => 'toys#index', as: 'user_toys'
+    resources :toys, only:[:new, :create, :show, :edit, :update, :destroy]
 
     get 'search' => 'searches#search'
 

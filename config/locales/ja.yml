@@ -8,6 +8,10 @@ ja:
         image: 画像
         title: タイトル
         body: 説明
+      toy:
+        toy_image: 画像
+        name: 名前
+        introduction: 紹介文
       user:
         email: メールアドレス
         encrypted_password: 暗号化パスワード
@@ -22,6 +26,7 @@ ja:
     models:
       user: ユーザー
       post: 投稿
+      toy: ぬいぐるみ
 
   devise:
     confirmations:

@@ -4,6 +4,8 @@ class Public::PostsController < ApplicationController
 
   def new
     @post = Post.new
+    mutual_users = current_user.mutual_followings + [current_user]
+    @toys = Toy.includes(:user).where(user: mutual_users)
   end
 
   def index
