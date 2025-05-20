@@ -1,0 +1,7 @@
+<% if current_user.following?(user) && user.following?(current_user) %>
+  <%= link_to "相互フォロー中", user_relationships_path(user), method: :delete, class: "btn btn-success", style: "width: 150px;", "data-confirm" => "フォローを解除してよろしいですか？"  %>
+<% elsif current_user.following?(user) %>
+  <%= link_to "フォロー中", user_relationships_path(user), method: :delete, class: "btn btn-success", style: "width: 150px;", "data-confirm" => "フォローを解除してよろしいですか？" %>
+<% else %>
+  <%= link_to "フォローする", user_relationships_path(user), method: :post, style: "width: 150px;", class: "btn btn-outline-success" %>
+<% end %>

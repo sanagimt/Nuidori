@@ -15,6 +15,9 @@
         <%= @post.user.nickname %>
         (<%= @post.user.username %>)
       <% end %>
+        <% if current_user != @post.user %>
+          <%= render 'public/relationships/btn', user: @post.user %>
+        <% end %>
       <br>
       <h5 class="mt-4"><%= @post.title %></h5>
       <%= simple_format(@post.body) %>
