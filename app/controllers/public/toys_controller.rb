@@ -39,8 +39,20 @@ class Public::ToysController < ApplicationController
   end
 
   def by_user
-    toys = Toy.where(user_id: params[:user_id])
-    render json: toys.map { |toy| { id: toy.id, name: toy.name } }
+    user = User.find_by(id: params[:user_id])
+      if user.nil?
+        render json: [], status: :not_found and return
+      end
+
+      toys = user.toys.includes(:user)
+
+      render json: toys.map { |toy|
+        {
+          id: toy.id,
+          name: toy.name,
+          user_name: toy.user.nickname
+        }
+      }
   end
 
   private

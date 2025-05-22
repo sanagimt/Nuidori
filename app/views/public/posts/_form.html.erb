@@ -42,6 +42,11 @@
         </td>
       </tr>
       <tr>
+        <td colspan="2">
+          <div id="selected_toys_tags" style="margin-top: 8px; display: flex; flex-wrap: wrap; gap: 8px;"></div>
+        </td>
+      </tr>
+      <tr>
         <td></td>
         <td style="padding-bottom: 16px;">
           <% if post.id.nil? %>
@@ -56,10 +61,30 @@
 <% end %>
 
 <script>
+  window.initialSelectedToys = <%= raw(@selected_toys.to_json) %>;
+</script>
+
+<script>
   document.addEventListener("DOMContentLoaded", function () {
+    const initialSelectedToys = window.initialSelectedToys || [];
     const userSelect = document.getElementById("user_select");
     const toySelect = document.getElementById("toy_select");
+    const selectedTagsContainer = document.getElementById("selected_toys_tags");
 
+    // 選択中のぬいぐるみ { toyId => { name, user_name } }
+    const selectedToys = new Map();
+
+    // 初期状態をMapに追加
+    if (Array.isArray(initialSelectedToys)) {
+      initialSelectedToys.forEach(toy => {
+        selectedToys.set(String(toy.id), {
+          name: toy.name,
+          user_name: toy.user_name
+        });
+      });
+    }
+
+    // ユーザー変更時：新しい一覧を取得し、すでに選択済みのものは維持
     userSelect.addEventListener("change", function () {
       const userId = this.value;
 
@@ -69,16 +94,106 @@
       }
 
       fetch(`/toys/by_user/${userId}`)
-        .then(response => response.json())
+        .then(response => {
+          if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+          }
+          return response.json();
+        })
         .then(toys => {
           toySelect.innerHTML = "";
-          toys.forEach(toy => {
+
+          // 既に選択されているぬいぐるみを select に追加
+          selectedToys.forEach((info, id) => {
             const option = document.createElement("option");
-            option.value = toy.id;
-            option.textContent = toy.name;
+            option.value = id;
+            option.textContent = `${info.name}（by ${info.user_name}）`;
+            option.selected = true;
             toySelect.appendChild(option);
           });
+
+          // 新しく取得したぬいぐるみを追加（未選択のみ）
+          toys.forEach(toy => {
+            const id = String(toy.id);
+            if (!selectedToys.has(id)) {
+              const option = document.createElement("option");
+              option.value = id;
+              option.textContent = `${toy.name}（by ${toy.user_name}）`;
+              toySelect.appendChild(option);
+            }
+          });
+        })
+        .catch(error => {
+          console.error("Failed to fetch toys:", error);
         });
     });
+
+    // ぬいぐるみが選ばれたとき
+    toySelect.addEventListener("change", function () {
+      Array.from(toySelect.selectedOptions).forEach(option => {
+        const id = option.value;
+        const label = option.textContent;
+
+        const match = label.match(/^(.+?)（by (.+?)）$/);
+        const name = match ? match[1] : label;
+        const user_name = match ? match[2] : "";
+
+        selectedToys.set(id, { name, user_name });
+      });
+      renderSelectedTags();
+    });
+
+    // タグ描画
+    function renderSelectedTags() {
+      selectedTagsContainer.innerHTML = "";
+
+      selectedToys.forEach((info, id) => {
+        const tag = document.createElement("span");
+        tag.textContent = `${info.name}（by ${info.user_name}）`;
+        tag.style.cssText = `
+          background-color: #f0f0f0;
+          border-radius: 16px;
+          padding: 4px 12px;
+          display: inline-flex;
+          align-items: center;
+          gap: 8px;
+          font-size: 0.9em;
+        `;
+
+        const removeBtn = document.createElement("button");
+        removeBtn.innerHTML = "×";
+        removeBtn.style.cssText = `
+          background: none;
+          border: none;
+          color: #888;
+          font-size: 1em;
+          cursor: pointer;
+        `;
+
+        removeBtn.addEventListener("click", function () {
+          selectedToys.delete(id);
+          Array.from(toySelect.options).forEach(opt => {
+            if (opt.value === id) opt.selected = false;
+          });
+          renderSelectedTags();
+        });
+
+        tag.appendChild(removeBtn);
+        selectedTagsContainer.appendChild(tag);
+      });
+
+      // select に明示的に反映
+      Array.from(toySelect.options).forEach(option => {
+        option.selected = selectedToys.has(option.value);
+      });
+    }
+
+    // 初回レンダリング
+    renderSelectedTags();
+
+    // 初期状態でユーザーが選択されていれば、一覧取得
+    if (userSelect.value !== "") {
+      userSelect.dispatchEvent(new Event("change"));
+    }
   });
 </script>
