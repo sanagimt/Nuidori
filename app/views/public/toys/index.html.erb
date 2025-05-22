@@ -10,9 +10,17 @@
     </div>
   </div>
 
+  <div class="row">
+    <div class="col mt-3 ml-5">
+      <% if @user == current_user %>
+        <%= link_to "+ぬいぐるみを追加する", new_toy_path, class: "btn btn-outline-primary" %>
+      <% end %>
+    </div>
+  </div>
+
   <div class="row mt-3 mb-3">
     <div class="col ml-5">
-      <% if @toys.exists? %>
+      <% if @toys.present? %>
         <%= render "public/toys/index", toys: @toys %>
       <% else %>
         <p>ぬいぐるみはまだありません。</p>

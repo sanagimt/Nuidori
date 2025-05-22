@@ -13,10 +13,10 @@
 
   </div>
 
-  <div class="mb-2">
-  持ち主さん
-    <%= link_to user_path(user.username), class: "font-weight-bold text-dark text-decoration-none" do %>
-      <%= image_tag user.get_profile_image(50,50), class: "rounded-circle mr-2", style: "width: 50px; height: 50px; object-fit: cover;" %>
+  <div class="mb-2 small">
+  持ち主さん　
+    <%= link_to user_path(user.username), class: "text-dark text-decoration-none" do %>
+      <%= image_tag user.get_profile_image(30,30), class: "rounded-circle mr-2", style: "width: 30px; height: 30px; object-fit: cover;" %>
       <%= user.nickname %>
       (<%= user.username %>)
     <% end %>

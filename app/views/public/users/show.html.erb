@@ -9,11 +9,27 @@
     </div>
   </div>
   <div class="row">
-    <div class="col-2"></div>
     <div class="col-8">
       <%= render 'introduction', user: @user %>
     </div>
-    <div class="col-2"></div>
+
+    <div class="col-4">
+      <div class="card" style="width: 100%;">
+        <div class="card-header text-center">
+          <strong><%= @user.nickname %>さんのぬいぐるみ一覧</strong>
+        </div>
+        <div class="card-body">
+          <% if @toys.present? %>
+            <%= render 'public/toys/sidebar', toys: @toys %>
+          <% else %>
+            <p>ぬいぐるみはまだありません。</p>
+          <% end %>
+          <div class="d-flex justify-content-end">
+            <%= link_to "もっと見る", user_toys_path(@user.username) %>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
 

@@ -18,6 +18,13 @@
         <td style="padding-bottom: 16px;"><%= f.text_area :body %></td>
       </tr>
       <tr>
+        <td style="padding-right: 40px; padding-bottom: 16px;">関連するぬいぐるみ</td>
+        <td style="padding-bottom: 16px;">
+          <%= f.collection_select :toy_ids,
+              @toys, :id, ->(toy) { "#{toy.name}（#{toy.user.nickname}）" },
+              {}, { multiple: true } %>
+        </td>
+      <tr>
         <td></td>
         <td style="padding-bottom: 16px;">
           <% if post.id.nil? %>

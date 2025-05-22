@@ -1,13 +1,25 @@
-<%= form_with model: toy do |f| %>
+<%= form_with model: toy, local: true, html: { multipart: true } do |f| %>
   <table>
     <thead>
+      <th></th>
       <th></th>
       <th></th>
     </thead>
     <tbody>
       <tr>
         <td style="padding-right: 40px; padding-bottom: 16px;">画像</td>
-        <td style="padding-bottom: 16px;"><%= f.file_field :toy_image, accept: "image/*" %></td>
+        <td style="padding-bottom: 16px;">
+          <%= f.file_field :toy_image, accept: "image/*", id: "toy_image_input" %><br>
+          <div style="margin-top: 10px;">
+            <%# 既存の画像がある場合に表示 %>
+            <% if toy.toy_image.attached? %>
+              <img id="preview_image" src="<%= url_for(toy.toy_image.variant(resize_to_limit: [100, 100])) %>" alt="プレビュー画像" style="max-width: 100px;">
+            <% else %>
+              <img id="preview_image" src="<%= toy.toy_image.attached? ? url_for(toy.toy_image.variant(resize_to_limit: [100, 100])) : '' %>" 
+                        alt="プレビュー画像" style="<%= toy.toy_image.attached? ? '' : 'display:none;' %> max-width: 100px;">
+            <% end %>
+          </div>
+        </td>
       </tr>
       <tr>
         <td style="padding-right: 40px; padding-bottom: 16px;">名前</td>
@@ -30,3 +42,25 @@
     </tbody>
   </table>
 <% end %>
+
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const input = document.getElementById("toy_image_input");
+    const preview = document.getElementById("preview_image");
+
+    input.addEventListener("change", event => {
+      const file = event.target.files[0];
+      if (file && file.type.startsWith("image/")) {
+        const reader = new FileReader();
+        reader.onload = e => {
+          preview.src = e.target.result;
+          preview.style.display = "block";
+        };
+        reader.readAsDataURL(file);
+      } else {
+        preview.src = "";
+        preview.style.display = "none";
+      }
+    });
+  });
+</script>

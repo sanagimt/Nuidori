@@ -30,12 +30,16 @@ class Public::PostsController < ApplicationController
     if @post.save
       redirect_to post_path(@post.id), notice: "投稿が完了しました！"
     else
+      mutual_users = current_user.mutual_followings + [current_user]
+      @toys = Toy.includes(:user).where(user: mutual_users)
       render :new
     end
   end
 
   def edit
     @post = Post.find(params[:id])
+    mutual_users = current_user.mutual_followings + [current_user]
+    @toys = Toy.includes(:user).where(user: mutual_users)
   end
 
   def update
@@ -44,6 +48,8 @@ class Public::PostsController < ApplicationController
       @post.touch unless @post.previous_changes.any?
       redirect_to post_path(@post.id), notice: "投稿が完了しました！"
     else
+      mutual_users = current_user.mutual_followings + [current_user]
+      @toys = Toy.includes(:user).where(user: mutual_users)
       render :edit
     end
   end
@@ -60,7 +66,7 @@ class Public::PostsController < ApplicationController
   private
 
   def post_params
-    params.require(:post).permit(:image, :title, :body)
+    params.require(:post).permit(:image, :title, :body, toy_ids: [] )
   end
 
   def is_matching_login_user

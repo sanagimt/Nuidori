@@ -1,2 +1,29 @@
-<h1>Public::Toys#edit</h1>
-<p>Find me in app/views/public/toys/edit.html.erb</p>
+<div class="container">
+  <div class="row">
+    <div class="col-4 mt-5 mb-3 ml-4">
+      <h4 class="text-center">ぬいぐるみ編集フォーム</h4>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-2"></div>
+    <div class="col-5">
+    <% if @toy.errors.any? %>
+      <ul>
+        <% @toy.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    <% end %>
+    </div>
+    <div class="col-5"></div>
+  </div>
+
+  <div class="row">
+    <div class="col-2"></div>
+    <div class="col-8">
+       <%= render 'form', toy: @toy %>
+    </div>
+    <div class="col-2"></div>
+  </div>
+</div>
