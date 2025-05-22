@@ -21,7 +21,7 @@
         <td style="padding-right: 40px; padding-bottom: 16px;">関連するぬいぐるみ</td>
         <td style="padding-bottom: 16px;">
           <%= f.collection_select :toy_ids,
-              @toys, :id, ->(toy) { "#{toy.name}（#{toy.user.nickname}）" },
+              toys, :id, ->(toy) { "#{toy.name}（#{toy.user.nickname}）" },
               {}, { multiple: true } %>
         </td>
       <tr>

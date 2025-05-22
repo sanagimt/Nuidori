@@ -46,7 +46,7 @@ class Public::PostsController < ApplicationController
     @post = Post.find(params[:id])
     if @post.update(post_params)
       @post.touch unless @post.previous_changes.any?
-      redirect_to post_path(@post.id), notice: "投稿が完了しました！"
+      redirect_to post_path(@post.id), notice: "投稿を更新しました！"
     else
       mutual_users = current_user.mutual_followings + [current_user]
       @toys = Toy.includes(:user).where(user: mutual_users)
