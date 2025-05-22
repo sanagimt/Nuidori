@@ -5,6 +5,7 @@ class Public::PostsController < ApplicationController
   def new
     @post = Post.new
     mutual_users = current_user.mutual_followings + [current_user]
+    @users = mutual_users.uniq.sort_by(&:nickname)
     @toys = Toy.includes(:user).where(user: mutual_users)
   end
 
@@ -31,6 +32,7 @@ class Public::PostsController < ApplicationController
       redirect_to post_path(@post.id), notice: "投稿が完了しました！"
     else
       mutual_users = current_user.mutual_followings + [current_user]
+      @users = mutual_users.uniq.sort_by(&:nickname)
       @toys = Toy.includes(:user).where(user: mutual_users)
       render :new
     end
@@ -49,6 +51,7 @@ class Public::PostsController < ApplicationController
       redirect_to post_path(@post.id), notice: "投稿を更新しました！"
     else
       mutual_users = current_user.mutual_followings + [current_user]
+      @users = mutual_users.uniq.sort_by(&:nickname)
       @toys = Toy.includes(:user).where(user: mutual_users)
       render :edit
     end

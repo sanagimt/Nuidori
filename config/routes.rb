@@ -31,6 +31,7 @@ Rails.application.routes.draw do
 
     get 'users/:username/toys' => 'toys#index', as: 'user_toys'
     resources :toys, only:[:new, :create, :show, :edit, :update, :destroy]
+    get 'toys/by_user/:user_id', to: 'toys#by_user'
 
     get 'search' => 'searches#search'
 

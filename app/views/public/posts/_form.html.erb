@@ -9,21 +9,38 @@
         <td style="padding-right: 40px; padding-bottom: 16px;">画像</td>
         <td style="padding-bottom: 16px;"><%= f.file_field :image, accept: "image/*" %></td>
       </tr>
+
       <tr>
         <td style="padding-right: 40px; padding-bottom: 16px;">タイトル</td>
         <td style="padding-bottom: 16px;"><%= f.text_field :title %></td>
       </tr>
+
       <tr>
         <td style="padding-right: 40px; padding-bottom: 16px;">説明</td>
         <td style="padding-bottom: 16px;"><%= f.text_area :body %></td>
       </tr>
+
       <tr>
-        <td style="padding-right: 40px; padding-bottom: 16px;">関連するぬいぐるみ</td>
+        <td>関連するぬいぐるみを登録する</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td style="padding-right: 40px; padding-bottom: 16px;">ユーザー</td>
         <td style="padding-bottom: 16px;">
-          <%= f.collection_select :toy_ids,
-              toys, :id, ->(toy) { "#{toy.name}（#{toy.user.nickname}）" },
-              {}, { multiple: true } %>
+          <select id="user_select">
+            <option value="">選択してください</option>
+            <% users.each do |user| %>
+              <option value="<%= user.id %>"><%= user.nickname %>(<%= user.username %>)</option>
+            <% end %>
+          </select>
         </td>
+      </tr>
+      <tr>
+        <td style="padding-right: 40px; padding-bottom: 16px;">ぬいぐるみ</td>
+        <td style="padding-bottom: 16px;">
+          <%= f.select :toy_ids, [], {}, { multiple: true, id: 'toy_select' } %>
+        </td>
+      </tr>
       <tr>
         <td></td>
         <td style="padding-bottom: 16px;">
@@ -37,3 +54,31 @@
     </tbody>
   </table>
 <% end %>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const userSelect = document.getElementById("user_select");
+    const toySelect = document.getElementById("toy_select");
+
+    userSelect.addEventListener("change", function () {
+      const userId = this.value;
+
+      if (userId === "") {
+        toySelect.innerHTML = "";
+        return;
+      }
+
+      fetch(`/toys/by_user/${userId}`)
+        .then(response => response.json())
+        .then(toys => {
+          toySelect.innerHTML = "";
+          toys.forEach(toy => {
+            const option = document.createElement("option");
+            option.value = toy.id;
+            option.textContent = toy.name;
+            toySelect.appendChild(option);
+          });
+        });
+    });
+  });
+</script>

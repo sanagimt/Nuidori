@@ -38,6 +38,11 @@ class Public::ToysController < ApplicationController
     end
   end
 
+  def by_user
+    toys = Toy.where(user_id: params[:user_id])
+    render json: toys.map { |toy| { id: toy.id, name: toy.name } }
+  end
+
   private
 
   def toy_params
