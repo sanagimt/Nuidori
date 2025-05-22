@@ -1,63 +1,59 @@
-<div class="container my-5">
-  <div class="row mb-3">
-    <div class="col-2"></div>
-    <div class="col-8 text-center">
-      <p><%= image_tag @post.get_image_original(400, 400), class: "img-fluid" %></p>
-    </div>
-    <div class="col-2"></div>
+<div style="width: 820px; margin: 40px auto 0 auto;">
+  <div style="margin-bottom: 20px; text-align: center;">
+    <%= image_tag @post.get_image_original(400, 400), class: "img-fluid rounded shadow-sm border" %>
   </div>
 
-  <div class="row">
-    <div class="col-2"></div>
-    <div class="col-8">
-      <%= link_to user_path(@post.user.username), class: "font-weight-bold text-dark text-decoration-none" do %>
-        <%= image_tag @post.user.get_profile_image(50,50), class: "rounded-circle mr-2", style: "width: 50px; height: 50px; object-fit: cover;" %>
-        <%= @post.user.nickname %>
-        (<%= @post.user.username %>)
+  <div style="width: 820px; margin: 0 auto;">
+    <div style="display: flex; align-items: center; margin-bottom: 16px;">
+      <%= link_to user_path(@post.user.username), style: "display: flex; align-items: center; font-weight: bold; color: #000; text-decoration: none;" do %>
+        <%= image_tag @post.user.get_profile_image(50,50), style: "border-radius: 50%; width: 50px; height: 50px; object-fit: cover; margin-right: 8px;" %>
+        <div>
+          <div><%= @post.user.nickname %></div>
+          <small class="text-muted">@<%= @post.user.username %></small>
+        </div>
       <% end %>
-        <% if current_user != @post.user %>
-          <span id="relationship_btn_<%= @user.id %>">
+
+      <% if current_user != @post.user %>
+        <span id="relationship_btn_<%= @post.user.id %>" style="margin-left: auto;">
           <%= render 'public/relationships/btn', user: @post.user %>
-          </span>
-        <% end %>
-      <br>
-      <h5 class="mt-4"><%= @post.title %></h5>
+        </span>
+      <% end %>
+    </div>
+
+    <h5 style="font-weight: bold; margin-top: 0; margin-bottom: 16px;"><%= @post.title %></h5>
+
+    <div style="white-space: pre-wrap; line-height: 1.6; margin-bottom: 24px;">
       <%= simple_format(@post.body) %>
-      <p>投稿日時：<%= @post.created_at.strftime('%y/%m/%d %H:%M') %></p>
-      <p>更新日時：<%= @post.updated_at.strftime('%y/%m/%d %H:%M') %></p>
-      <div id="favorite-btn-<%= @post.id %>">
-        <%= render 'public/favorites/btn', post: @post %>
-      </div>
-
-      <% if @post.user == current_user %>
-        <%= link_to "投稿を編集する", edit_post_path(@post), data: {"turbolinks" => false} %>
-      <% end %>
-      <br>
-      <%= link_to '投稿一覧へ戻る', posts_path %>
     </div>
-    <div class="col-2"></div>
+
+    <div style="color: #6c757d; font-size: 0.875rem; margin-bottom: 24px;">
+      <p style="margin-bottom: 4px;">投稿日時：<%= @post.created_at.strftime('%y/%m/%d %H:%M') %></p>
+      <p style="margin-bottom: 0;">更新日時：<%= @post.updated_at.strftime('%y/%m/%d %H:%M') %></p>
+    </div>
+
+    <div id="favorite-btn-<%= @post.id %>" style="margin-bottom: 24px;">
+      <%= render 'public/favorites/btn', post: @post %>
+    </div>
+
+    <% if @post.user == current_user %>
+      <%= link_to "投稿を編集する", edit_post_path(@post), data: {"turbolinks" => false}, style: "display: inline-block; margin-bottom: 24px; padding: 6px 12px; border: 1px solid #007bff; border-radius: 4px; color: #007bff; text-decoration: none;" %>
+    <% end %>
+
+    <%= link_to '投稿一覧へ戻る', posts_path, style: "color: #007bff; text-decoration: none;" %>
   </div>
 
-  <div class="row mt-3">
-    <div class="col-2"></div>
-    <div class="col-8 d-flex flex-column">
-      <h5 class="mb-1">コメントフォーム(100文字以内)</h5>
-      <%= render 'public/comments/form', post: @post, comment: @comment %>
-    </div>
-    <div class="col-2"></div>
+  <div style="width: 820px; margin-top: 40px;">
+    <h5 style="margin-bottom: 8px;">コメントフォーム(100文字以内)</h5>
+    <%= render 'public/comments/form', post: @post, comment: @comment %>
   </div>
 
-  <div class="row mt-3">
-    <div class="col-2"></div>
-    <div class="col-8 d-flex flex-column">
-      <h5 class="mb-1">コメント一覧</h5>
-      <% if @comments.present? %>
-        <%= render 'public/comments/post_comments', post: @post, comment: @comment, comments: @comments %>
-      <% else %>
-        <p class="text-muted">コメントはまだありません。</p>
-      <% end %>
-    </div>
-    <div class="col-2"></div>
+  <div style="width: 820px; margin-top: 40px;">
+    <h5 style="margin-bottom: 16px;">コメント一覧</h5>
+    <% if @comments.present? %>
+      <%= render 'public/comments/post_comments', post: @post, comment: @comment, comments: @comments %>
+    <% else %>
+      <p style="color: #6c757d;">コメントはまだありません。</p>
+    <% end %>
   </div>
 </div>
 
