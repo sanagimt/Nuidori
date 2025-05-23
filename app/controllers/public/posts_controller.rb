@@ -17,13 +17,16 @@ class Public::PostsController < ApplicationController
   def show
     @post = Post.find(params[:id])
     @user = @post.user
-    @comment = Comment.new
-    @comments = @post.comments.joins(:user).where(users: { is_active: true }).order(created_at: :desc)
 
     if !@user.is_active
       redirect_to root_path, alert: "この投稿は存在しません。"
       return
     end
+
+    @toys = @post.toys.joins(:user).where(users: { is_active: true })
+    @comment = Comment.new
+    @comments = @post.comments.joins(:user).where(users: { is_active: true }).order(created_at: :desc)
+
   end
 
   def create

@@ -42,6 +42,8 @@
     <%= link_to '投稿一覧へ戻る', posts_path, style: "color: #007bff; text-decoration: none;" %>
   </div>
 
+  <%= render "public/toys/post_relation", toys: @toys %>
+
   <div style="width: 820px; margin-top: 40px;">
     <h5 style="margin-bottom: 8px;">コメントフォーム(100文字以内)</h5>
     <%= render 'public/comments/form', post: @post, comment: @comment %>
