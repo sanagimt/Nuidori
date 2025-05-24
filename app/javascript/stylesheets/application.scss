@@ -1,1 +1,68 @@
 @use '~bootstrap/scss/bootstrap';
+
+body {
+  font-family: "Zen Maru Gothic", sans-serif;
+}
+
+.cute-header {
+  background-color: #fff0f5;
+  padding: 16px 0 0;
+  border-radius: 0 0 16px 16px;
+}
+
+.cute-status-text {
+  color: #8b4513;
+  font-size: 0.95rem;
+}
+
+.cute-nav-btn {
+  background-color: #f78fb3;
+  color: white;
+  border: none;
+  border-radius: 999px;
+  padding: 4px 16px;
+  font-size: 20px;
+  font-weight: bold;
+  transition: background-color 0.3s;
+}
+
+.cute-nav-btn:hover {
+  background-color: #f56fa1;
+}
+
+.cute-search-form {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+  justify-content: center;
+  margin-bottom: 1rem;
+}
+
+.cute-input,
+.cute-select {
+  border: 1px solid #f8c8dc;
+  border-radius: 999px;
+  padding: 0.5rem 1rem;
+  outline: none;
+  font-size: 1rem;
+}
+
+.cute-select {
+  background-color: white;
+}
+
+.cute-submit {
+  background-color: #f78fb3;
+  color: white;
+  border: none;
+  border-radius: 999px;
+  padding: 0.5rem 1.2rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.cute-submit:hover {
+  background-color: #f56fa1;
+}

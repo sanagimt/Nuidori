@@ -15,8 +15,10 @@
         <% if @content.blank? %>
           <p>検索キーワードを入力してください。</p>
         <% elsif @records.any? %>
-          <%= render 'public/posts/index', posts: @records %>
-          <%= paginate @records %>
+          <div class="d-flex flex-wrap mx-5">
+            <%= render 'public/posts/index', posts: @records %>
+            <%= paginate @records %>
+          </div>
         <% else %>
           <p>該当する投稿は見つかりませんでした。</p>
         <% end %>

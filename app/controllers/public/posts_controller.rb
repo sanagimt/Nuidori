@@ -47,13 +47,7 @@ class Public::PostsController < ApplicationController
     mutual_users = current_user.mutual_followings + [current_user]
     @users = mutual_users.uniq.sort_by(&:nickname)
     @toys = Toy.includes(:user).where(user: mutual_users)
-    @selected_toys = @post.toys.includes(:user).map do |toy|
-      {
-        id: toy.id,
-        name: toy.name,
-        user_name: toy.user.nickname
-      }
-    end
+    @selected_toys = @post.toys.includes(:user)
   end
 
   def update

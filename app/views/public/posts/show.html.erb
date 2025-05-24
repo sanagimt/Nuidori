@@ -13,7 +13,7 @@
         <%= image_tag @post.user.get_profile_image(50,50), style: "border-radius: 50%; width: 50px; height: 50px; object-fit: cover; margin-right: 8px;" %>
         <div>
           <div><%= @post.user.nickname %></div>
-          <small class="text-muted">@<%= @post.user.username %></small>
+          <small class="text-muted">(<%= @post.user.username %>)</small>
         </div>
       <% end %>
 

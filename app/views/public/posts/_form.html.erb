@@ -41,7 +41,7 @@
 
   <div class="form-group">
     <label>ぬいぐるみ</label>
-    <%= f.select :toy_ids, [], {}, { multiple: true, id: 'toy_select', class: "form-control" } %>
+    <%= f.select :toy_ids, options_from_collection_for_select(@selected_toys, :id, :name, post.toy_ids), {}, { multiple: true, id: 'toy_select', class: "form-control" } %>
   </div>
 
   <div class="form-group">
@@ -58,7 +58,13 @@
 <% end %>
 
 <script>
-  window.initialSelectedToys = <%= raw(@selected_toys.to_json) %>;
+  window.initialSelectedToys = <%= raw(@selected_toys.map { |toy|
+    {
+      id: toy.id,
+      name: toy.name,
+      user_name: toy.user.nickname || toy.user.username
+    }
+  }.to_json) %>;
 </script>
 
 <script>

@@ -1,24 +1,23 @@
-<div class="container my-4">
+<div class="container my-5">
   <div class="row align-items-center">
-    <div class="col-8 mb-4 tp-bg-col-8">
+    <!-- テキスト -->
+    <div class="col-md-6 order-2 order-md-1 mb-4">
       <h2 class="mb-3">Nuidoriへようこそ</h2>
       <h4 class="mb-4 text-muted">ぬいと過ごす日常をシェアしよう！</h4>
-      <p>
-        ぬいぐるみと過ごす毎日ってめっちゃ尊い。<br>
-        かわいい表情、ちょっとしたポーズ...<br>
-        そんな「ぬいとの日常」を気軽にシェアできるSNSが登場しました！
+      <p class="mb-4">
+        ぬいぐるみと過ごす毎日って、ほんとうに尊い。<br>
+        表情、ポーズ、ふとした瞬間…<br>
+        そんな「ぬいとの日常」をシェアできるSNSが「Nuidori」です！
       </p>
+      <div>
+        <%= link_to "新規会員登録", new_user_registration_path, class: "btn btn-primary btn-lg mr-2 mb-2" %>
+        <%= link_to "ログイン", new_user_session_path, class: "btn btn-outline-secondary btn-lg mb-2" %>
+      </div>
     </div>
 
-    <div class="col-4 text-center tp-bg-col-8">
-      <%= link_to "新規会員登録", new_user_registration_path, class: "btn btn-primary mb-2" %><br>
-      <%= link_to "ログイン", new_user_session_path, class: "btn btn-outline-secondary" %>
-    </div>
-  </div>
-
-  <div class="row align-items-center">
-    <div class="col">
-      <%= image_tag("top_bg1.jpg") %>
+    <!-- 画像 -->
+    <div class="col-md-6 order-1 order-md-2 text-center">
+      <%= image_tag("top_bg1.jpg", class: "img-fluid rounded shadow-sm", alt: "ぬいぐるみと背景") %>
     </div>
   </div>
 </div>
