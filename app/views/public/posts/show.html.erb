@@ -1,6 +1,10 @@
 <div style="width: 820px; margin: 40px auto 0 auto;">
   <div style="margin-bottom: 20px; text-align: center;">
-    <%= image_tag @post.get_image_original(400, 400), class: "img-fluid rounded shadow-sm border" %>
+    <% if @post.get_image_original(400, 400).present? %>
+      <%= image_tag @post.get_image_original(400, 400), class: "img-fluid rounded shadow-sm border" %>
+    <% else %>
+      <%= image_tag "default-image.jpg", width: 400, height: 400, class: "img-fluid rounded shadow-sm border" %>
+    <% end %>
   </div>
 
   <div style="width: 820px; margin: 0 auto;">

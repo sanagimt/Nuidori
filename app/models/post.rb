@@ -20,12 +20,12 @@ class Post < ApplicationRecord
   end
 
 
-  def get_image_original(max_width = 1000, max_height = 1000)
-    unless image.attached?
-      file_path = Rails.root.join('app/assets/images/no_image.jpg')
-      image.attach(io: File.open(file_path), filename: 'default-image.jpg', content_type: 'image/jpeg')
+  def get_image_original(max_width, max_height)
+    if image.attached?
+      image.variant(resize_to_limit: [max_width, max_height]).processed
+    else
+      nil
     end
-    image.variant(resize_to_limit: [max_width, max_height]).processed
   end
 
   def self.search_for(content, include_inactive_users: false)
