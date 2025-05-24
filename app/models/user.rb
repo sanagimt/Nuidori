@@ -5,6 +5,7 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
 
   has_many :posts, dependent: :destroy
+  has_many :toys, dependent: :destroy
   has_many :comments, dependent: :destroy
   has_many :favorites, dependent: :destroy
 
@@ -30,7 +31,7 @@ class User < ApplicationRecord
 
   def get_profile_image(width, height)
     unless profile_image.attached?
-      file_path = Rails.root.join('app/assets/images/no_image.jpg')
+      file_path = Rails.root.join('app/assets/images/no_profile_image.jpg')
       profile_image.attach(io: File.open(file_path), filename: 'default-image.jpg', content_type: 'image/jpeg')
     end
     profile_image.variant(resize_to_limit: [width, height]).processed
@@ -49,13 +50,20 @@ class User < ApplicationRecord
   def follow(user_id)
     active_relationships.create(followed_id: user_id)
   end
+
   #ユーザーのフォローを解除する
   def unfollow(user_id)
     active_relationships.find_by(followed_id: user_id).destroy
   end
+
   #ユーザーのフォロー判定
   def following?(user)
     followings.include?(user)
+  end
+  
+  #相互フォローの定義
+  def mutual_followings
+    followings & followers
   end
 
 end

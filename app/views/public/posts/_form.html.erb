@@ -1,32 +1,201 @@
-<%= form_with model: post do |f| %>
-  <table>
-    <thead>
-      <th></th>
-      <th></th>
-    </thead>
-    <tbody>
-      <tr>
-        <td style="padding-right: 40px; padding-bottom: 16px;">画像</td>
-        <td style="padding-bottom: 16px;"><%= f.file_field :image, accept: "image/*" %></td>
-      </tr>
-      <tr>
-        <td style="padding-right: 40px; padding-bottom: 16px;">タイトル</td>
-        <td style="padding-bottom: 16px;"><%= f.text_field :title %></td>
-      </tr>
-      <tr>
-        <td style="padding-right: 40px; padding-bottom: 16px;">説明</td>
-        <td style="padding-bottom: 16px;"><%= f.text_area :body %></td>
-      </tr>
-      <tr>
-        <td></td>
-        <td style="padding-bottom: 16px;">
-          <% if post.id.nil? %>
-            <%= f.submit '投稿' %>
-          <% else %>
-            <%= f.submit '更新' %>
-          <% end %> 
-        </td>
-      </tr>
-    </tbody>
-  </table>
+<%= form_with model: post, local: true do |f| %>
+  <div class="form-group">
+    <label>画像</label>
+    <div class="d-flex align-items-start">
+      <%= f.file_field :image, accept: "image/*", class: "form-control-file", id: "image_input" %>
+      <div class="ml-4">
+        <% if post.image.attached? %>
+          <img id="image_preview" src="<%= url_for(post.image) %>" alt="現在の画像" style="max-height: 150px; max-width: 150px;">
+        <% else %>
+          <img id="image_preview" src="" alt="プレビュー画像" style="display: none; max-height: 150px; max-width: 150px;">
+        <% end %>
+      </div>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label>タイトル</label>
+    <%= f.text_field :title, class: "form-control" %>
+  </div>
+
+  <div class="form-group">
+    <label>説明</label>
+    <%= f.text_area :body, class: "form-control", rows: 5 %>
+  </div>
+
+  <hr>
+
+  <div class="form-group">
+    <label>関連するぬいぐるみを登録する</label>
+  </div>
+
+  <div class="form-group">
+    <label>ユーザー</label>
+    <select id="user_select" class="form-control">
+      <option value="">選択してください</option>
+      <% users.each do |user| %>
+        <option value="<%= user.id %>"><%= user.nickname %>(<%= user.username %>)</option>
+      <% end %>
+    </select>
+  </div>
+
+  <div class="form-group">
+    <label>ぬいぐるみ</label>
+    <%= f.select :toy_ids, [], {}, { multiple: true, id: 'toy_select', class: "form-control" } %>
+  </div>
+
+  <div class="form-group">
+    <div id="selected_toys_tags" class="mt-2 d-flex flex-wrap" style="gap: 8px;"></div>
+  </div>
+
+  <div class="form-group text-right">
+    <% if post.id.nil? %>
+      <%= f.submit '投稿', class: "btn btn-primary" %>
+    <% else %>
+      <%= f.submit '更新', class: "btn btn-success" %>
+    <% end %>
+  </div>
 <% end %>
+
+<script>
+  window.initialSelectedToys = <%= raw(@selected_toys.to_json) %>;
+</script>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const imageInput = document.getElementById("image_input");
+    const imagePreview = document.getElementById("image_preview");
+
+    imageInput.addEventListener("change", function (event) {
+      const file = event.target.files[0];
+      if (!file) return;
+
+      const reader = new FileReader();
+      reader.onload = function (e) {
+        imagePreview.src = e.target.result;
+        imagePreview.style.display = "block";
+      };
+      reader.readAsDataURL(file);
+    });
+
+    const initialSelectedToys = window.initialSelectedToys || [];
+    const userSelect = document.getElementById("user_select");
+    const toySelect = document.getElementById("toy_select");
+    const selectedTagsContainer = document.getElementById("selected_toys_tags");
+
+    const selectedToys = new Map();
+
+    if (Array.isArray(initialSelectedToys)) {
+      initialSelectedToys.forEach(toy => {
+        selectedToys.set(String(toy.id), {
+          name: toy.name,
+          user_name: toy.user_name
+        });
+      });
+    }
+
+    userSelect.addEventListener("change", function () {
+      const userId = this.value;
+
+      if (userId === "") {
+        toySelect.innerHTML = "";
+        return;
+      }
+
+      fetch(`/toys/by_user/${userId}`)
+        .then(response => {
+          if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+          }
+          return response.json();
+        })
+        .then(toys => {
+          toySelect.innerHTML = "";
+
+          selectedToys.forEach((info, id) => {
+            const option = document.createElement("option");
+            option.value = id;
+            option.textContent = `${info.name}（by ${info.user_name}）`;
+            option.selected = true;
+            toySelect.appendChild(option);
+          });
+
+          toys.forEach(toy => {
+            const id = String(toy.id);
+            if (!selectedToys.has(id)) {
+              const option = document.createElement("option");
+              option.value = id;
+              option.textContent = `${toy.name}（by ${toy.user_name}）`;
+              toySelect.appendChild(option);
+            }
+          });
+        })
+        .catch(error => {
+          console.error("Failed to fetch toys:", error);
+        });
+    });
+
+    toySelect.addEventListener("change", function () {
+      Array.from(toySelect.selectedOptions).forEach(option => {
+        const id = option.value;
+        const label = option.textContent;
+
+        const match = label.match(/^(.+?)（by (.+?)）$/);
+        const name = match ? match[1] : label;
+        const user_name = match ? match[2] : "";
+
+        selectedToys.set(id, { name, user_name });
+      });
+      renderSelectedTags();
+    });
+
+    function renderSelectedTags() {
+      selectedTagsContainer.innerHTML = "";
+
+      selectedToys.forEach((info, id) => {
+        const tag = document.createElement("span");
+        tag.textContent = `${info.name}（by ${info.user_name}）`;
+        tag.style.cssText = `
+          background-color: #f0f0f0;
+          border-radius: 16px;
+          padding: 4px 12px;
+          display: inline-flex;
+          align-items: center;
+          gap: 8px;
+          font-size: 0.9em;
+        `;
+
+        const removeBtn = document.createElement("button");
+        removeBtn.innerHTML = "×";
+        removeBtn.style.cssText = `
+          background: none;
+          border: none;
+          color: #888;
+          font-size: 1em;
+          cursor: pointer;
+        `;
+
+        removeBtn.addEventListener("click", function () {
+          selectedToys.delete(id);
+          Array.from(toySelect.options).forEach(opt => {
+            if (opt.value === id) opt.selected = false;
+          });
+          renderSelectedTags();
+        });
+
+        tag.appendChild(removeBtn);
+        selectedTagsContainer.appendChild(tag);
+      });
+
+      Array.from(toySelect.options).forEach(option => {
+        option.selected = selectedToys.has(option.value);
+      });
+    }
+
+    renderSelectedTags();
+
+    if (userSelect.value !== "") {
+      userSelect.dispatchEvent(new Event("change"));
+    }
+  });
+</script>

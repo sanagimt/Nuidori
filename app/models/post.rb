@@ -2,6 +2,8 @@ class Post < ApplicationRecord
   belongs_to :user
   has_many :comments, dependent: :destroy
   has_many :favorites, dependent: :destroy
+  has_many :toy_post_relations, dependent: :destroy
+  has_many :toys, through: :toy_post_relations
 
   has_one_attached :image
 
@@ -11,19 +13,19 @@ class Post < ApplicationRecord
 
   def get_image(width, height)
     unless image.attached?
-      file_path = Rails.root.join('app/assets/images/no_image.jpg')
+      file_path = Rails.root.join('app/assets/images/no_toy_image.jpg')
       image.attach(io: File.open(file_path), filename: 'default-image.jpg', content_type: 'image/jpeg')
     end
     image.variant(resize_to_limit: [width, height]).processed
   end
 
 
-  def get_image_original(max_width = 1000, max_height = 1000)
-    unless image.attached?
-      file_path = Rails.root.join('app/assets/images/no_image.jpg')
-      image.attach(io: File.open(file_path), filename: 'default-image.jpg', content_type: 'image/jpeg')
+  def get_image_original(max_width, max_height)
+    if image.attached?
+      image.variant(resize_to_limit: [max_width, max_height]).processed
+    else
+      nil
     end
-    image.variant(resize_to_limit: [max_width, max_height]).processed
   end
 
   def self.search_for(content, include_inactive_users: false)

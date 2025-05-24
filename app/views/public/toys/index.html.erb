@@ -1,0 +1,30 @@
+<div class="container">
+  <div class="row">
+    <div class="col mt-5 ml-5">
+        <h3>
+          <%= link_to user_path(@user.username), class: "text-dark text-decoration-none" do %>
+            <%= @user.nickname %>(<%= @user.username %>)
+          <% end %> 
+          さんのぬいぐるみ一覧(<%= @user.toys.count %>件)
+        </h3>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col mt-3 ml-5">
+      <% if @user == current_user %>
+        <%= link_to "+ぬいぐるみを追加する", new_toy_path, class: "btn btn-outline-primary", data: {"turbolinks" => false} %>
+      <% end %>
+    </div>
+  </div>
+
+  <div class="row mt-3 mb-3">
+    <div class="col ml-5">
+      <% if @toys.present? %>
+        <%= render "public/toys/index", toys: @toys %>
+      <% else %>
+        <p>ぬいぐるみはまだありません。</p>
+      <% end %>
+    </div>
+  </div>
+</div>
