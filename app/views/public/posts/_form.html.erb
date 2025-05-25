@@ -68,13 +68,19 @@
 </script>
 
 <script>
-  document.addEventListener("DOMContentLoaded", function () {
-    const imageInput = document.getElementById("image_input");
-    const imagePreview = document.getElementById("image_preview");
+document.addEventListener("DOMContentLoaded", function () {
+  // 画像プレビュー用の処理
+  const imageInput = document.getElementById("image_input");
+  const imagePreview = document.getElementById("image_preview");
 
+  if (imageInput && imagePreview) {
     imageInput.addEventListener("change", function (event) {
       const file = event.target.files[0];
-      if (!file) return;
+      if (!file || !file.type.startsWith("image/")) {
+        imagePreview.src = "";
+        imagePreview.style.display = "none";
+        return;
+      }
 
       const reader = new FileReader();
       reader.onload = function (e) {
@@ -83,7 +89,7 @@
       };
       reader.readAsDataURL(file);
     });
-
+  }
     const initialSelectedToys = window.initialSelectedToys || [];
     const userSelect = document.getElementById("user_select");
     const toySelect = document.getElementById("toy_select");
@@ -168,7 +174,7 @@
           display: inline-flex;
           align-items: center;
           gap: 8px;
-          font-size: 0.9em;
+          font-size: 16px;
         `;
 
         const removeBtn = document.createElement("button");
@@ -177,7 +183,7 @@
           background: none;
           border: none;
           color: #888;
-          font-size: 1em;
+          font-size: 16px;
           cursor: pointer;
         `;
 

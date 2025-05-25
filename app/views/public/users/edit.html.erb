@@ -28,8 +28,15 @@
 
         <tbody>
           <tr>
-          <td class="pe-3 pb-3"><%= f.label :profile_image, "プロフィール画像" %></td>
-          <td colspan="2"><%= f.file_field :profile_image, placeholder: "プロフィール画像", accept: "image/*" %></td>
+            <td class="pe-3 pb-3"><%= f.label :profile_image, "プロフィール画像" %></td>
+            <td colspan="2">
+              <%= f.file_field :profile_image, id: "profile_image_input", accept: "image/*" %><br>
+              <% if @user.profile_image.attached? %>
+                <img id="profile_image_preview" src="<%= url_for(@user.profile_image) %>" alt="プロフィール画像" style="max-width: 200px;" class="mt-2" />
+              <% else %>
+                <img id="profile_image_preview" src="#" alt="プロフィール画像" style="max-width: 200px; display: none;" class="mt-2" />
+              <% end %>
+            </td>
           </tr>
 
           <tr>
@@ -87,3 +94,25 @@
     <div class="col-6"></div>
   </div>
 </div>
+
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const input = document.getElementById("profile_image_input");
+    const preview = document.getElementById("profile_image_preview");
+
+    input.addEventListener("change", event => {
+      const file = event.target.files[0];
+      if (file && file.type.startsWith("image/")) {
+        const reader = new FileReader();
+        reader.onload = e => {
+          preview.src = e.target.result;
+          preview.style.display = "block";
+        };
+        reader.readAsDataURL(file);
+      } else {
+        preview.src = "";
+        preview.style.display = "none";
+      }
+    });
+  });
+</script>

@@ -13,7 +13,7 @@
         <%= render 'public/relationships/btn', user: user %>
       </div>
     <% elsif current_user == user %>
-      <%= link_to "ユーザー情報編集", edit_information_path, class: "btn btn-outline-primary" %>
+      <%= link_to "ユーザー情報編集", edit_information_path, class: "btn btn-outline-primary", data: {"turbolinks" => false} %>
     <% end %>
 
   </div>

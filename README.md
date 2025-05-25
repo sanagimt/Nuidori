@@ -40,4 +40,4 @@
 - フリーロゴ作成に以下を使用
   - DesignEvo (https://www.designevo.com/)
 - 文字フォントに以下を使用
-  - FONT FREE (https://fontfree.me/)
+  - Google Fonts (https://fonts.google.com/)
