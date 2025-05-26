@@ -10,7 +10,7 @@
         <% end %>
       </div>
 
-      <div class="col-3 d-flex justify-content-start">
+      <div class="col-3  d-flex justify-content-center">
         <div class="navbar-text mt-2">
           <% if user_signed_in? %>
             <span class="cute-status-text">ユーザーログイン中</span>
@@ -40,7 +40,7 @@
                 <%= link_to 'マイページ', mypage_path, class: 'cute-nav-btn mx-1' %>
               </li>
               <li class="nav-item">
-                <%= link_to '新規投稿', new_post_path, class: 'cute-nav-btn mx-1', data: {"turbolinks" => false} %>
+                <%= link_to '投稿する', new_post_path, class: 'cute-nav-btn mx-1', data: {"turbolinks" => false} %>
               </li>
               <li class="nav-item">
                 <%= link_to 'みんなの投稿', posts_path, class: 'cute-nav-btn mx-1' %>
@@ -60,7 +60,7 @@
         </div>
       </div>
 
-      <div class="ml-auto">
+      <div class="align-self-center w-100 d-flex justify-content-center">
         <%= render 'public/searches/form' %>
       </div>
     </div>

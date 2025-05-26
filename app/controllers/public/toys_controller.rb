@@ -1,4 +1,7 @@
 class Public::ToysController < ApplicationController
+  before_action :authenticate_user!, only: [:new, :show, :create, :index, :edit, :update, :destroy]
+  before_action :is_matching_login_user, only: [:edit, :update, :destroy]
+
   def index
     @user = User.find_by!(username: params[:username])
     @toys = @user.toys.page(params[:page]).per(12).joins(:user).where(users: { is_active: true }).order(created_at: :desc)
@@ -7,6 +10,12 @@ class Public::ToysController < ApplicationController
   def show
     @toy = Toy.find(params[:id])
     @user = @toy.user
+
+    if !@user.is_active
+      redirect_to root_path, alert: "このぬいぐるみは存在しません。"
+      return
+    end
+
     @posts = @toy.posts.includes(:user).page(params[:page]).per(9)
   end
 
@@ -38,6 +47,12 @@ class Public::ToysController < ApplicationController
     end
   end
 
+  def destroy
+    @toy = Toy.find(params[:id])
+    @toy.destroy
+    redirect_to user_toys_path(@toy.user.username), alert: "ぬいぐるみを削除しました。"
+  end
+
   def by_user
     user = User.find_by(id: params[:user_id])
       if user.nil?
@@ -59,6 +74,13 @@ class Public::ToysController < ApplicationController
 
   def toy_params
     params.require(:toy).permit(:toy_image, :name, :introduction)
+  end
+
+  def is_matching_login_user
+    toy = Toy.find(params[:id])
+    unless toy.user.id == current_user.id
+      redirect_to mypage_path
+    end
   end
 
 end

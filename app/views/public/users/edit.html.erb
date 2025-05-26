@@ -69,7 +69,7 @@
 
           <tr>
             <td class="pe-3 pb-3"></td>
-            <td class="pe-3 pb-3" colspan="2"><%= f.submit "更新" %></td>
+            <td class="pe-3 pb-3" colspan="2"><%= f.submit "更新", class: "btn btn-success" %></td>
           </tr>
         </tbody>
       </table>
@@ -81,15 +81,15 @@
   <div class="row mb-4">
     <div class="col-2"></div>
     <div class="col-4" >
-      <%= link_to "マイページに戻る", mypage_path %>
+      <%= link_to "←マイページに戻る", mypage_path, class: "btn btn-outline-secondary" %>
     </div>
     <div class="col-6"></div>
   </div>
 
-  <div class="row">
+  <div class="row my-5">
     <div class="col-2"></div>
-    <div class="col-4 my-2" >
-      <h5 class="text-left">退会をご希望の方は<%= link_to "こちら", confirm_unsubscribe_path %>から</h5>
+    <div class="col-4" >
+      <h5 class="text-left">※退会をご希望の方は<%= link_to "こちら", confirm_unsubscribe_path %>から</h5>
     </div>
     <div class="col-6"></div>
   </div>

@@ -26,4 +26,12 @@
     </div>
     <div class="col-2"></div>
   </div>
+
+  <div class="row justify-content-center my-3">
+  <div class="col-8 d-flex justify-content-between">
+    <%= link_to "ぬいぐるみ詳細に戻る", toy_path(@toy.id), class: "btn btn-outline-secondary" %>
+    <%= link_to "ぬいぐるみを削除する", toy_path(@toy), method: :delete, data: { confirm: "本当に削除しますか？" }, class: "btn btn-danger" %>
+  </div>
+</div>
+</div>
 </div>

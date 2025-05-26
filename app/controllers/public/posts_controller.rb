@@ -38,6 +38,7 @@ class Public::PostsController < ApplicationController
       mutual_users = current_user.mutual_followings + [current_user]
       @users = mutual_users.uniq.sort_by(&:nickname)
       @toys = Toy.includes(:user).where(user: mutual_users)
+      @selected_toys = []
       render :new
     end
   end

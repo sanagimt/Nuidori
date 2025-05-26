@@ -12,10 +12,12 @@
 
   <div class="row mb-4">
     <div class="col text-right">
-      <%= link_to "ユーザー情報編集画面に戻る", edit_information_path %>
+      <%= link_to "←ユーザー情報編集画面に戻る", edit_information_path, class: "btn btn-outline-secondary" %>
     </div>
     <div class="col text-left">
-      <%= link_to "退会する", withdraw_user_path, method: :patch, "data-confirm" => "OKを押すと退会処理がされます。本当によろしいですか？" %>
+      <%= link_to "退会する", withdraw_user_path, method: :patch, 
+      "data-confirm" => "OKを押すと退会処理がされます。本当によろしいですか？",
+      class: "btn btn-danger" %>
     </div>
   </div>
 </div>
