@@ -58,7 +58,7 @@
   </div>
 
   <div class="mx-auto mt-5" style="max-width: 820px;">
-    <h5 class="mb-3">コメント一覧</h5>
+    <h5 class="mb-3">コメント一覧（<%= @comments.count %>件）</h5>
     <% if @comments.present? %>
       <%= render 'public/comments/post_comments', post: @post, comment: @comment, comments: @comments %>
     <% else %>
