@@ -20,6 +20,7 @@
       <%= user.nickname %>
       (<%= user.username %>)
     <% end %>
+    　<%= link_to "ぬいぐるみ一覧", user_toys_path(user.username), class: "text-dark text-decoration-none border rounded p-2 d-inline-block" %>
   </div>
   
   <div class="mb-2">

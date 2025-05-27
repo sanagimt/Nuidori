@@ -37,5 +37,8 @@
 
 - フリー画像素材として以下を使用
   - ぱくたそ (https://www.pakutaso.com/)
+  - Unsplash (https://unsplash.com/)
 - フリーロゴ作成に以下を使用
   - DesignEvo (https://www.designevo.com/)
+- 文字フォントに以下を使用
+  - Google Fonts (https://fonts.google.com/)

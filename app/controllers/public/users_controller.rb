@@ -1,4 +1,5 @@
 class Public::UsersController < ApplicationController
+  before_action :ensure_normal_user, only: [:edit, :update, :unsubscribe, :withdraw]
   before_action :authenticate_user!, only: [:mypage, :edit, :update, :unsubscribe, :withdraw, :favorites]
   before_action :is_matching_login_user, only: [:edit, :update, :destroy, :unsubscribe, :withdraw, :favorites]
 
@@ -59,6 +60,12 @@ class Public::UsersController < ApplicationController
   def is_matching_login_user
     unless current_user
       redirect_to mypage_path
+    end
+  end
+
+  def ensure_normal_user
+    if current_user.email == 'guest@example.com'
+      redirect_to root_path, alert: 'ゲストユーザー情報は編集できません。'
     end
   end
 
