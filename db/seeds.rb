@@ -12,8 +12,9 @@ admin = Admin.find_or_create_by!(email: "admin@example.com") do |admin|
   admin.password = "password"
 end
 
-#ユーザー
+puts "user、post、toyの更新を開始"
 
+#ユーザー
 taro = User.find_or_create_by!(email: "taro@example.com") do |user|
   user.password = "password"
   user.last_name = "佐藤"
@@ -272,5 +273,95 @@ Toy.find_or_create_by!(id: 12) do |toy|
   toy.introduction = "とてもキュート！！"
   toy.user = aya
 end
+
+puts "user、post、toyの更新完了"
+
+puts "relationshipsの更新を開始"
+
+#フォロー・フォロワー関係
+relationships = {
+  1 => [2, 3, 4, 6],
+  2 => [1, 3, 4, 7],
+  3 => [2, 3, 5],
+  5 => [1, 3, 4, 7],
+  6 => [2, 4],
+  7 => [2, 3, 5, 6]
+}
+
+relationships.each do |follower_id, followed_ids|
+  followed_ids.each do |followed_id|
+    Relationship.find_or_create_by!(follower_id: follower_id, followed_id: followed_id)
+  end
+end
+
+puts "relationshipsの更新を終了"
+
+puts "favoritesの更新を開始"
+
+favorites = {
+  1 => [2, 3, 5],
+  2 => [1, 4, 6],
+  3 => [2, 7],
+  4 => [1, 3],
+  5 => [6, 10],
+  6 => [1, 12, 14],
+  7 => [5, 9]
+}
+
+favorites.each do |user_id, post_ids|
+  post_ids.each do |post_id|
+    Favorite.find_or_create_by!(user_id: user_id, post_id: post_id)
+  end
+end
+
+puts "favoritesの更新完了"
+
+puts "toy_post_relationsの更新を開始"
+post_toy_relations = {
+  1 => [1],  
+  2 => [3, 4, 5, 6],
+  3 => [4, 6, 7],
+  4 => [8],
+  5 => [10, 11, 12],
+  8 => [2],
+  11 => [9]
+}
+
+post_toy_relations.each do |post_id, toy_ids|
+  toy_ids.each do |toy_id|
+    ToyPostRelation.find_or_create_by!(post_id: post_id, toy_id: toy_id)
+  end
+end
+
+puts "toy_post_relationsの更新完了"
+
+puts "commentsの作成を開始"
+
+users = User.all
+posts = Post.all
+
+sample_comments = [
+  "かわいいですね！",
+  "とても癒されました。",
+  "ぬいぐるみが素敵です！",
+  "写真の雰囲気が好きです。",
+  "お気に入りの一枚です！",
+  "ほっこりしました。",
+  "今度マネしてみたいです。",
+  "いいね！をたくさん送りたいです！",
+  "癒しの時間ですね。",
+  "構図が最高です。"
+]
+
+users.each do |user|
+  # 自分以外の投稿をランダムに1件取得
+  post = posts.where.not(user_id: user.id).sample
+  next unless post # 念のため nil チェック
+
+  content = sample_comments.sample
+  Comment.find_or_create_by!(user: user, post: post, comment: content)
+end
+
+puts "commentsの作成を完了"
 
 puts "seedの実行が完了しました"
