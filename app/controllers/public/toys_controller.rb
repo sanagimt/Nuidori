@@ -43,7 +43,7 @@ class Public::ToysController < ApplicationController
     if @toy.update(toy_params)
       redirect_to toy_path(@toy.id), notice: "ぬいぐるみの更新が完了しました！"
     else
-      render :new
+      render :edit
     end
   end
 

@@ -29,6 +29,16 @@ class User < ApplicationRecord
   validates :introduction, length: { maximum: 300, message: 'は300文字以内で入力してください' }
   validates :is_active, inclusion: { in: [true, false] }
 
+  def self.guest
+    find_or_create_by!(email: 'guest@example.com') do |user|
+      user.password = SecureRandom.urlsafe_base64
+      user.last_name = "ゲスト"
+      user.first_name = "さん"
+      user.username = "guest"
+      user.nickname = "ゲストさん"
+    end
+  end
+
   def get_profile_image(width, height)
     unless profile_image.attached?
       file_path = Rails.root.join('app/assets/images/no_profile_image.jpg')

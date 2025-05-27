@@ -1,23 +1,23 @@
-<div class="container">
-  <div class="row">
-    <div class="col-4 mt-5 mb-3 ml-4">
-      <h4 class="text-center">ぬいぐるみ編集フォーム</h4>
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-6 text-center mb-4">
+      <h4>ぬいぐるみ編集フォーム</h4>
     </div>
   </div>
 
-  <div class="row">
-    <div class="col-2"></div>
-    <div class="col-5">
-    <% if @toy.errors.any? %>
-      <ul>
-        <% @toy.errors.full_messages.each do |message| %>
-          <li><%= message %></li>
-        <% end %>
-      </ul>
-    <% end %>
+  <% if @toy.errors.any? %>
+    <div class="row justify-content-center">
+      <div class="col-6">
+        <div class="alert alert-danger">
+          <ul class="mb-0">
+            <% @toy.errors.full_messages.each do |message| %>
+              <li><%= message %></li>
+            <% end %>
+          </ul>
+        </div>
+      </div>
     </div>
-    <div class="col-5"></div>
-  </div>
+  <% end %>
 
   <div class="row">
     <div class="col-2"></div>
@@ -29,7 +29,7 @@
 
   <div class="row justify-content-center my-3">
   <div class="col-8 d-flex justify-content-between">
-    <%= link_to "ぬいぐるみ詳細に戻る", toy_path(@toy.id), class: "btn btn-outline-secondary" %>
+    <%= link_to "←ぬいぐるみ詳細に戻る", toy_path(@toy.id), class: "btn btn-outline-secondary" %>
     <%= link_to "ぬいぐるみを削除する", toy_path(@toy), method: :delete, data: { confirm: "本当に削除しますか？" }, class: "btn btn-danger" %>
   </div>
 </div>
