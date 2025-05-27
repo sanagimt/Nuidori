@@ -18,7 +18,7 @@ class Public::UsersController < ApplicationController
   def mypage
     @user = current_user
     @posts = @user.posts.page(params[:page]).per(9).joins(:user).where(users: { is_active: true }).order(created_at: :desc)
-    @toys = @user.toys.order(created_at: :desc) # ←追加
+    @toys = @user.toys.order(created_at: :desc)
     render :show
   end
 
