@@ -9,7 +9,7 @@ class Post < ApplicationRecord
 
   validates :image, presence: true
   validates :title, presence: true, length: { in: 1..30, message: 'は1～30文字以内で入力してください' }
-  validates :body, length: { maximum: 200 }
+  validates :body, length: { maximum: 200, message: 'は200文字以内で入力してください' }
 
   def get_image(width, height)
     unless image.attached?
