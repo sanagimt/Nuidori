@@ -11,10 +11,8 @@
     <div class="d-flex align-items-center mb-3">
       <%= link_to user_path(@post.user.username), class: "d-flex align-items-center font-weight-bold text-dark text-decoration-none" do %>
         <%= image_tag @post.user.get_profile_image(50, 50), class: "rounded-circle mr-2", style: "width: 50px; height: 50px; object-fit: cover;" %>
-        <div>
-          <div><%= @post.user.nickname %></div>
+          <%= @post.user.nickname %>
           <small class="text-muted">(<%= @post.user.username %>)</small>
-        </div>
       <% end %>
 
       <% if current_user != @post.user %>
@@ -57,7 +55,7 @@
     <%= render 'public/comments/form', post: @post, comment: @comment %>
   </div>
 
-  <div class="mx-auto mt-5" style="max-width: 820px;">
+  <div class="mx-auto mt-5 mb-5" style="max-width: 820px;">
     <h5 class="mb-3">コメント一覧（<%= @comments.count %>件）</h5>
     <% if @comments.present? %>
       <%= render 'public/comments/post_comments', post: @post, comment: @comment, comments: @comments %>
