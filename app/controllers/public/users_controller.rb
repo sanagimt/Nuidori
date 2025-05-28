@@ -47,8 +47,12 @@ class Public::UsersController < ApplicationController
 
   def favorites
     @user = current_user
-    favorites = Favorite.where(user_id: @user.id).pluck(:post_id)
-    @posts = Post.joins(:user).where(id: favorites, users: { is_active: true }).page(params[:page]).per(12)
+  
+    @posts = Post.joins(:favorites, :user)
+                 .where(favorites: { user_id: @user.id }, users: { is_active: true })
+                 .order('favorites.created_at DESC')
+                 .page(params[:page])
+                 .per(12)
   end
 
   private

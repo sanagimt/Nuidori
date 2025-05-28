@@ -16,7 +16,7 @@ class Public::ToysController < ApplicationController
       return
     end
 
-    @posts = @toy.posts.includes(:user).page(params[:page]).per(9)
+    @posts = @toy.posts.includes(:user).page(params[:page]).per(9).joins(:user).where(users: { is_active: true }).order(created_at: :desc)
   end
 
   def new
