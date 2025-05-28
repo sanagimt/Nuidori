@@ -8,16 +8,6 @@
   </div>
 
   <div class="row">
-  <div class="col-2"></div>
-    <div class="col-5">
-      <% if flash[:alert] %>
-      <p class="text-danger"><%= flash[:alert] %></p>
-      <% end %>
-    </div>
-    <div class="col-5"></div>
-  </div>
-
-  <div class="row">
     <div class="col-3"></div>
     <div class="col-6 mt-1 mb-4 ml-4">
       <%= form_with url: admin_session_path, scope: :admin, local: true do |f| %>
@@ -30,17 +20,17 @@
           <tbody>
             <tr>
               <td style="padding-right: 5px; padding-bottom: 16px;"><%= f.label :email %></td>
-              <td style="padding-bottom: 16px;"><%= f.email_field :email, autocomplete: "email" %></td>
+              <td style="padding-bottom: 16px;"><%= f.email_field :email, autocomplete: "email", class: "form-control w-75" %></td>
             </tr>
 
             <tr>
               <td style="padding-right: 5px; padding-bottom: 16px;"><%= f.label :password %></td>
-              <td style="padding-bottom: 16px;"><%= f.password_field :password, autocomplete: "current-password" %></td>
+              <td style="padding-bottom: 16px;"><%= f.password_field :password, autocomplete: "current-password", class: "form-control w-75" %></td>
             </tr>
 
             <tr>
               <td style="padding-right: 5px; padding-bottom: 16px;"></td>
-              <td style="padding-bottom: 16px;"><%= f.submit "ログイン" %></td>
+              <td style="padding-bottom: 16px;"><%= f.submit "ログイン", class: "btn btn-primary" %></td>
             </tr>
           </tbody>
         </table>
@@ -48,3 +38,22 @@
     </div>
     <div class="col-3"></div>
   </div>
+
+  <div class="row">
+    <div class="col-2"></div>
+    <div class="col-4 my-2" >
+      <h5 class="text-left">ユーザーの方</h5>
+    </div>
+    <div class="col-6"></div>
+  </div>
+  <div class="row mb-5">
+    <div class="col-3"></div>
+    <div class="col-6">
+      <div class="d-flex align-items-center">
+        <%= link_to "こちら", new_user_session_path %><br />
+        <span>よりログインしてください</span>
+      </div>
+      <div class="col-3"></div>
+    </div>
+  </div>
+</div>
