@@ -7,6 +7,7 @@
       <%= link_to "登録情報編集", edit_admin_user_path(@user.id), class: "btn btn-outline-secondary" %>
     </div>
   </div>
+  
   <div class="row">
     <div class="col-2">
       <%= image_tag @user.get_profile_image(100,100), class: "rounded-circle mr-3", style: "width: 100px; height: 100px; object-fit: cover;" %>
