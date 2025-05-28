@@ -1,7 +1,10 @@
 <div class="container">
   <div class="row">
-    <div class="col-6 my-5 ml-4">
-      <h4><%= current_user.nickname %>さんのいいね一覧</h4>
+    <div class="col-12 my-5 mx-4">
+      <h4 class="d-inline">
+        <%= current_user.nickname %>さんのいいね一覧
+      </h4>
+      <%= link_to '←マイページに戻る', mypage_path, class: 'btn btn-outline-secondary ml-3 align-baseline' %>
     </div>
   </div>
   <div class="row">
