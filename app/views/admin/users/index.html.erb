@@ -1,7 +1,7 @@
 <div class="container">
   <div class="row">
     <div class="col mt-5 ml-5">
-      <h4>投稿一覧</h4>
+      <h4>ユーザー一覧</h4>
     </div>
   </div>
 
@@ -9,5 +9,8 @@
     <div class="col ml-5">
       <%= render 'index', users: @users %>
     </div>
+    <div class="d-flex justify-content-center my-4">
+    <%= paginate @users %>
+  </div>
   </div>
 </div>

@@ -4,7 +4,7 @@ class Public::PostsController < ApplicationController
 
   def new
     @post = Post.new
-    mutual_users = current_user.mutual_followings + [current_user]
+    mutual_users = (current_user.mutual_followings + [current_user]).select(&:is_active)
     @users = mutual_users.uniq.sort_by(&:nickname)
     @toys = Toy.includes(:user).where(user: mutual_users)
     @selected_toys = []
@@ -35,7 +35,7 @@ class Public::PostsController < ApplicationController
     if @post.save
       redirect_to post_path(@post.id), notice: "投稿が完了しました！"
     else
-      mutual_users = current_user.mutual_followings + [current_user]
+      mutual_users = (current_user.mutual_followings + [current_user]).select(&:is_active)
       @users = mutual_users.uniq.sort_by(&:nickname)
       @toys = Toy.includes(:user).where(user: mutual_users)
       @selected_toys = []
@@ -45,10 +45,10 @@ class Public::PostsController < ApplicationController
 
   def edit
     @post = Post.find(params[:id])
-    mutual_users = current_user.mutual_followings + [current_user]
+    mutual_users = (current_user.mutual_followings + [current_user]).select(&:is_active)
     @users = mutual_users.uniq.sort_by(&:nickname)
     @toys = Toy.includes(:user).where(user: mutual_users)
-    @selected_toys = @post.toys.includes(:user)
+    @selected_toys = @post.toys.includes(:user).where(users: { is_active: true })
   end
 
   def update
@@ -57,7 +57,7 @@ class Public::PostsController < ApplicationController
       @post.touch unless @post.previous_changes.any?
       redirect_to post_path(@post.id), notice: "投稿を更新しました！"
     else
-      mutual_users = current_user.mutual_followings + [current_user]
+      mutual_users = (current_user.mutual_followings + [current_user]).select(&:is_active)
       @users = mutual_users.uniq.sort_by(&:nickname)
       @toys = Toy.includes(:user).where(user: mutual_users)
       @selected_toys = @post.toys.includes(:user).map do |toy|
