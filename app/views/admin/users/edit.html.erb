@@ -28,36 +28,43 @@
 
         <tbody>
           <tr>
-          <td class="pe-3 pb-3"><%= f.label :profile_image, "プロフィール画像" %></td>
-          <td colspan="2"><%= f.file_field :profile_image, placeholder: "プロフィール画像", accept: "image/*" %></td>
+            <td class="pe-3 pb-3"><%= f.label :profile_image, "プロフィール画像" %></td>
+            <td colspan="2">
+              <%= f.file_field :profile_image, id: "profile_image_input", accept: "image/*", class: "form-control-file" %><br>
+              <% if @user.profile_image.attached? %>
+                <img id="profile_image_preview" src="<%= url_for(@user.profile_image) %>" alt="プロフィール画像" style="max-width: 200px;" class="mt-2" />
+              <% else %>
+                <img id="profile_image_preview" src="#" alt="プロフィール画像" style="max-width: 200px; display: none;" class="mt-2" />
+              <% end %>
+            </td>
           </tr>
 
           <tr>
             <td class="pe-3 pb-3">名前</td>
             <td class="pe-3 pb-3"><%= f.label :last_name, "(姓)" %>
-                <%= f.text_field :last_name, autofocus: true, placeholder: "令和" %></td>
+                <%= f.text_field :last_name, autofocus: true, placeholder: "令和", class: "form-control w-75" %></td>
             <td class="pe-3 pb-3"><%= f.label :first_name, "(名)" %>
-                <%= f.text_field :first_name, autofocus: true, placeholder: "太郎" %></td>
+                <%= f.text_field :first_name, autofocus: true, placeholder: "太郎", class: "form-control w-75" %></td>
           </tr>
 
           <tr>
             <td class="pe-3 pb-3"><%= f.label :email, "メールアドレス" %></td>
-            <td class="pe-3 pb-3" colspan="2"><%= f.email_field :email, autofocus: true, autocomplete: "email", placeholder: "nuidori@sample.com" %></td>
+            <td class="pe-3 pb-3" colspan="2"><%= f.email_field :email, autofocus: true, autocomplete: "email", placeholder: "nuidori@sample.com", class: "form-control w-50" %></td>
           </tr>
       
           <tr>
             <td class="pe-3 pb-3"><%= f.label :username, "ユーザー名（半角英数字4～15文字以内）" %></td>
-            <td class="pe-3 pb-3" colspan="2"><%= f.text_field :username, autofocus: true, placeholder: "半角英数字4～15文字" %></td>
+            <td class="pe-3 pb-3" colspan="2"><%= f.text_field :username, autofocus: true, placeholder: "半角英数字4～15文字", class: "form-control w-50" %></td>
           </tr>
 
           <tr>
             <td class="pe-3 pb-3"><%= f.label :nickname, "ニックネーム（30文字以内）" %></td>
-            <td class="pe-3 pb-3" colspan="2"><%= f.text_field :nickname, autofocus: true, placeholder: "※表示名となります" %></td>
+            <td class="pe-3 pb-3" colspan="2"><%= f.text_field :nickname, autofocus: true, placeholder: "※表示名となります", class: "form-control w-50" %></td>
           </tr>
 
           <tr>
             <td class="pe-3 pb-3"><%= f.label :introduction, "自己紹介文(300字以内)" %></td>
-            <td class="pe-3 pb-3" colspan="2"><%= f.text_area :introduction, autofocus: true, placeholder: "自己紹介文を書いてみましょう" %></td>
+            <td class="pe-3 pb-3" colspan="2"><%= f.text_area :introduction, autofocus: true, placeholder: "自己紹介文を書いてみましょう", class: "form-control w-75", rows: 5 %></td>
           </tr>
 
           <tr>
@@ -74,7 +81,7 @@
 
           <tr>
             <td class="pe-3 pb-3"></td>
-            <td class="pe-3 pb-3" colspan="2"><%= f.submit "更新" %></td>
+            <td class="pe-3 pb-3" colspan="2"><%= f.submit "更新", class: "btn btn-success" %></td>
           </tr>
         </tbody>
       </table>
@@ -86,8 +93,30 @@
   <div class="row mb-4">
     <div class="col-2"></div>
     <div class="col-4" >
-      <%= link_to "ユーザー詳細に戻る", admin_user_path(@user) %>
+      <%= link_to "←ユーザー詳細に戻る", admin_user_path(@user), class: "btn btn-outline-secondary" %>
     </div>
     <div class="col-6"></div>
   </div>
 </div>
+
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const input = document.getElementById("profile_image_input");
+    const preview = document.getElementById("profile_image_preview");
+
+    input.addEventListener("change", event => {
+      const file = event.target.files[0];
+      if (file && file.type.startsWith("image/")) {
+        const reader = new FileReader();
+        reader.onload = e => {
+          preview.src = e.target.result;
+          preview.style.display = "block";
+        };
+        reader.readAsDataURL(file);
+      } else {
+        preview.src = "";
+        preview.style.display = "none";
+      }
+    });
+  });
+</script>
