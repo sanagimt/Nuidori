@@ -8,6 +8,7 @@
 
 puts "seedの実行を開始"
 
+#実際の本番環境ではdotenv-rails、.envで環境変数を使用する。（今回はポートフォリオ閲覧者がadminも見られるように記載）
 admin = Admin.find_or_create_by!(email: "admin@example.com") do |admin|
   admin.password = "password"
 end
