@@ -1,11 +1,14 @@
 <% posts.each do |post| %>
-  <div class="card mb-4 mx-2" style="width: 300px;">
+  <div class="card mb-4 mx-2 post-card">
     <%= link_to post_path(post.id) do %>
-    <p class="card-img-top"><%= image_tag post.image.variant(resize_to_fill: [300, 300]).processed %></p>
+      <p class="card-img-top">
+        <%= image_tag post.image.variant(resize_to_fill: [300, 300]).processed %>
+      </p>
     <% end %>
-    <div class="card-body"  style="width: 300px;">
+
+    <div class="card-body post-card-body">
       <%= link_to user_path(post.user.username), class: "d-inline-flex align-items-center text-dark text-decoration-none" do %>
-        <%= image_tag post.user.get_profile_image(25, 25), class: "rounded-circle mr-2", style: "width: 25px; height: 25px; object-fit: cover;" %>
+        <%= image_tag post.user.get_profile_image(25, 25), class: "rounded-circle post-index-user-profile-image" %>
         <span><%= post.user.nickname %>(<%= post.user.username %>)</span>
       <% end %>
 

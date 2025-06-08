@@ -85,6 +85,43 @@ body {
   gap: 8px;
 }
 
+.post-card {
+  width: 300px;
+}
+
+.post-card-body {
+  width: 300px;
+}
+
+.post-index-user-profile-image {
+  width: 25px;
+  height: 25px;
+  object-fit: cover;
+}
+
+.post-wrapper {
+  max-width: 820px;
+}
+
+.post-show-user-image {
+  width: 50px;
+  height: 50px;
+  object-fit: cover;
+}
+
+.post-datetime {
+  font-size: 14px;
+  color: #6c757d;
+}
+
+.post-edit-btn {
+  width: 150px;
+}
+
+.post-back-btn {
+  width: 180px;
+}
+
 .comment-textarea {
   width: 50%;
 }
