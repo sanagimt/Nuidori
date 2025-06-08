@@ -1,26 +1,26 @@
 <%= form_with model: toy, local: true, html: { multipart: true, class: "mt-4 w-100" } do |f| %>
   <div class="form-group d-flex align-items-center">
-    <label for="toy_image_input" class="mr-3 mb-0" style="width: 180px;">画像</label>
+    <label for="toy_image_input" class="mr-3 mb-0 toy-form-label-image">画像</label>
     <div>
       <%= f.file_field :toy_image, accept: "image/*", id: "toy_image_input", class: "form-control-file" %>
       <div class="mt-2">
         <% if toy.toy_image.attached? %>
-          <img id="preview_image" src="<%= url_for(toy.toy_image.variant(resize_to_limit: [150, 150])) %>" alt="プレビュー画像" class="img-thumbnail" style="max-width: 150px;">
+          <img id="preview_image" src="<%= url_for(toy.toy_image.variant(resize_to_limit: [150, 150])) %>" alt="プレビュー画像" class="img-thumbnail toy-preview-image">
         <% else %>
-          <img id="preview_image" src="" alt="プレビュー画像" class="img-thumbnail d-none" style="max-width: 150px;">
+          <img id="preview_image" src="" alt="プレビュー画像" class="img-thumbnail d-none toy-preview-image">
         <% end %>
       </div>
     </div>
   </div>
 
   <div class="form-group d-flex align-items-center">
-    <label class="mr-3 mb-0" style="width: 180px;">名前（30文字以内）</label>
-    <%= f.text_field :name, class: "form-control", style: "width: 400px;" %>
+    <label class="mr-3 mb-0 toy-form-label-name">名前（30文字以内）</label>
+    <%= f.text_field :name, class: "form-control toy-form-input-name" %>
   </div>
 
   <div class="form-group d-flex">
-    <label class="mr-3" style="width: 180px;">紹介文（300文字以内）</label>
-    <%= f.text_area :introduction, class: "form-control", rows: 5, style: "width: 400px;" %>
+    <label class="mr-3 toy-form-label-introduction">紹介文（300文字以内）</label>
+    <%= f.text_area :introduction, class: "form-control toy-form-input-introduction", rows: 5 %>
   </div>
 
   <div class="form-group text-center">
@@ -43,7 +43,7 @@
         const reader = new FileReader();
         reader.onload = e => {
           preview.src = e.target.result;
-          preview.classList.remove("d-none"); // ← これを追加！
+          preview.classList.remove("d-none");
         };
         reader.readAsDataURL(file);
       } else {

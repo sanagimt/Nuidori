@@ -1,7 +1,7 @@
 <div class="mb-4 p-3 border rounded bg-white shadow-sm">
   <div class="d-flex align-items-center justify-content-between mb-3">
     <div class="d-flex align-items-center">
-      <%= image_tag toy.get_toy_image(100,100), class: "rounded-circle mr-3", style: "width: 100px; height: 100px; object-fit: cover;" %>
+      <%= image_tag toy.get_toy_image(100,100), class: "rounded-circle mr-3 toy-show-image" %>
       <div>
         <h4 class="mb-1"><%= toy.name %></h4>
       </div>
@@ -16,7 +16,7 @@
   <div class="mb-2 small">
   持ち主さん　
     <%= link_to user_path(user.username), class: "text-dark text-decoration-none" do %>
-      <%= image_tag user.get_profile_image(30,30), class: "rounded-circle mr-2", style: "width: 30px; height: 30px; object-fit: cover;" %>
+      <%= image_tag user.get_profile_image(30,30), class: "rounded-circle mr-2 toy-show-user-image" %>
       <%= user.nickname %>
       (<%= user.username %>)
     <% end %>
