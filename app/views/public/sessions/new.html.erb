@@ -11,26 +11,21 @@
     <div class="col-3"></div>
     <div class="col-6 mt-1 mb-4 ml-4">
       <%= form_with model: @user, url: session_path(resource_name), local: true do |f| %>
-        <table class="w-100">
-          <thead>
-            <th></th>
-            <th></th>
-          </thead>
-
+        <table class="w-100 login-table">
           <tbody>
             <tr>
-              <td style="padding-right: 5px; padding-bottom: 16px;"><%= f.label :email %></td>
-              <td style="padding-bottom: 16px;"><%= f.email_field :email, autofocus: true, autocomplete: "email", class: "form-control w-75" %></td>
+              <td class="login-label"><%= f.label :email %></td>
+              <td class="login-input"><%= f.email_field :email, autofocus: true, class: "form-control" %></td>
             </tr>
-
+            
             <tr>
-              <td style="padding-right: 5px; padding-bottom: 16px;"><%= f.label :password %></td>
-              <td style="padding-bottom: 16px;"><%= f.password_field :password, autocomplete: "current-password", class: "form-control w-75" %></td>
+              <td class="login-label"><%= f.label :password %></td>
+              <td class="login-input"><%= f.password_field :password, class: "form-control" %></td>
             </tr>
-
+            
             <tr>
-              <td style="padding-right: 5px; padding-bottom: 16px;"></td>
-              <td style="padding-bottom: 16px;"><%= f.submit "ログイン", class: "btn btn-primary" %></td>
+              <td></td>
+              <td><%= f.submit "ログイン", class: "btn btn-primary login-submit" %></td>
             </tr>
           </tbody>
         </table>
@@ -41,11 +36,12 @@
 
   <div class="row">
     <div class="col-2"></div>
-    <div class="col-4 my-2" >
+    <div class="col-4 my-2">
       <h5 class="text-left">会員登録がお済みでない方</h5>
     </div>
     <div class="col-6"></div>
   </div>
+
   <div class="row mb-5">
     <div class="col-3"></div>
     <div class="col-6">
@@ -59,11 +55,12 @@
 
   <div class="row">
     <div class="col-2"></div>
-    <div class="col-4 my-2" >
+    <div class="col-4 my-2">
       <h5 class="text-left">ゲストログインを試す</h5>
     </div>
     <div class="col-6"></div>
   </div>
+
   <div class="row mb-5">
     <div class="col-3"></div>
     <div class="col-6">
@@ -74,5 +71,4 @@
     </div>
     <div class="col-3"></div>
   </div>
-
 </div>

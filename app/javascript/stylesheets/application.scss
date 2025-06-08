@@ -72,6 +72,44 @@ body {
   padding: 20px 0;
 }
 
+.login-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 24px 16px;
+}
+
+.login-table td {
+  vertical-align: middle;
+  padding: 0;
+}
+
+.login-label {
+  padding-right: 24px;
+  white-space: nowrap;
+  width: 120px;
+}
+
+.login-input .form-control {
+  width: 300px;
+  height: 38px;
+  font-size: 16px;
+  padding: 6px 12px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  transition: border-color 0.2s;
+}
+
+.login-input .form-control:focus {
+  border-color: #007bff;
+  outline: none;
+}
+
+.login-submit {
+  margin-top: 16px;
+  padding: 8px 20px;
+  border-radius: 6px;
+}
+
 .image-preview {
   max-width: 150px;
   max-height: 150px;
@@ -142,6 +180,10 @@ a.favorite-link {
 
 .favorite-link.not-liked {
   color: gray;
+}
+
+.follow-button {
+  width: 150px;
 }
 
 .pagination {
