@@ -82,6 +82,18 @@ body {
   object-fit: cover;
 }
 
+a.favorite-link {
+  text-decoration: none;
+}
+
+.favorite-link.liked {
+  color: red;
+}
+
+.favorite-link.not-liked {
+  color: gray;
+}
+
 .pagination {
   display: flex;
   justify-content: center;

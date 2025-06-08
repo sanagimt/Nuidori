@@ -1,11 +1,11 @@
 <% if favorite = post.favorites.find_by(user_id: current_user.id) %>
-  <%= link_to post_favorite_path(post, favorite), method: :delete, remote: true, style: "color: red;" do %>
+  <%= link_to post_favorite_path(post, favorite), method: :delete, remote: true, class: "favorite-link liked" do %>
     ♥
     <%= post.favorites.count %>
     <span class="ml-1">いいね！</span>
   <% end %>
 <% else %>
-  <%= link_to post_favorites_path(post), method: :post, remote: true, style: "color: gray;" do %>
+  <%= link_to post_favorites_path(post), method: :post, remote: true, class: "favorite-link not-liked" do %>
     ♡
     <%= post.favorites.count %>
     <span class="ml-1">いいね！</span>
