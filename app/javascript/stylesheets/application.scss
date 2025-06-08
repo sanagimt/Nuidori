@@ -72,6 +72,175 @@ body {
   padding: 20px 0;
 }
 
+.login-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 24px 16px;
+}
+
+.login-table td {
+  vertical-align: middle;
+  padding: 0;
+}
+
+.login-label {
+  padding-right: 24px;
+  white-space: nowrap;
+  width: 120px;
+}
+
+.login-input .form-control {
+  width: 300px;
+  height: 38px;
+  font-size: 16px;
+  padding: 6px 12px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  transition: border-color 0.2s;
+}
+
+.login-input .form-control:focus {
+  border-color: #007bff;
+  outline: none;
+}
+
+.login-submit {
+  margin-top: 16px;
+  padding: 8px 20px;
+  border-radius: 6px;
+}
+
+.image-preview {
+  max-width: 150px;
+  max-height: 150px;
+}
+
+.d-none {
+  display: none;
+}
+
+.toy-tag-container {
+  gap: 8px;
+}
+
+.post-card {
+  width: 300px;
+}
+
+.post-card-body {
+  width: 300px;
+}
+
+.post-index-user-profile-image {
+  width: 25px;
+  height: 25px;
+  object-fit: cover;
+}
+
+.post-wrapper {
+  max-width: 820px;
+}
+
+.post-show-user-image {
+  width: 50px;
+  height: 50px;
+  object-fit: cover;
+}
+
+.post-datetime {
+  font-size: 14px;
+  color: #6c757d;
+}
+
+.post-edit-btn {
+  width: 150px;
+}
+
+.post-back-btn {
+  width: 180px;
+}
+
+.toy-form-label-image {
+  width: 180px;
+}
+
+.toy-preview-image {
+  max-width: 150px;
+}
+
+.toy-form-label-name {
+  width: 180px;
+}
+
+.toy-form-input-name {
+  width: 400px;
+}
+
+.toy-form-label-introduction {
+  width: 180px;
+}
+
+.toy-form-input-introduction {
+  width: 400px;
+}
+
+.toy-index-image {
+  width: 50px;
+  height: 50px;
+  object-fit: cover;
+}
+
+.toy-show-image {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+}
+
+.toy-show-user-image {
+  width: 30px;
+  height: 30px;
+  object-fit: cover;
+}
+
+.toy-list-image {
+  width: 50px;
+  height: 50px;
+  object-fit: cover;
+}
+
+.related-toys-section {
+  width: 820px;
+  margin-top: 40px;
+}
+
+.related-toys-heading {
+  margin-bottom: 16px;
+}
+
+.related-toys-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.related_toy-item {
+  width: 120px;
+  text-align: center;
+}
+
+.related_toy-image {
+  width: 50px;
+  height: 50px;
+  object-fit: cover;
+  border-radius: 50%;
+  margin-right: 3px;
+}
+
+.related_toy-name {
+  margin-top: 8px;
+  font-size: 14px;
+}
+
 .comment-textarea {
   width: 50%;
 }
@@ -80,6 +249,22 @@ body {
   width: 40px;
   height: 40px;
   object-fit: cover;
+}
+
+a.favorite-link {
+  text-decoration: none;
+}
+
+.favorite-link.liked {
+  color: red;
+}
+
+.favorite-link.not-liked {
+  color: gray;
+}
+
+.follow-button {
+  width: 150px;
 }
 
 .pagination {

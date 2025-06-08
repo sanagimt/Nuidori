@@ -1,7 +1,7 @@
 <% toys.first(4).each do |toy| %>
-  <div class="mb-2">
+  <div class="mb-2 toy-list-item">
     <%= link_to toy_path(toy), class: "d-flex align-items-center text-decoration-none text-dark" do %>
-      <%= image_tag toy.get_toy_image(50, 50), class: "rounded-circle mr-3", style: "width: 50px; height: 50px; object-fit: cover;" %>
+      <%= image_tag toy.get_toy_image(50, 50), class: "rounded-circle mr-3 toy-list-image" %>
       <p class="mb-0"><%= toy.name %></p>
     <% end %>
   </div>
