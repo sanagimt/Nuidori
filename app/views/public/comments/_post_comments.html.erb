@@ -1,7 +1,7 @@
 <% post.comments.each do |comment| %>
   <div class="mb-3 p-2 border rounded bg-white">
     <div class="d-flex align-items-center mb-1">
-      <%= image_tag comment.user.get_profile_image(100, 100), class: "rounded-circle mr-2", style: "width: 40px; height: 40px; object-fit: cover;" %>
+      <%= image_tag comment.user.get_profile_image(100, 100), class: "rounded-circle mr-2 comment-user-image" %>
       <div>
         <%= link_to user_path(username: comment.user.username), class: "d-flex align-items-center text-decoration-none" do %>
           <span class="font-weight-bold text-dark"><%= comment.user.nickname %></span>

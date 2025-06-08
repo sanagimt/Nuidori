@@ -67,6 +67,21 @@ body {
   background-color: #f56fa1;
 }
 
+.custom-footer {
+  background-color: #fff0f5;
+  padding: 20px 0;
+}
+
+.comment-textarea {
+  width: 50%;
+}
+
+.comment-user-image {
+  width: 40px;
+  height: 40px;
+  object-fit: cover;
+}
+
 .pagination {
   display: flex;
   justify-content: center;
