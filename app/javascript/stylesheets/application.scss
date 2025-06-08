@@ -72,6 +72,19 @@ body {
   padding: 20px 0;
 }
 
+.image-preview {
+  max-width: 150px;
+  max-height: 150px;
+}
+
+.d-none {
+  display: none;
+}
+
+.toy-tag-container {
+  gap: 8px;
+}
+
 .comment-textarea {
   width: 50%;
 }
