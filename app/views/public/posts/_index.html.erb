@@ -17,7 +17,7 @@
       <% end %>
 
       <% if post.body.present? %>
-        <p><%= truncate(post.body, length: 30) %></p>
+        <p><%= raw body_with_hashtag_links(truncate(post.body, length: 30)) %></p>
       <% else %>
         <p>　</p>
       <% end %>

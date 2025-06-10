@@ -78,6 +78,17 @@ class Public::PostsController < ApplicationController
   end
 
   def hashtag
+    @model = 'hashtag'
+    @content = params[:name]
+  
+    hashtag = Hashtag.find_by(name: @content.downcase)
+    if hashtag
+      @records = hashtag.posts.includes(:user).order(created_at: :desc).page(params[:page]).per(10)
+    else
+      @records = Post.none.page(params[:page])
+    end
+  
+    render 'public/posts/hashtag'
   end
 
   private

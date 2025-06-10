@@ -4,12 +4,17 @@ class Post < ApplicationRecord
   has_many :favorites, dependent: :destroy
   has_many :toy_post_relations, dependent: :destroy
   has_many :toys, through: :toy_post_relations
+  has_many :hashtag_post_relations, dependent: :destroy
+  has_many :hashtags, through: :hashtag_post_relations
 
   has_one_attached :image
 
   validates :image, presence: true
   validates :title, presence: true, length: { in: 1..30, message: 'は1～30文字以内で入力してください' }
   validates :body, length: { maximum: 200, message: 'は200文字以内で入力してください' }
+
+  after_create :assign_hashtags
+  after_update :assign_hashtags
 
   def get_image(width, height)
     unless image.attached?
@@ -40,6 +45,19 @@ class Post < ApplicationRecord
 
   def favorited_by?(user)
     favorites.exists?(user_id: user.id)
+  end
+
+  private
+
+  def assign_hashtags
+    hashtags.clear
+    return unless body.present?
+
+    tags = body.scan(/[#＃][\w\p{Han}ぁ-ヶｦ-ﾟー]+/).uniq
+    tags.each do |tag|
+      cleaned = tag.downcase.delete('#')
+      hashtags << Hashtag.find_or_create_by(name: cleaned)
+    end
   end
 
 end

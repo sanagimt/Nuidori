@@ -212,6 +212,15 @@ body {
   width: 180px;
 }
 
+.hashtag-link {
+  color: #007bff;
+  text-decoration: none;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
 .toy-form-label-image {
   width: 180px;
 }
