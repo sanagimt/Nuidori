@@ -1,7 +1,7 @@
 <div class="mb-4 p-3 border rounded bg-white shadow-sm">
   <div class="d-flex align-items-center justify-content-between mb-3">
     <div class="d-flex align-items-center">
-      <%= image_tag user.get_profile_image(100,100), class: "rounded-circle mr-3", style: "width: 100px; height: 100px; object-fit: cover;" %>
+      <%= image_tag user.get_profile_image(100,100), class: "user-introduction-profile-image" %>
       <div>
         <h4 class="mb-1"><%= user.nickname %></h4>
         <h6 class="mb-2 text-muted">（<%= user.username %>）</h6>
@@ -13,9 +13,8 @@
         <%= render 'public/relationships/btn', user: user %>
       </div>
     <% elsif current_user == user %>
-      <%= link_to "ユーザー情報編集", edit_information_path, class: "btn btn-outline-primary", data: {"turbolinks" => false} %>
+      <%= link_to "ユーザー情報編集", edit_information_path, class: "btn btn-outline-primary", data: { "turbolinks" => false } %>
     <% end %>
-
   </div>
 
   <div class="mb-2">
@@ -23,7 +22,7 @@
   </div>
 
   <div class="d-flex justify-content-start">
-    <%= render'public/relationships/counter', user: user %>
+    <%= render 'public/relationships/counter', user: user %>
   </div>
 
   <% if user == current_user %>
