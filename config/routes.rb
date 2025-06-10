@@ -31,6 +31,7 @@ Rails.application.routes.draw do
     resources :posts do
       resources :comments, only: [:create, :destroy]
       resources :favorites, only: [:create, :destroy]
+      get 'hashtag/:name', to: 'posts#hashtag', on: :collection, as: 'hashtag'
     end
 
     get 'users/:username/toys' => 'toys#index', as: 'user_toys'

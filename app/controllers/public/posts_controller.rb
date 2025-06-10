@@ -1,5 +1,5 @@
 class Public::PostsController < ApplicationController
-  before_action :authenticate_user!, only: [:new, :show, :create, :edit, :update, :destroy]
+  before_action :authenticate_user!, only: [:new, :show, :create, :edit, :update, :destroy, :hashtag]
   before_action :is_matching_login_user, only: [:edit, :update, :destroy]
 
   def new
@@ -78,6 +78,17 @@ class Public::PostsController < ApplicationController
   end
 
   def hashtag
+    @model = 'hashtag'
+    @content = params[:name]
+  
+    hashtag = Hashtag.find_by(name: @content.downcase)
+    if hashtag
+      @records = hashtag.posts.includes(:user).order(created_at: :desc).page(params[:page]).per(10)
+    else
+      @records = Post.none.page(params[:page])
+    end
+  
+    render 'public/posts/hashtag'
   end
 
   private
