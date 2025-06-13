@@ -1,75 +1,48 @@
-<header class="container-fluid cute-header">
-  <div class="container">
-    <div class="row align-items-start">
+<header class="container-fluid cute-header p-0">
+  <nav class="navbar navbar-expand-lg navbar-light container">
+    <% if admin_signed_in? %>
+      <%= link_to image_tag("logo.jpg", size: "80x80"), admin_root_path, class: "navbar-brand" %>
+    <% else %>
+      <%= link_to image_tag("logo.jpg", size: "80x80"), root_path, class: "navbar-brand" %>
+    <% end %>
 
-      <div class="col-3 d-flex justify-content-start">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCuteMenu" aria-controls="navbarCuteMenu" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarCuteMenu">
+      <ul class="navbar-nav mr-auto">
         <% if admin_signed_in? %>
-          <%= link_to image_tag("logo.jpg", size: "100x100"), admin_root_path %>
+          <li class="nav-item"><%= link_to 'ユーザー一覧', admin_users_path, class: 'nav-link' %></li>
+          <li class="nav-item"><%= link_to '投稿一覧', admin_posts_path, class: 'nav-link' %></li>
+          <li class="nav-item"><%= link_to '管理者ログアウト', destroy_admin_session_path, method: :delete, class: 'nav-link' %></li>
+        <% elsif user_signed_in? %>
+          <li class="nav-item"><%= link_to 'マイページ', mypage_path, class: 'nav-link' %></li>
+          <li class="nav-item"><%= link_to '投稿する', new_post_path, class: 'nav-link', data: { turbolinks: false } %></li>
+          <li class="nav-item"><%= link_to 'みんなの投稿', posts_path, class: 'nav-link' %></li>
+          <li class="nav-item"><%= link_to 'ログアウト', destroy_user_session_path, method: :delete, class: 'nav-link' %></li>
         <% else %>
-          <%= link_to image_tag("logo.jpg", size: "100x100"), root_path %>
+          <li class="nav-item"><%= link_to 'ログイン', new_user_session_path, class: 'nav-link' %></li>
+          <li class="nav-item"><%= link_to '新規ユーザー登録', new_user_registration_path, class: 'nav-link' %></li>
+          <li class="nav-item"><%= link_to 'ゲストログイン', public_guest_sign_in_path, method: :post, class: 'nav-link' %></li>
         <% end %>
-      </div>
+      </ul>
 
-      <div class="col-3 d-flex justify-content-center">
-        <div class="navbar-text mt-2">
-          <% if user_signed_in? %>
-            <% if current_user.email == 'guest@example.com' %>
-              <span class="cute-status-text">ゲストユーザーログイン中</span>
-            <% else %>
-              <span class="cute-status-text">ユーザーログイン中</span>
-            <% end %>
-          <% elsif admin_signed_in? %>
-            <span class="cute-status-text">管理者ログイン中</span>
+      <span class="navbar-text mr-3">
+        <% if user_signed_in? %>
+          <% if current_user.email == 'guest@example.com' %>
+            ゲストユーザーログイン中
           <% else %>
-            <span class="cute-status-text">ログインしていません</span>
+            ユーザーログイン中
           <% end %>
-        </div>
-      </div>
+        <% elsif admin_signed_in? %>
+          管理者ログイン中
+        <% else %>
+          ログインしていません
+        <% end %>
+      </span>
 
-      <div class="col-6 p-0 d-flex flex-column align-items-center">
-        <div class="mb-2 ml-auto">
-          <ul class="nav">
-            <% if admin_signed_in? %>
-              <li class="nav-item">
-                <%= link_to 'ユーザー一覧', admin_users_path, class: 'cute-nav-btn mx-1 text-decoration-none' %>
-              </li>
-              <li class="nav-item">
-                <%= link_to '投稿一覧', admin_posts_path, class: 'cute-nav-btn mx-1 text-decoration-none' %>
-              </li>
-              <li class="nav-item">
-                <%= link_to '管理者ログアウト', destroy_admin_session_path, method: :delete, class: 'cute-nav-btn mx-1 text-decoration-none' %>
-              </li>
-            <% elsif user_signed_in? %>
-              <li class="nav-item">
-                <%= link_to 'マイページ', mypage_path, class: 'cute-nav-btn mx-1 text-decoration-none' %>
-              </li>
-              <li class="nav-item">
-                <%= link_to '投稿する', new_post_path, class: 'cute-nav-btn mx-1 text-decoration-none', data: {"turbolinks" => false} %>
-              </li>
-              <li class="nav-item">
-                <%= link_to 'みんなの投稿', posts_path, class: 'cute-nav-btn mx-1 text-decoration-none' %>
-              </li>
-              <li class="nav-item">
-                <%= link_to 'ログアウト', destroy_user_session_path, method: :delete, class: 'cute-nav-btn mx-1 text-decoration-none' %>
-              </li>
-            <% else %>
-              <li class="nav-item">
-                <%= link_to 'ログイン', new_user_session_path, class: 'cute-nav-btn mx-1 text-decoration-none' %>
-              </li>
-              <li class="nav-item">
-                <%= link_to '新規ユーザー登録', new_user_registration_path, class: 'cute-nav-btn mx-1 text-decoration-none' %>
-              </li>
-              <li class="nav-item">
-                <%= link_to 'ゲストログイン', public_guest_sign_in_path, method: :post, class: 'cute-nav-btn mx-1 text-decoration-none' %>
-              </li>
-            <% end %>
-          </ul>
-        </div>
-      </div>
-
-      <div class="align-self-center w-100 d-flex justify-content-center">
-        <%= render 'public/searches/form' %>
-      </div>
+      <%= render 'public/searches/form' %>
     </div>
-  </div>
+  </nav>
 </header>
