@@ -47,7 +47,7 @@
   </div>
 
   <div class="mx-auto mt-5 post-wrapper">
-    <%= render "public/toys/post_relation", toys: @toys %>
+    <%= render "public/toys/post_relation", toys: @toys, path: ->(toy) { toy_path(toy) } %>
   </div>
 
   <div class="mx-auto mt-5 post-wrapper">

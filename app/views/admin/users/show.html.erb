@@ -1,65 +1,72 @@
-<div class="container">
-  <div class="row">
-    <div class="col-2 my-5 ml-4">
-      <h4 class="text-center">ユーザー詳細</h4>
+<div class="container my-3">
+  <div class="row align-items-center mb-4">
+    <div class="col-md-6">
+      <h4 class="mb-0">ユーザー詳細</h4>
     </div>
-    <div class="col-2 my-5 ml-4">
-      <%= link_to "登録情報編集", edit_admin_user_path(@user.id), class: "btn btn-outline-secondary" %>
+    <div class="col-md-6 text-md-right mt-2 mt-md-0">
+      <%= link_to "登録情報編集", edit_admin_user_path(@user.id), class: "btn btn-outline-primary" %>
     </div>
   </div>
-  
-  <div class="row">
-    <div class="col-2">
-      <%= image_tag @user.get_profile_image(100,100), class: "rounded-circle mr-3", style: "width: 100px; height: 100px; object-fit: cover;" %>
+
+  <div class="row mb-4">
+    <div class="col-md-2 text-center mb-3 mb-md-0">
+      <%= image_tag @user.get_profile_image(100,100), class: "rounded-circle user-introduction-profile-image" %>
     </div>
-    <div class="col-6">
-      <table>
-        <tr>
-          <td class="pe-3 pb-3">ユーザーID</td>
-          <td class="pb-3"><%= @user.id %></td>
-        </tr>
-        <tr>
-          <td class="pe-3 pb-3">ニックネーム</td>
-          <td class="pb-3"><%= @user.nickname %></td>
-        </tr>
-        <tr>
-          <td class="pe-3 pb-3">ユーザー名</td>
-          <td class="pb-3"><%= @user.username %></td>
-        </tr>
-        <tr>
-          <td class="pe-3 pb-3">氏名</td>
-          <td class="pb-3"><%= @user.last_name %>　<%= @user.first_name %></td>
-        </tr>
-        <tr>
-          <td class="pe-3 pb-3">メールアドレス</td>
-          <td class="pb-3"><%= @user.email %></td>
-        </tr>
-        <tr>
-          <td class="pe-3 pb-3 align-top">自己紹介文</td>
-          <td class="pb-3"><%= simple_format(@user.introduction) %></td>
-        </tr>
-        <tr>
-          <td class="pe-3 pb-3">ステータス</td>
-          <td class="pb-3"><span style="<%= "color: #{@user.is_active ? 'green' : 'gray'};" %>">
-          <%= @user.is_active ? '有効' : '退会' %>
-          </span></td>
-        </tr>
+    <div class="col-md-10">
+      <table class="table table-sm table-borderless mb-0">
+        <tbody>
+          <tr>
+            <th class="text-nowrap pr-4">ユーザーID</th>
+            <td><%= @user.id %></td>
+          </tr>
+          <tr>
+            <th class="text-nowrap pr-4">ニックネーム</th>
+            <td><%= @user.nickname %></td>
+          </tr>
+          <tr>
+            <th class="text-nowrap pr-4">ユーザー名</th>
+            <td><%= @user.username %></td>
+          </tr>
+          <tr>
+            <th class="text-nowrap pr-4">氏名</th>
+            <td><%= @user.last_name %>　<%= @user.first_name %></td>
+          </tr>
+          <tr>
+            <th class="text-nowrap pr-4">メールアドレス</th>
+            <td><%= @user.email %></td>
+          </tr>
+          <tr>
+            <th class="text-nowrap pr-4 align-top">自己紹介文</th>
+            <td><%= simple_format(@user.introduction) %></td>
+          </tr>
+          <tr>
+            <th class="text-nowrap pr-4">ステータス</th>
+            <td>
+              <span style="color: <%= @user.is_active ? 'green' : 'gray' %>;">
+                <%= @user.is_active ? '有効' : '退会' %>
+              </span>
+            </td>
+          </tr>
+        </tbody>
       </table>
     </div>
-    <div class="col-2"></div>
   </div>
 
   <div class="row">
-    <div class="col-2"></div>
-    <div class="col-6">
-      <%= link_to "←ユーザー一覧へ戻る", admin_users_path, class: "btn btn-outline-secondary" %>
-    <div class="col-2"></div>
+    <div class="col">
+      <%= link_to "← ユーザー一覧へ戻る", admin_users_path, class: "btn btn-outline-secondary" %>
+    </div>
+  </div>
+
+  <div class="row mt-3">
+    <div class="col-4">
+    <%= link_to "このユーザーのぬいぐるみ一覧", admin_user_toys_path(@user), class: "btn btn-outline-primary" %>
   </div>
 </div>
 
 <div class="container">
   <div class="row">
-    <div class="col-2 my-5 ml-4">
+    <div class="col-2 my-5">
       <h4 class="text-center">投稿一覧</h4>
     </div>
   </div>
@@ -69,7 +76,7 @@
       <% if @posts.present? %>
         <table class='table'>
           <thead>
-            <tr class="table-secondary">
+            <tr class="admin-table-head">
               <th>投稿ID</th>
               <th>投稿日時</th>
               <th>タイトル</th>

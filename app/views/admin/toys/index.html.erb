@@ -1,0 +1,21 @@
+<div class="container">
+  <div class="row">
+    <div class="col mt-3 ml-5">
+      <h3>
+        <%= link_to admin_user_path(@user), class: "text-dark text-decoration-none" do %>
+          <%= @user.nickname %>(<%= @user.username %>)
+        <% end %> 
+        さんのぬいぐるみ一覧(<%= @user.toys.count %>件)
+      </h3>
+    </div>
+  </div>
+
+  <div class="row mt-3 mb-3">
+    <div class="col ml-5">
+      <%= render 'index', toys: @toys %>
+    </div>
+    <div class="d-flex justify-content-center my-4">
+      <%= paginate @toys %>
+    </div>
+  </div>
+</div>

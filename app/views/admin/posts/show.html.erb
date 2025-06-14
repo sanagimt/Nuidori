@@ -22,19 +22,23 @@
       <%= simple_format(@post.body) %>
     </div>
 
-    <div class="text-muted mb-4" style="font-size: 14px;">
+    <div class="post-datetime mb-4">
       <p class="mb-1">投稿日時：<%= @post.created_at.strftime('%y/%m/%d %H:%M') %></p>
       <p class="mb-0">更新日時：<%= @post.updated_at.strftime('%y/%m/%d %H:%M') %></p>
     </div>
 
     <div class="d-flex flex-column">
-      <%= link_to "投稿を削除する", admin_post_path(@post), method: :delete, class: "btn btn-danger mb-4", "data-confirm" => "本当に削除しますか？", style: "width: 150px;" %>
+      <%= link_to "投稿を削除する", admin_post_path(@post), method: :delete, class: "btn btn-danger mb-4 admin-delete-button", "data-confirm" => "本当に削除しますか？" %>
       <br>
-      <%= link_to "←投稿一覧へ戻る", admin_posts_path, class: "btn btn-outline-secondary mb-4", style: "width: 180px;" %>
+      <%= link_to "←投稿一覧へ戻る", admin_posts_path, class: "btn btn-outline-secondary mb-4 admin-back-button" %>
     </div>
   </div>
 
-  <div class="mx-auto mt-5 mb-5" style="max-width: 820px;">
+  <div class="mx-auto mt-5 post-wrapper">
+    <%= render "public/toys/post_relation", toys: @toys, path: ->(toy) { admin_toy_path(toy) }  %>
+  </div>
+
+  <div class="mx-auto mt-5 mb-5 post-wrapper">
     <h5 class="mb-3">コメント一覧（<%= @comments.count %>件）</h5>
     <% if @comments.present? %>
       <%= render 'public/comments/post_comments', post: @post, comments: @comments %>

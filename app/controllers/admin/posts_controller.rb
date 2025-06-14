@@ -8,6 +8,7 @@ class Admin::PostsController < ApplicationController
   def show
     @post = Post.find(params[:id])
     @user = @post.user
+    @toys = @post.toys.includes(:user)
     @comments = @post.comments.all
   end
 

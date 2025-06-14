@@ -6,7 +6,8 @@ body {
 }
 
 header {
-  position: fixed; 
+  position: fixed;
+  top: 0;
   height: 80px;
   width: 100%;
   padding: 0;
@@ -19,7 +20,7 @@ main {
   width: 100%;
   padding: 0;
   margin: 0;
-  margin-top: 80px;
+  margin-top: 120px;
 }
 
 footer {
@@ -30,6 +31,7 @@ footer {
 .navbar-light .navbar-nav .nav-link {
   color: #d66a91;
   font-weight: bold;
+  white-space: nowrap;
 }
 
 .navbar-light .navbar-nav .nav-link:hover {
@@ -39,6 +41,30 @@ footer {
 .navbar-text {
   color: #a05278;
   font-style: italic;
+  white-space: nowrap;
+}
+
+@media (max-width: 1000px) {
+  .navbar-collapse {
+    position: absolute;
+    top: 80px;
+    left: 0;
+    width: 100%;
+    background-color: #fff0f5;
+    z-index: 1060;
+  }
+
+  .navbar-nav {
+    padding-left: 16px;
+  }
+
+  .navbar-text {
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+    text-align: center;
+    padding: 8px 16px;
+  }
 }
 
 .search-form {
@@ -89,6 +115,13 @@ footer {
 
 .search-submit:hover {
   background-color: #f56fa1;
+}
+
+.flash-container {
+  position: fixed;
+  top: 80px;
+  width: 100%;
+  z-index: 1049;
 }
 
 .login-table {
@@ -345,6 +378,18 @@ a.favorite-link {
 
 .follow-button {
   width: 150px;
+}
+
+.admin-table-head {
+  background-color: #f6b6c5;
+}
+
+.admin-delete-button {
+  width: 150px;
+}
+
+.admin-back-button {
+  width: 180px;
 }
 
 .pagination {

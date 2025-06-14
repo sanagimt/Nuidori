@@ -54,6 +54,8 @@ Rails.application.routes.draw do
     end
 
     resources :users, only: [:index, :show, :edit, :update]
+    resources :toys, only: [:show, :destroy]
+    get 'users/:user_id/toys' => 'toys#index', as: 'user_toys'
     
     get 'search' => 'searches#search'
   end
