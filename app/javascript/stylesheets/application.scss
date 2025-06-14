@@ -5,10 +5,26 @@ body {
   background-color: #ffffff;
 }
 
-.cute-header {
+header {
+  position: fixed; 
+  height: 80px;
   width: 100%;
-  padding: 0 1rem;
+  padding: 0;
   background-color: #fff0f5;
+  z-index: 1050;
+}
+
+main {
+  flex-grow: 1;
+  width: 100%;
+  padding: 0;
+  margin: 0;
+  margin-top: 80px;
+}
+
+footer {
+  background-color: #fff0f5;
+  padding: 20px 0;
 }
 
 .navbar-light .navbar-nav .nav-link {
@@ -25,7 +41,7 @@ body {
   font-style: italic;
 }
 
-.cute-search-form {
+.search-form {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
@@ -34,14 +50,14 @@ body {
   margin-bottom: 16px;
 }
 
-.navbar .cute-search-form {
+.navbar .search-form {
   flex-wrap: nowrap;
   gap: 4px;
   margin-bottom: 0;
 }
 
-.cute-input,
-.cute-select {
+.search-input,
+.search-select {
   border: 1px solid #f8c8dc;
   border-radius: 1000px;
   padding: 6px 12px;
@@ -50,11 +66,17 @@ body {
   width: 100%;
 }
 
-.cute-select {
+.search-input {
   background-color: white;
+  max-width: 300px; 
 }
 
-.cute-submit {
+.search-select {
+  background-color: white;
+  max-width: 110px;
+}
+
+.search-submit {
   background-color: #f78fb3;
   color: white;
   border: none;
@@ -65,13 +87,8 @@ body {
   transition: background-color 0.3s;
 }
 
-.cute-submit:hover {
+.search-submit:hover {
   background-color: #f56fa1;
-}
-
-.custom-footer {
-  background-color: #fff0f5;
-  padding: 20px 0;
 }
 
 .login-table {

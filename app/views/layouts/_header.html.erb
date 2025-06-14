@@ -1,9 +1,9 @@
-<header class="container-fluid cute-header p-0">
+<header class="container-fluid">
   <nav class="navbar navbar-expand-lg navbar-light container">
     <% if admin_signed_in? %>
-      <%= link_to image_tag("logo.jpg", size: "80x80"), admin_root_path, class: "navbar-brand" %>
+      <%= link_to image_tag("logo.png", size: "100x50"), admin_root_path, class: "navbar-brand" %>
     <% else %>
-      <%= link_to image_tag("logo.jpg", size: "80x80"), root_path, class: "navbar-brand" %>
+      <%= link_to image_tag("logo.png", size: "100x50"), root_path, class: "navbar-brand" %>
     <% end %>
 
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCuteMenu" aria-controls="navbarCuteMenu" aria-expanded="false" aria-label="Toggle navigation">
