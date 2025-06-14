@@ -1,10 +1,10 @@
 <div class="related-toys-section">
   <h5 class="related-toys-heading">関連するぬいぐるみ</h5>
-  <% if toys.any? %>
+  <% if toys.present? %>
     <div class="related-toys-container">
       <% toys.each do |toy| %>
         <div class="related_toy-item">
-          <%= link_to toy_path(toy), class: "text-decoration-none text-dark" do %>
+          <%= link_to path.call(toy), class: "text-decoration-none text-dark" do %>
             <%= image_tag toy.get_toy_image(100,100), class: "related_toy-image" %>
             <div class="related_toy-name"><%= toy.name %></div>
           <% end %>

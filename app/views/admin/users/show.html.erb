@@ -1,4 +1,4 @@
-<div class="container my-5">
+<div class="container my-3">
   <div class="row align-items-center mb-4">
     <div class="col-md-6">
       <h4 class="mb-0">ユーザー詳細</h4>
@@ -57,11 +57,16 @@
       <%= link_to "← ユーザー一覧へ戻る", admin_users_path, class: "btn btn-outline-secondary" %>
     </div>
   </div>
+
+  <div class="row mt-3">
+    <div class="col-4">
+    <%= link_to "このユーザーのぬいぐるみ一覧", admin_user_toys_path(@user), class: "btn btn-outline-primary" %>
+  </div>
 </div>
 
 <div class="container">
   <div class="row">
-    <div class="col-2 my-5 ml-4">
+    <div class="col-2 my-5">
       <h4 class="text-center">投稿一覧</h4>
     </div>
   </div>
