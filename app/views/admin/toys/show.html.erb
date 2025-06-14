@@ -1,2 +1,44 @@
-<h1>Admin::Toys#show</h1>
-<p>Find me in app/views/admin/toys/show.html.erb</p>
+<div class="container my-3">
+  <div class="row align-items-center mb-4">
+    <div class="col-md-6">
+      <h4 class="mb-0">ぬいぐるみ詳細</h4>
+    </div>
+    <div class="col-md-6 text-md-right mt-2 mt-md-0">
+      <%= link_to "ぬいぐるみ削除", admin_toy_path(@toy), method: :delete, "data-confirm" => "本当に削除しますか？", class: "btn btn-danger admin-delete-button" %>
+    </div>
+  </div>
+
+  <div class="row mb-4">
+    <div class="col-md-2 text-center mb-3 mb-md-0">
+      <%= image_tag @toy.get_toy_image(100,100), class: "rounded-circle mr-3 toy-show-image" %>
+    </div>
+    <div class="col-md-10">
+      <table class="table table-sm table-borderless mb-0">
+        <tbody>
+          <tr>
+            <th class="text-nowrap pr-4">名前</th>
+            <td><%= @toy.name %></td>
+          </tr>
+          <tr>
+            <th class="text-nowrap pr-4 align-top">自己紹介文</th>
+            <td><%= simple_format(@toy.introduction) %></td>
+          </tr>
+          <tr>
+            <th class="text-nowrap pr-4">持ち主</th>
+            <td>
+              <%= link_to admin_user_path(@user) do %>
+                <%= @user.nickname %>(<%= @user.username %>)
+              <% end %>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col">
+      <%= link_to "← ぬいぐるみ一覧", admin_user_toys_path(@user), class: "btn btn-outline-secondary admin-back-button" %>
+    </div>
+  </div>
+</div>

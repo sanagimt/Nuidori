@@ -6,12 +6,13 @@ class Admin::ToysController < ApplicationController
 
   def show
     @toy = Toy.find(params[:id])
+    @user = @toy.user
   end
 
   def destroy
     @toy = Toy.find(params[:id])
     @toy.destroy
-    redirect_to user_toys_path(@toy.user.username), alert: "ぬいぐるみを削除しました。"
+    redirect_to admin_user_toys_path(@toy.user_id), alert: "ぬいぐるみを削除しました。"
   end
 
 end

@@ -28,9 +28,9 @@
     </div>
 
     <div class="d-flex flex-column">
-      <%= link_to "投稿を削除する", admin_post_path(@post), method: :delete, class: "btn btn-danger mb-4", "data-confirm" => "本当に削除しますか？", style: "width: 150px;" %>
+      <%= link_to "投稿を削除する", admin_post_path(@post), method: :delete, class: "btn btn-danger mb-4 admin-delete-button", "data-confirm" => "本当に削除しますか？" %>
       <br>
-      <%= link_to "←投稿一覧へ戻る", admin_posts_path, class: "btn btn-outline-secondary mb-4", style: "width: 180px;" %>
+      <%= link_to "←投稿一覧へ戻る", admin_posts_path, class: "btn btn-outline-secondary mb-4 admin-back-button" %>
     </div>
   </div>
 
