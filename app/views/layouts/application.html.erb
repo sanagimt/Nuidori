@@ -14,15 +14,17 @@
 
   <body class="d-flex flex-column min-vh-100">
     <%= render 'layouts/header' %>
-    <% if flash[:notice] %>
-      <div class="alert alert-success alert-dismissible fade show text-center" role="alert">
-        <%= flash[:notice] %>
-      </div>
-    <% elsif flash[:alert] %>
-      <div class="alert alert-danger alert-dismissible fade show text-center" role="alert">
-        <%= flash[:alert] %>
-      </div>
-    <% end %>
+    <div class="flash-container">
+      <% if flash[:notice] %>
+        <div class="alert alert-success alert-dismissible fade show text-center mb-0" role="alert">
+          <%= flash[:notice] %>
+        </div>
+      <% elsif flash[:alert] %>
+        <div class="alert alert-danger alert-dismissible fade show text-center mb-0" role="alert">
+          <%= flash[:alert] %>
+        </div>
+      <% end %>
+    </div>
 
     <main>
       <%= yield %>
