@@ -16,6 +16,9 @@ import "popper.js";
 import "bootstrap";
 import "../stylesheets/application"; 
 
+import "../custom/profile_image_preview"
+import "../custom/toy_image_preview"
+
 Rails.start()
 Turbolinks.start()
 ActiveStorage.start()
