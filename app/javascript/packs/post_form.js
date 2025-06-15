@@ -1,5 +1,6 @@
 document.addEventListener("DOMContentLoaded", function () {
   const dataDiv = document.getElementById("post_form_data");
+  if (!dataDiv) return;
   let initialSelectedToys = [];
 
   if (dataDiv) {
