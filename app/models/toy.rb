@@ -18,6 +18,8 @@ class Toy < ApplicationRecord
     toy_image.variant(resize_to_limit: [width, height]).processed
   end
 
+  def display_name_with_owner
+    "#{name}（by #{user.nickname}(#{user.username}))"
+  end
 
-  
 end

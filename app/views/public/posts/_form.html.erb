@@ -41,7 +41,10 @@
 
   <div class="form-group">
     <label>ぬいぐるみ</label>
-    <%= f.select :toy_ids, options_from_collection_for_select(@selected_toys, :id, :name, post.toy_ids), {}, { multiple: true, id: 'toy_select', class: "form-control" } %>
+    <%= f.select :toy_ids, 
+      options_from_collection_for_select(@selected_toys, :id, :display_name_with_owner, post.toy_ids), 
+      {}, 
+      { multiple: true, id: 'toy_select', class: "form-control" } %>
   </div>
 
   <div class="form-group">
@@ -59,14 +62,7 @@
 
 <script>
   // 初期選択のぬいぐるみを定義
-  window.initialSelectedToys = <%= raw(@selected_toys.map { |toy|
-    {
-      id: toy.id,
-      name: toy.name,
-      user_name: toy.user.nickname || toy.user.username
-    }
-  }.to_json) %>;
-
+  window.initialSelectedToys = <%= raw(@selected_toys_json.to_json) %>;
   document.addEventListener("DOMContentLoaded", function () {
     //画像プレビュー機能
     const imageInput = document.getElementById("image_input");
@@ -105,7 +101,8 @@
       initialSelectedToys.forEach(toy => {
         selectedToys.set(String(toy.id), {
           name: toy.name,
-          user_name: toy.user_name
+          user_nickname: toy.user_nickname,
+          user_username: toy.user_username
         });
       });
     }
@@ -129,10 +126,10 @@
         .then(toys => {
           toySelect.innerHTML = "";
 
-          selectedToys.forEach((info, id) => {
+          selectedToys.forEach((toy, id) => {
             const option = document.createElement("option");
             option.value = id;
-            option.textContent = `${info.name}（by ${info.user_name}）`;
+            option.textContent = `${toy.name}(by ${toy.user_nickname}(${toy.user_username}))`;
             option.selected = true;
             toySelect.appendChild(option);
           });
@@ -142,7 +139,7 @@
             if (!selectedToys.has(id)) {
               const option = document.createElement("option");
               option.value = id;
-              option.textContent = `${toy.name}（by ${toy.user_name}）`;
+              option.textContent = `${toy.name}(by ${toy.user_nickname}(${toy.user_username}))`;
               toySelect.appendChild(option);
             }
           });
@@ -157,12 +154,19 @@
       Array.from(toySelect.selectedOptions).forEach(option => {
         const id = option.value;
         const label = option.textContent;
-
-        const match = label.match(/^(.+?)（by (.+?)）$/);
-        const name = match ? match[1] : label;
-        const user_name = match ? match[2] : "";
-
-        selectedToys.set(id, { name, user_name });
+    
+        const match = label.match(/^(.+?)\(by (.+?)\((.+?)\)\)$/);
+        if (match) {
+          const name = match[1];
+          const user_nickname = match[2];
+          const user_username = match[3];
+    
+          selectedToys.set(id, {
+            name,
+            user_nickname,
+            user_username
+          });
+        }
       });
       renderSelectedTags();
     });
@@ -171,9 +175,9 @@
     function renderSelectedTags() {
       selectedTagsContainer.innerHTML = "";
 
-      selectedToys.forEach((info, id) => {
+      selectedToys.forEach((toy, id) => {
         const tag = document.createElement("span");
-        tag.textContent = `${info.name}（by ${info.user_name}）`;
+        tag.textContent = `${toy.name}(by ${toy.user_nickname}(${toy.user_username}))`;
         tag.style.cssText = `
           background-color: #f0f0f0;
           border-radius: 16px;
