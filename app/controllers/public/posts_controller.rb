@@ -49,6 +49,14 @@ class Public::PostsController < ApplicationController
     @users = mutual_users.uniq.sort_by(&:nickname)
     @toys = Toy.includes(:user).where(user: mutual_users)
     @selected_toys = @post.toys.includes(:user).where(users: { is_active: true })
+    @selected_toys_json = @selected_toys.map do |toy|
+      {
+        id: toy.id,
+        name: toy.name,
+        user_nickname: toy.user.nickname,
+        user_username: toy.user.username
+      }
+    end
   end
 
   def update
@@ -60,11 +68,13 @@ class Public::PostsController < ApplicationController
       mutual_users = (current_user.mutual_followings + [current_user]).select(&:is_active)
       @users = mutual_users.uniq.sort_by(&:nickname)
       @toys = Toy.includes(:user).where(user: mutual_users)
-      @selected_toys = @post.toys.includes(:user).map do |toy|
+      @selected_toys = @post.toys.includes(:user).where(users: { is_active: true })
+      @selected_toys_json = @selected_toys.map do |toy|
         {
           id: toy.id,
           name: toy.name,
-          user_name: toy.user.nickname
+          user_nickname: toy.user.nickname,
+          user_username: toy.user.username
         }
       end
       render :edit

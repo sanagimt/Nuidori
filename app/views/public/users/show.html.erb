@@ -1,20 +1,21 @@
 <div class="container">
   <div class="row">
-    <div class="col-2 my-5 ml-4">
-      <% if @user==current_user %>
-      <h4 class="text-center">マイページ</h4>
+    <div class="col-12 col-md-2 my-4 ml-md-4 text-center">
+      <% if @user == current_user %>
+        <h4>マイページ</h4>
       <% else %>
-      <h4 class="text-center">ユーザー詳細</h4>
+        <h4>ユーザー詳細</h4>
       <% end %>
     </div>
   </div>
+
   <div class="row">
-    <div class="col-8">
+    <div class="col-12 col-md-8 order-1 order-md-1">
       <%= render 'introduction', user: @user %>
     </div>
 
-    <div class="col-4">
-      <div class="card" style="width: 100%;">
+    <div class="col-12 col-md-4 order-2 order-md-2 mb-4 mb-md-0">
+      <div class="card w-100">
         <div class="card-header text-center">
           <strong><%= @user.nickname %>さんのぬいぐるみ一覧</strong>
         </div>
@@ -24,7 +25,7 @@
           <% else %>
             <p>ぬいぐるみはまだありません。</p>
           <% end %>
-          <div class="d-flex justify-content-end">
+          <div class="d-flex justify-content-end mt-2">
             <%= link_to "もっと見る", user_toys_path(@user.username) %>
           </div>
         </div>
@@ -35,19 +36,21 @@
 
 <div class="container">
   <div class="row">
-    <div class="col-2 my-5 ml-4">
-      <h4 class="text-center">投稿一覧</h4>
+    <div class="col-12 col-md-2 my-5 ml-md-4 text-center">
+      <h4>投稿一覧</h4>
     </div>
   </div>
+
   <div class="row">
-    <div class="col">
+    <div class="col-12">
       <% if @posts.present? %>
-      <div class="d-flex flex-wrap mx-4">
-        <%= render 'public/posts/index', posts: @posts %>
-      </div>
+        <div class="d-flex flex-wrap mx-md-4">
+          <%= render 'public/posts/index', posts: @posts %>
+        </div>
       <% else %>
         <p>投稿はまだありません。</p>
       <% end %>
+
       <div class="d-flex justify-content-center my-4">
         <%= paginate @posts %>
       </div>

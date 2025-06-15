@@ -65,7 +65,8 @@ class Public::ToysController < ApplicationController
         {
           id: toy.id,
           name: toy.name,
-          user_name: toy.user.nickname
+          user_nickname: toy.user.nickname,
+          user_username: toy.user.username
         }
       }
   end
