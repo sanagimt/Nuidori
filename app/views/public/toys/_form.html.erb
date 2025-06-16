@@ -9,6 +9,8 @@
         <% else %>
           <img id="preview_image" src="" alt="プレビュー画像" class="img-thumbnail d-none toy-preview-image">
         <% end %>
+        <%= f.hidden_field :remove_image, id: "remove_image_field", value: "0" %>
+        <button type="button" id="clear_image_button" class="btn btn-sm btn-outline-secondary mt-2">画像を削除する</button>
       </div>
     </div>
   </div>

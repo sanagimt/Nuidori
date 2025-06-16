@@ -40,6 +40,11 @@ class Public::ToysController < ApplicationController
   def update
     @toy = Toy.find(params[:id])
     @toy.user_id = current_user.id
+
+    if params[:toy][:remove_image] == "1"
+      @toy.toy_image.purge
+    end
+
     if @toy.update(toy_params)
       redirect_to toy_path(@toy.id), notice: "ぬいぐるみの更新が完了しました！"
     else

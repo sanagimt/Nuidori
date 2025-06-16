@@ -28,6 +28,11 @@ class Public::UsersController < ApplicationController
 
   def update
     @user = current_user
+
+    if params[:user][:remove_image] == "1"
+      @user.profile_image.purge if @user.profile_image.attached?
+    end
+
     if @user.update(user_params)
       redirect_to mypage_path, notice: 'ユーザー情報の更新が完了しました。'
     else
