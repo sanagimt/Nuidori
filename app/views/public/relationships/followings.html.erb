@@ -1,12 +1,12 @@
 <div class="container">
   <div class="row">
-    <div class="col mt-5 ml-5">
-      <h3>
+    <div class="col mt-4 ml-5">
+      <h4>
         <%= link_to user_path(@user.username), class: "text-dark text-decoration-none" do %>
           <%= @user.nickname %>(<%= @user.username %>)
         <% end %>
         さんのフォロー一覧(<%= @user.followings.count %>人)
-      </h3>
+      </h4>
     </div>
   </div>
 
