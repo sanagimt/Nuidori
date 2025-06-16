@@ -35,11 +35,11 @@ class User < ApplicationRecord
   end
 
   def get_profile_image(width, height)
-    unless profile_image.attached?
-      file_path = Rails.root.join('app/assets/images/no_profile_image.jpg')
-      profile_image.attach(io: File.open(file_path), filename: 'default-image.jpg', content_type: 'image/jpeg')
+    if profile_image.attached?
+      profile_image.variant(resize_to_limit: [width, height]).processed
+    else
+      ActionController::Base.helpers.asset_path("no_profile_image.jpg")
     end
-    profile_image.variant(resize_to_limit: [width, height]).processed
   end
 
   def self.search_for(content, include_inactive: false)

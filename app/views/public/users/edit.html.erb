@@ -1,10 +1,8 @@
 <div class="container">
-  <div class="row mt-4 my-2">
-    <div class="col-2"></div>
-    <div class="col-4">
+  <div class="row">
+    <div class="col-2 my-4 ml-2">
       <h4 class="text-center text-nowrap">ユーザー情報編集</h4>
     </div>
-    <div class="col-6"></div>
   </div>
 
   <% if @user.errors.any? %>
@@ -20,7 +18,10 @@
       </div>
     </div>
   <% end %>
-
+  
+  <div class="row">
+    <div class="col-2"></div>
+    <div class="col-8">
       <%= form_with model: @user, url: update_information_path do |f| %>
         <table class="w-100">
           <thead>
@@ -38,6 +39,8 @@
                 <% else %>
                   <img id="profile_image_preview" src="#" alt="プロフィール画像" class="mt-2 profile-image-preview" />
                 <% end %>
+                <%= f.hidden_field :remove_image, id: "remove_profile_image_field", value: "0" %>
+                <button type="button" id="clear_profile_image_button" class="btn btn-outline-secondary btn-sm my-3">画像を削除する</button>
               </td>
             </tr>
 
@@ -45,39 +48,39 @@
               <td class="pe-3 pb-3">名前</td>
               <td class="pe-3 pb-3">
                 <%= f.label :last_name, "(姓)" %>
-                <%= f.text_field :last_name, autofocus: true, placeholder: "令和", class: "form-control w-75" %>
+                <%= f.text_field :last_name, placeholder: "令和", class: "form-control w-75" %>
               </td>
               <td class="pe-3 pb-3">
                 <%= f.label :first_name, "(名)" %>
-                <%= f.text_field :first_name, autofocus: true, placeholder: "太郎", class: "form-control w-75" %>
+                <%= f.text_field :first_name, placeholder: "太郎", class: "form-control w-75" %>
               </td>
             </tr>
 
             <tr>
               <td class="pe-3 pb-3"><%= f.label :email, "メールアドレス" %></td>
               <td class="pe-3 pb-3" colspan="2">
-                <%= f.email_field :email, autofocus: true, autocomplete: "email", placeholder: "nuidori@sample.com", class: "form-control w-50" %>
+                <%= f.email_field :email, autocomplete: "email", placeholder: "nuidori@sample.com", class: "form-control w-50" %>
               </td>
             </tr>
 
             <tr>
               <td class="pe-3 pb-3"><%= f.label :username, "ユーザー名（半角英数字4～15文字以内）" %></td>
               <td class="pe-3 pb-3" colspan="2">
-                <%= f.text_field :username, autofocus: true, placeholder: "半角英数字4～15文字", class: "form-control w-50" %>
+                <%= f.text_field :username, placeholder: "半角英数字4～15文字", class: "form-control w-50" %>
               </td>
             </tr>
 
             <tr>
               <td class="pe-3 pb-3"><%= f.label :nickname, "ニックネーム（30文字以内）" %></td>
               <td class="pe-3 pb-3" colspan="2">
-                <%= f.text_field :nickname, autofocus: true, placeholder: "※表示名となります", class: "form-control w-50" %>
+                <%= f.text_field :nickname, placeholder: "※表示名となります", class: "form-control w-50" %>
               </td>
             </tr>
 
             <tr>
               <td class="pe-3 pb-3"><%= f.label :introduction, "自己紹介文(300字以内)" %></td>
               <td class="pe-3 pb-3" colspan="2">
-                <%= f.text_area :introduction, autofocus: true, placeholder: "自己紹介文を書いてみましょう", class: "form-control w-75", rows: 5 %>
+                <%= f.text_area :introduction, placeholder: "自己紹介文を書いてみましょう", class: "form-control w-75", rows: 5 %>
               </td>
             </tr>
 
@@ -110,25 +113,3 @@
     <div class="col-6"></div>
   </div>
 </div>
-
-<script>
-  document.addEventListener("DOMContentLoaded", () => {
-    const input = document.getElementById("profile_image_input");
-    const preview = document.getElementById("profile_image_preview");
-
-    input.addEventListener("change", event => {
-      const file = event.target.files[0];
-      if (file && file.type.startsWith("image/")) {
-        const reader = new FileReader();
-        reader.onload = e => {
-          preview.src = e.target.result;
-          preview.classList.add("visible");
-        };
-        reader.readAsDataURL(file);
-      } else {
-        preview.src = "";
-        preview.classList.remove("visible");
-      }
-    });
-  });
-</script>

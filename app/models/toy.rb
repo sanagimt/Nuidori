@@ -11,11 +11,11 @@ class Toy < ApplicationRecord
 
 
   def get_toy_image(width, height)
-    unless toy_image.attached?
-      file_path = Rails.root.join('app/assets/images/no_toy_image.jpg')
-      toy_image.attach(io: File.open(file_path), filename: 'default-image.jpg', content_type: 'image/jpeg')
+    if toy_image.attached?
+      toy_image.variant(resize_to_limit: [width, height]).processed
+    else
+      ActionController::Base.helpers.asset_path("no_toy_image.jpg")
     end
-    toy_image.variant(resize_to_limit: [width, height]).processed
   end
 
   def display_name_with_owner
