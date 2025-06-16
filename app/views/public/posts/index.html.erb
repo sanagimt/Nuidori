@@ -1,20 +1,33 @@
 <div class="container">
   <div class="row">
-    <div class="col-2 my-4 ml-4">
-      <h4 class="text-center">投稿一覧</h4>
+    <div class="col-2 my-4 ml-2">
+      <h4 class="text-center text-nowrap">みんなの投稿</h4>
     </div>
   </div>
+</div>
+
+<div class="container mt-4">
+  <ul class="nav nav-tabs" id="postTabs" role="tablist">
+    <li class="nav-item">
+      <a class="nav-link <%= params[:filter] != 'following' ? 'active' : '' %>" 
+         href="?filter=all">新着</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link <%= params[:filter] == 'following' ? 'active' : '' %>" 
+         href="?filter=following">フォロー中</a>
+    </li>
+  </ul>
 </div>
 
 <div class="container">
   <div class="row">
     <div class="col">
       <% if @posts.present? %>
-        <div class="d-flex flex-wrap mx-5">
+        <div class="d-flex flex-wrap mx-5 mt-3">
           <%= render 'index', posts: @posts %>
         </div>
       <% else %>
-        <p>投稿はまだありません。</p>
+        <p class="mt-3">投稿はまだありません。</p>
       <% end %>
       <div class="d-flex justify-content-center my-4">
         <%= paginate @posts %>

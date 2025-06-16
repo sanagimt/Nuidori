@@ -11,7 +11,20 @@ class Public::PostsController < ApplicationController
   end
 
   def index
-    @posts = Post.page(params[:page]).per(12).joins(:user).where(users: { is_active: true }).order(created_at: :desc)
+    if params[:filter] == 'following' && user_signed_in?
+      followed_user_ids = current_user.followings.pluck(:id)
+      @posts = Post.joins(:user)
+                   .where(user_id: followed_user_ids, users: { is_active: true })
+                   .order(created_at: :desc)
+                   .page(params[:page])
+                   .per(12)
+    else
+      @posts = Post.joins(:user)
+                   .where(users: { is_active: true })
+                   .order(created_at: :desc)
+                   .page(params[:page])
+                   .per(12)
+    end
   end
 
   def show

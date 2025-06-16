@@ -2,21 +2,24 @@
   <div class="row mt-4 my-2">
     <div class="col-2"></div>
     <div class="col-4">
-      <h4>ユーザー情報編集</h4>
+      <h4 class="text-center text-nowrap">ユーザー情報編集</h4>
     </div>
     <div class="col-6"></div>
   </div>
 
-  <div class="row">
-    <div class="col-2"></div>
-    <div class="col-8">
-      <% if @user.errors.any? %>
-        <ul class="text-danger">
-          <% @user.errors.full_messages.each do |message| %>
-            <li><%= message %></li>
-          <% end %>
-        </ul>
-      <% end %>
+  <% if @user.errors.any? %>
+    <div class="row justify-content-center">
+      <div class="col-6">
+        <div class="alert alert-danger">
+          <ul class="mb-0">
+            <% @user.errors.full_messages.each do |message| %>
+              <li><%= message %></li>
+            <% end %>
+          </ul>
+        </div>
+      </div>
+    </div>
+  <% end %>
 
       <%= form_with model: @user, url: update_information_path do |f| %>
         <table class="w-100">
