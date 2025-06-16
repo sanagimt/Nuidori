@@ -13,14 +13,14 @@ document.addEventListener("DOMContentLoaded", () => {
       reader.onload = e => {
         preview.src = e.target.result;
         preview.classList.remove("d-none");
-        preview.style.display = "block"; // 必要なら残す
+        preview.style.display = "block";
       };
       reader.readAsDataURL(file);
       removeImageField.value = "0";
     } else {
       preview.src = "";
       preview.classList.add("d-none");
-      preview.style.display = "none"; // 必要なら残す
+      preview.style.display = "none";
     }
   });
 
@@ -28,7 +28,7 @@ document.addEventListener("DOMContentLoaded", () => {
     input.value = "";
     preview.src = "";
     preview.classList.add("d-none");
-    preview.style.display = "none"; // 必要なら残す
+    preview.style.display = "none";
     removeImageField.value = "1";
   });
 });

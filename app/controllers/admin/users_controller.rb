@@ -16,6 +16,11 @@ class Admin::UsersController < ApplicationController
 
   def update
     @user = User.find(params[:id])
+
+    if params[:user][:remove_image] == "1"
+      @user.profile_image.purge if @user.profile_image.attached?
+    end
+
     if @user.update(user_params)
       redirect_to admin_user_path(@user), notice: 'ユーザー情報の更新が完了しました。'
     else

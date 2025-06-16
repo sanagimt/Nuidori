@@ -1,23 +1,27 @@
 <div class="container">
-  <div class="row mt-4 my-2">
-    <div class="col-2"></div>
-    <div class="col-6">
-      <h4>ユーザー情報編集（ユーザーID：<%= @user.id %>）</h4>
+  <div class="row">
+    <div class="col-2 my-4 ml-2">
+      <h4 class="text-center text-nowrap">ユーザー情報編集（ユーザーID：<%= @user.id %>）</h4>
     </div>
-    <div class="col-6"></div>
   </div>
+
+  <% if @user.errors.any? %>
+    <div class="row justify-content-center">
+      <div class="col-6">
+        <div class="alert alert-danger">
+          <ul class="mb-0">
+            <% @user.errors.full_messages.each do |message| %>
+              <li><%= message %></li>
+            <% end %>
+          </ul>
+        </div>
+      </div>
+    </div>
+  <% end %>
 
   <div class="row">
     <div class="col-2"></div>
     <div class="col-8">
-      <% if @user.errors.any? %>
-      <ul class="text-danger">
-        <% @user.errors.full_messages.each do |message| %>
-          <li><%= message %></li>
-        <% end %>
-      </ul>
-      <% end %>
-
       <%= form_with model: @user, url: admin_user_path do |f| %>
       <table class="w-100">
         <thead>
@@ -31,40 +35,44 @@
             <td class="pe-3 pb-3"><%= f.label :profile_image, "プロフィール画像" %></td>
             <td colspan="2">
               <%= f.file_field :profile_image, id: "profile_image_input", accept: "image/*", class: "form-control-file" %><br>
+          
               <% if @user.profile_image.attached? %>
-                <img id="profile_image_preview" src="<%= url_for(@user.profile_image) %>" alt="プロフィール画像" style="max-width: 200px;" class="mt-2" />
+                <img id="profile_image_preview" src="<%= url_for(@user.profile_image) %>" alt="プロフィール画像" class="mt-2 profile-image-preview visible" />
               <% else %>
-                <img id="profile_image_preview" src="#" alt="プロフィール画像" style="max-width: 200px; display: none;" class="mt-2" />
+                <img id="profile_image_preview" src="#" alt="プロフィール画像" class="mt-2 profile-image-preview" />
               <% end %>
+          
+              <%= f.hidden_field :remove_image, id: "remove_profile_image_field", value: "0" %>          
+              <button type="button" id="clear_profile_image_button" class="btn btn-outline-secondary btn-sm my-3">画像を削除する</button>
             </td>
           </tr>
 
           <tr>
             <td class="pe-3 pb-3">名前</td>
             <td class="pe-3 pb-3"><%= f.label :last_name, "(姓)" %>
-                <%= f.text_field :last_name, autofocus: true, placeholder: "令和", class: "form-control w-75" %></td>
+                <%= f.text_field :last_name, placeholder: "令和", class: "form-control w-75" %></td>
             <td class="pe-3 pb-3"><%= f.label :first_name, "(名)" %>
-                <%= f.text_field :first_name, autofocus: true, placeholder: "太郎", class: "form-control w-75" %></td>
+                <%= f.text_field :first_name, placeholder: "太郎", class: "form-control w-75" %></td>
           </tr>
 
           <tr>
             <td class="pe-3 pb-3"><%= f.label :email, "メールアドレス" %></td>
-            <td class="pe-3 pb-3" colspan="2"><%= f.email_field :email, autofocus: true, autocomplete: "email", placeholder: "nuidori@sample.com", class: "form-control w-50" %></td>
+            <td class="pe-3 pb-3" colspan="2"><%= f.email_field :email, autocomplete: "email", placeholder: "nuidori@sample.com", class: "form-control w-50" %></td>
           </tr>
       
           <tr>
             <td class="pe-3 pb-3"><%= f.label :username, "ユーザー名（半角英数字4～15文字以内）" %></td>
-            <td class="pe-3 pb-3" colspan="2"><%= f.text_field :username, autofocus: true, placeholder: "半角英数字4～15文字", class: "form-control w-50" %></td>
+            <td class="pe-3 pb-3" colspan="2"><%= f.text_field :username, placeholder: "半角英数字4～15文字", class: "form-control w-50" %></td>
           </tr>
 
           <tr>
             <td class="pe-3 pb-3"><%= f.label :nickname, "ニックネーム（30文字以内）" %></td>
-            <td class="pe-3 pb-3" colspan="2"><%= f.text_field :nickname, autofocus: true, placeholder: "※表示名となります", class: "form-control w-50" %></td>
+            <td class="pe-3 pb-3" colspan="2"><%= f.text_field :nickname, placeholder: "※表示名となります", class: "form-control w-50" %></td>
           </tr>
 
           <tr>
             <td class="pe-3 pb-3"><%= f.label :introduction, "自己紹介文(300字以内)" %></td>
-            <td class="pe-3 pb-3" colspan="2"><%= f.text_area :introduction, autofocus: true, placeholder: "自己紹介文を書いてみましょう", class: "form-control w-75", rows: 5 %></td>
+            <td class="pe-3 pb-3" colspan="2"><%= f.text_area :introduction, placeholder: "自己紹介文を書いてみましょう", class: "form-control w-75", rows: 5 %></td>
           </tr>
 
           <tr>
