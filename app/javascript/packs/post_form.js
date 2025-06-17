@@ -105,7 +105,6 @@ document.addEventListener("DOMContentLoaded", function () {
     renderSelectedTags();
   });
 
-  // ぬいぐるみをタグで表示
   function renderSelectedTags() {
     selectedTagsContainer.innerHTML = "";
 
