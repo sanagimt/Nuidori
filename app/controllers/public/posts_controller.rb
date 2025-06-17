@@ -74,7 +74,10 @@ class Public::PostsController < ApplicationController
 
   def update
     @post = Post.find(params[:id])
-    if @post.update(post_params)
+    clean_params = post_params
+    clean_params[:toy_ids] = clean_params[:toy_ids].uniq if clean_params[:toy_ids].is_a?(Array)
+  
+    if @post.update(clean_params)
       @post.touch unless @post.previous_changes.any?
       redirect_to post_path(@post.id), notice: "投稿を更新しました！"
     else

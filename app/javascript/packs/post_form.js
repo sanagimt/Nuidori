@@ -10,7 +10,7 @@ document.addEventListener("DOMContentLoaded", function () {
       console.error("初期データの読み込み失敗:", e);
     }
   }
-  //画像プレビュー機能
+
   const imageInput = document.getElementById("image_input");
   const imagePreview = document.getElementById("image_preview");
 
@@ -33,14 +33,12 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   }
 
-  // ぬいぐるみを反映
   initialSelectedToys = window.initialSelectedToys || initialSelectedToys;
-  // ユーザー選択時にぬいぐるみをリストに追加
   const userSelect = document.getElementById("user_select");
   const toySelect = document.getElementById("toy_select");
   const selectedTagsContainer = document.getElementById("selected_toys_tags");
 
-  // 初期選択されているぬいぐるみをMapに保存
+  toySelect.innerHTML = "";
   const selectedToys = new Map();
 
   if (Array.isArray(initialSelectedToys)) {
@@ -53,7 +51,6 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   }
 
-  // ユーザー選択時にぬいぐるみのリストを取得
   userSelect.addEventListener("change", function () {
     const userId = this.value;
 
@@ -72,22 +69,14 @@ document.addEventListener("DOMContentLoaded", function () {
       .then(toys => {
         toySelect.innerHTML = "";
 
-        selectedToys.forEach((toy, id) => {
+        toys.forEach(toy => {
+          const id = String(toy.id);
+  
           const option = document.createElement("option");
           option.value = id;
           option.textContent = `${toy.name}(by ${toy.user_nickname}(${toy.user_username}))`;
-          option.selected = true;
+          option.selected = selectedToys.has(id);
           toySelect.appendChild(option);
-        });
-
-        toys.forEach(toy => {
-          const id = String(toy.id);
-          if (!selectedToys.has(id)) {
-            const option = document.createElement("option");
-            option.value = id;
-            option.textContent = `${toy.name}(by ${toy.user_nickname}(${toy.user_username}))`;
-            toySelect.appendChild(option);
-          }
         });
       })
       .catch(error => {
@@ -95,7 +84,6 @@ document.addEventListener("DOMContentLoaded", function () {
       });
   });
 
-  // セレクトボックスの変更時に選択されたぬいぐるみをMapに保存する
   toySelect.addEventListener("change", function () {
     Array.from(toySelect.selectedOptions).forEach(option => {
       const id = option.value;
@@ -117,9 +105,12 @@ document.addEventListener("DOMContentLoaded", function () {
     renderSelectedTags();
   });
 
-  // ぬいぐるみをタグで表示・削除可
+  // ぬいぐるみをタグで表示
   function renderSelectedTags() {
     selectedTagsContainer.innerHTML = "";
+
+    const hiddenContainer = document.getElementById("hidden_selected_toys");
+    hiddenContainer.innerHTML = "";
 
     selectedToys.forEach((toy, id) => {
       const tag = document.createElement("span");
@@ -154,6 +145,13 @@ document.addEventListener("DOMContentLoaded", function () {
 
       tag.appendChild(removeBtn);
       selectedTagsContainer.appendChild(tag);
+
+      const hiddenInput = document.createElement("input");
+      hiddenInput.type = "hidden";
+      hiddenInput.name = "post[toy_ids][]";
+      hiddenInput.value = id;
+      hiddenContainer.appendChild(hiddenInput);
+
     });
 
     Array.from(toySelect.options).forEach(option => {
@@ -162,8 +160,4 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   renderSelectedTags();
-  // 選択済みのユーザーを自動読み込み
-  if (userSelect.value !== "") {
-    userSelect.dispatchEvent(new Event("change"));
-  }
 });
