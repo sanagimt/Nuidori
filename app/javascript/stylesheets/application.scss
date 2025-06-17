@@ -124,6 +124,11 @@ footer {
   z-index: 1049;
 }
 
+.required::after {
+  content: " *";
+  color: red;
+}
+
 .login-table {
   width: 100%;
   border-collapse: separate;
