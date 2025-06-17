@@ -43,7 +43,10 @@ class Public::PostsController < ApplicationController
   end
 
   def create
-    @post = Post.new(post_params)
+    clean_params = post_params
+    clean_params[:toy_ids] = clean_params[:toy_ids].uniq if clean_params[:toy_ids].is_a?(Array)
+  
+    @post = Post.new(clean_params)
     @post.user_id = current_user.id
     if @post.save
       redirect_to post_path(@post.id), notice: "投稿が完了しました！"
