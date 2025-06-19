@@ -31,6 +31,7 @@ class User < ApplicationRecord
       user.first_name = "さん"
       user.username = "guest"
       user.nickname = "ゲストさん"
+      user.is_active = true
     end
   end
 

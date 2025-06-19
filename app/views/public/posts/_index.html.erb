@@ -1,13 +1,13 @@
 <% posts.each do |post| %>
-  <div class="card mb-4 mx-2 post-card">
+  <div class="card mb-4 mx-2 post-card h-100 d-flex flex-column">
     <%= link_to post_path(post.id) do %>
-      <p class="card-img-top">
+      <div class="card-img-top">
         <%= image_tag post.image.variant(resize_to_fill: [300, 300]).processed %>
-      </p>
+      </div>
     <% end %>
 
-    <div class="card-body post-card-body">
-      <%= link_to user_path(post.user.username), class: "d-inline-flex align-items-center text-dark text-decoration-none" do %>
+    <div class="card-body d-flex flex-column">
+      <%= link_to user_path(post.user.username), class: "d-inline-flex align-items-center text-dark text-decoration-none mb-2" do %>
         <%= image_tag post.user.get_profile_image(25, 25), class: "rounded-circle post-index-user-profile-image" %>
         <span><%= post.user.nickname %>(<%= post.user.username %>)</span>
       <% end %>
@@ -15,14 +15,15 @@
       <%= link_to post_path(post.id), class: "text-dark text-decoration-none" do %>
         <h5 class="my-2"><%= post.title %></h5>
       <% end %>
+      <div class="post-body-snippet flex-grow-1">
+        <% if post.body.present? %>
+          <p><%= raw body_with_hashtag_links(truncate(post.body.gsub(/[\r\n]/, ' '), length: 30)) %></p>
+        <% else %>
+          <p>　</p>
+        <% end %>
+      </div>
 
-      <% if post.body.present? %>
-        <p><%= raw body_with_hashtag_links(truncate(post.body, length: 30)) %></p>
-      <% else %>
-        <p>　</p>
-      <% end %>
-
-      <div class="d-flex align-items-center">
+      <div class="d-flex align-items-center mt-2">
         <span class="mr-3">
           <%= time_ago_in_words(post.created_at) %>前
         </span>
