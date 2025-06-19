@@ -32,7 +32,7 @@
 
         <tbody>
           <tr>
-            <td class="pe-3 pb-3"><%= f.label :profile_image, "プロフィール画像" %></td>
+            <td class="pr-3 pb-3 text-nowrap"><%= f.label :profile_image, "プロフィール画像" %></td>
             <td colspan="2">
               <%= f.file_field :profile_image, id: "profile_image_input", accept: "image/*", class: "form-control-file" %><br>
           
@@ -48,48 +48,48 @@
           </tr>
 
           <tr>
-            <td class="pe-3 pb-3 required">名前</td>
-            <td class="pe-3 pb-3"><%= f.label :last_name, "(姓)" %>
+            <td class="pr-3 pb-3 required text-nowrap">名前</td>
+            <td class="pr-3 pb-3"><%= f.label :last_name, "(姓)" %>
                 <%= f.text_field :last_name, placeholder: "令和", class: "form-control w-75" %></td>
-            <td class="pe-3 pb-3"><%= f.label :first_name, "(名)" %>
+            <td class="pr-3 pb-3"><%= f.label :first_name, "(名)" %>
                 <%= f.text_field :first_name, placeholder: "太郎", class: "form-control w-75" %></td>
           </tr>
 
           <tr>
-            <td class="pe-3 pb-3 required"><%= f.label :email, "メールアドレス" %></td>
-            <td class="pe-3 pb-3" colspan="2"><%= f.email_field :email, autocomplete: "email", placeholder: "nuidori@sample.com", class: "form-control w-50" %></td>
+            <td class="pr-3 pb-3 required text-nowrap"><%= f.label :email, "メールアドレス" %></td>
+            <td class="pr-3 pb-3" colspan="2"><%= f.email_field :email, autocomplete: "email", placeholder: "nuidori@sample.com", class: "form-control w-50" %></td>
           </tr>
       
           <tr>
-            <td class="pe-3 pb-3 required"><%= f.label :username, "ユーザー名（半角英数字4～15文字以内）" %></td>
-            <td class="pe-3 pb-3" colspan="2"><%= f.text_field :username, placeholder: "半角英数字4～15文字", class: "form-control w-50" %></td>
+            <td class="pr-3 pb-3 required text-nowrap"><%= f.label :username, "ユーザー名（半角英数字4～15文字以内）" %></td>
+            <td class="pr-3 pb-3" colspan="2"><%= f.text_field :username, placeholder: "半角英数字4～15文字", class: "form-control w-50" %></td>
           </tr>
 
           <tr>
-            <td class="pe-3 pb-3 required"><%= f.label :nickname, "ニックネーム（30文字以内）" %></td>
-            <td class="pe-3 pb-3" colspan="2"><%= f.text_field :nickname, placeholder: "※表示名となります", class: "form-control w-50" %></td>
+            <td class="pr-3 pb-3 required text-nowrap"><%= f.label :nickname, "ニックネーム（30文字以内）" %></td>
+            <td class="pr-3 pb-3" colspan="2"><%= f.text_field :nickname, placeholder: "※表示名となります", class: "form-control w-50" %></td>
           </tr>
 
           <tr>
-            <td class="pe-3 pb-3"><%= f.label :introduction, "自己紹介文(300字以内)" %></td>
-            <td class="pe-3 pb-3" colspan="2"><%= f.text_area :introduction, placeholder: "自己紹介文を書いてみましょう", class: "form-control w-75", rows: 5 %></td>
+            <td class="pr-3 pb-3 text-nowrap"><%= f.label :introduction, "自己紹介文(300字以内)" %></td>
+            <td class="pr-3 pb-3" colspan="2"><%= f.text_area :introduction, placeholder: "自己紹介文を書いてみましょう", class: "form-control w-75", rows: 5 %></td>
           </tr>
 
           <tr>
-            <td class="pe-3 pb-3"><%= f.label :is_active, "ステータス" %></td>
+            <td class="pr-3 pb-3 required text-nowrap"><%= f.label :is_active, "ステータス" %></td>
             <td class="pb-3">
               <%= f.radio_button :is_active, true, class: "form-check-input" %>
-              <%= f.label :is_active, "有効", class: "form-check-label" %>
+              <%= f.label :is_active, "有効", value: true, class: "form-check-label" %>
             </td>
-            <td class="pe-3 pb-3">
+            <td class="pr-3 pb-3">
               <%= f.radio_button :is_active, false, class: "form-check-input" %>
-              <%= f.label :is_active, "退会", class: "form-check-label" %>
+              <%= f.label :is_active, "退会", value: false, class: "form-check-label" %>
             </td>
           </tr>
 
           <tr>
-            <td class="pe-3 pb-3"></td>
-            <td class="pe-3 pb-3" colspan="2"><%= f.submit "更新", class: "btn btn-success" %></td>
+            <td class="pr-3 pb-3"></td>
+            <td class"pr-3 pb-3" colspan="2"><%= f.submit "更新", class: "btn btn-success" %></td>
           </tr>
         </tbody>
       </table>
@@ -105,4 +105,4 @@
     </div>
     <div class="col-6"></div>
   </div>
-</div>
+</div>=

@@ -232,12 +232,34 @@ footer {
   gap: 8px;
 }
 
+.card-img-top {
+  padding: 0;
+  margin: 0;
+  border-bottom: 1px solid #dee2e6;
+}
+
+.card-img-top img {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-top-left-radius: calc(0.25rem - 1px);
+  border-top-right-radius: calc(0.25rem - 1px);
+}
+
 .post-card {
+  height: 400px;
+  width: 300px;
+  display: flex;
+  flex-direction: column;
+}
+
+.card-body {
+  height: 200px;
   width: 300px;
 }
 
-.post-card-body {
-  width: 300px;
+.post-body-snippet {
+  max-height: 50px;
 }
 
 .post-index-user-profile-image {
