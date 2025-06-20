@@ -253,7 +253,7 @@ footer {
   flex-direction: column;
 }
 
-.card-body {
+.post-card-body {
   height: 200px;
   width: 300px;
 }
@@ -340,6 +340,15 @@ footer {
   width: 30px;
   height: 30px;
   object-fit: cover;
+}
+
+.toy-card-body {
+  max-width: auto;
+  max-height: auto;
+}
+
+.toy-list-item {
+  max-width: 200px;
 }
 
 .toy-list-image {

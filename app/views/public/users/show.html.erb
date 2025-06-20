@@ -19,7 +19,7 @@
         <div class="card-header text-center">
           <strong><%= @user.nickname %>さんのぬいぐるみ一覧</strong>
         </div>
-        <div class="card-body">
+        <div class="card-body toy-card-body">
           <% if @toys.present? %>
             <%= render 'public/toys/sidebar', toys: @toys %>
           <% else %>
