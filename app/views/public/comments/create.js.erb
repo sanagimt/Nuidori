@@ -1,0 +1,18 @@
+document.getElementById("comments").insertAdjacentHTML(
+  "beforeend",
+  "<%= j render partial: 'public/comments/post_comment', locals: { comment: @comment, post: @post } %>"
+);
+
+document.getElementById("comment_count").textContent = "<%= @post.comments.count %>";
+
+var noCommentMsg = document.getElementById("no-comment-msg");
+if (noCommentMsg) noCommentMsg.remove();
+
+document.getElementById("comment_textarea").value = "";
+document.getElementById("char_count").textContent = "0";
+document.getElementById("submit_comment").disabled = true;
+
+setupCommentFormListeners();
+const submitBtn = document.getElementById("submit_comment");
+console.log("submit disabled:", submitBtn.disabled);
+submitBtn.disabled = true;

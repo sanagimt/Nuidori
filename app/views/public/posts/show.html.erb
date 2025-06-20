@@ -55,12 +55,19 @@
     <%= render 'public/comments/form', post: @post, comment: @comment %>
   </div>
 
-  <div class="mx-auto mt-5 mb-5 post-wrapper">
-    <h5 class="mb-3">コメント一覧（<%= @comments.count %>件）</h5>
-    <% if @comments.present? %>
-      <%= render 'public/comments/post_comments', post: @post, comment: @comment, comments: @comments %>
-    <% else %>
-      <p class="text-muted">コメントはまだありません。</p>
-    <% end %>
+  <div class="mx-auto mt-5 mb-5 post-wrapper" id="comments">
+    <h5 class="mb-3">コメント一覧（<span id="comment_count"><%= @comments.count %></span>件）</h5>
+
+    <div id="comments-list">
+      <% if @comments.present? %>
+        <%= render partial: 'public/comments/post_comment', collection: @comments, as: :comment, locals: { post: @post } %>
+      <% else %>
+        <p class="text-muted" id="no-comment-msg">コメントはまだありません。</p>
+      <% end %>
+    </div>
   </div>
 </div>
+
+<% content_for :javascript do %>
+  <%= javascript_pack_tag 'comment_form', 'data-turbolinks-track': 'reload', defer: true %>
+<% end %>

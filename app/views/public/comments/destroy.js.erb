@@ -1,0 +1,12 @@
+var commentElement = document.getElementById("comment-<%= @comment.id %>");
+if (commentElement) commentElement.remove();
+
+document.getElementById("comment_count").textContent = "<%= @post.comments.count %>";
+
+var noCommentMsg = document.getElementById("no-comment-msg");
+if (<%= @post.comments.count %> === 0 && !noCommentMsg) {
+  document.getElementById("comments-list").insertAdjacentHTML(
+    "beforeend",
+    "<p id='no-comment-msg' class='text-muted'>コメントはまだありません。</p>"
+  );
+}
