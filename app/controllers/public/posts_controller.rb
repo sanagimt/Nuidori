@@ -1,12 +1,12 @@
 class Public::PostsController < ApplicationController
   before_action :authenticate_user!, only: [:new, :show, :create, :edit, :update, :destroy, :hashtag]
+  before_action :set_post, only: [:edit, :update, :destroy]
   before_action :is_matching_login_user, only: [:edit, :update, :destroy]
+  before_action :set_mutual_users_and_toys, only: [:new, :create, :edit, :update]
+  before_action :set_selected_toys, only: [:edit, :update]
 
   def new
     @post = Post.new
-    mutual_users = (current_user.mutual_followings + [current_user]).select(&:is_active)
-    @users = mutual_users.uniq.sort_by(&:nickname)
-    @toys = Toy.includes(:user).where(user: mutual_users)
     @selected_toys = []
   end
 
@@ -51,32 +51,15 @@ class Public::PostsController < ApplicationController
     if @post.save
       redirect_to post_path(@post.id), notice: "投稿が完了しました！"
     else
-      mutual_users = (current_user.mutual_followings + [current_user]).select(&:is_active)
-      @users = mutual_users.uniq.sort_by(&:nickname)
-      @toys = Toy.includes(:user).where(user: mutual_users)
       @selected_toys = []
       render :new
     end
   end
 
   def edit
-    @post = Post.find(params[:id])
-    mutual_users = (current_user.mutual_followings + [current_user]).select(&:is_active)
-    @users = mutual_users.uniq.sort_by(&:nickname)
-    @toys = Toy.includes(:user).where(user: mutual_users)
-    @selected_toys = @post.toys.includes(:user).where(users: { is_active: true })
-    @selected_toys_json = @selected_toys.map do |toy|
-      {
-        id: toy.id,
-        name: toy.name,
-        user_nickname: toy.user.nickname,
-        user_username: toy.user.username
-      }
-    end
   end
 
   def update
-    @post = Post.find(params[:id])
     clean_params = post_params
     clean_params[:toy_ids] = clean_params[:toy_ids].uniq if clean_params[:toy_ids].is_a?(Array)
   
@@ -84,25 +67,12 @@ class Public::PostsController < ApplicationController
       @post.touch unless @post.previous_changes.any?
       redirect_to post_path(@post.id), notice: "投稿を更新しました！"
     else
-      mutual_users = (current_user.mutual_followings + [current_user]).select(&:is_active)
-      @users = mutual_users.uniq.sort_by(&:nickname)
-      @toys = Toy.includes(:user).where(user: mutual_users)
-      @selected_toys = @post.toys.includes(:user).where(users: { is_active: true })
-      @selected_toys_json = @selected_toys.map do |toy|
-        {
-          id: toy.id,
-          name: toy.name,
-          user_nickname: toy.user.nickname,
-          user_username: toy.user.username
-        }
-      end
       render :edit
     end
   end
 
   def destroy
-    post = Post.find(params[:id])
-    post.destroy
+    @post.destroy
     redirect_to mypage_path, alert: "投稿を削除しました。"
   end
 
@@ -126,10 +96,32 @@ class Public::PostsController < ApplicationController
     params.require(:post).permit(:image, :title, :body, toy_ids: [] )
   end
 
+  def set_post
+    @post = Post.find(params[:id])
+  end
+
   def is_matching_login_user
     post = Post.find(params[:id])
     unless post.user.id == current_user.id
       redirect_to posts_path
+    end
+  end
+
+  def set_mutual_users_and_toys
+    mutual_users = (current_user.mutual_followings + [current_user]).select(&:is_active)
+    @users = mutual_users.uniq.sort_by(&:nickname)
+    @toys = Toy.includes(:user).where(user: mutual_users)
+  end
+
+  def set_selected_toys
+    @selected_toys = @post.toys.includes(:user).where(users: { is_active: true })
+    @selected_toys_json = @selected_toys.map do |toy|
+      {
+        id: toy.id,
+        name: toy.name,
+        user_nickname: toy.user.nickname,
+        user_username: toy.user.username
+      }
     end
   end
 
