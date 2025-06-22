@@ -1,0 +1,27 @@
+<div class="mb-3 p-2 border rounded bg-white" id="comment-<%= comment.id %>">
+  <div class="d-flex align-items-center mb-1">
+    <%= image_tag comment.user.get_profile_image(100, 100), class: "rounded-circle mr-2 comment-user-image" %>
+    <div>
+      <%= link_to user_path(username: comment.user.username), class: "d-flex align-items-center text-decoration-none" do %>
+        <span class="font-weight-bold text-dark"><%= comment.user.nickname %></span>
+        <span class="text-muted">（<%= comment.user.username %>）</span>
+      <% end %>
+    </div>
+  </div>
+
+  <div class="mb-1">
+    <%= simple_format(comment.comment) %>
+  </div>
+
+  <div class="text-muted small d-flex justify-content-between align-items-center">
+    <span><%= comment.created_at.strftime('%y/%m/%d %H:%M') %></span>
+
+    <% if comment.user == current_user %>
+      <%= link_to '削除', post_comment_path(comment.post_id, comment), method: :delete, remote: true,
+        class: "btn btn-sm btn-danger", data: { confirm: "コメントを削除してもよろしいですか？" } %>
+    <% elsif admin_signed_in? %>
+      <%= link_to '削除', admin_post_comment_path(comment.post_id, comment), method: :delete, remote: true,
+        class: "btn btn-sm btn-danger", data: { confirm: "コメントを削除してもよろしいですか？" } %>
+    <% end %>
+  </div>
+</div>

@@ -1,5 +1,5 @@
 <% post.comments.each do |comment| %>
-  <div class="mb-3 p-2 border rounded bg-white">
+  <div class="mb-3 p-2 border rounded bg-white" id="comment-<%= comment.id %>">
     <div class="d-flex align-items-center mb-1">
       <%= image_tag comment.user.get_profile_image(100, 100), class: "rounded-circle mr-2 comment-user-image" %>
       <div>
