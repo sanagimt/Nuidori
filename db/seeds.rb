@@ -84,6 +84,15 @@ aya = User.find_or_create_by!(email: "aya@example.com") do |user|
   user.introduction = "日常に癒しを。ぬい活記録中。"
 end
 
+test = User.find_or_create_by!(email: "test@example.com") do |user|
+  user.password = "password"
+  user.last_name = "山田"
+  user.first_name = "たろう"
+  user.username = "tester"
+  user.nickname = "テスト"
+  user.introduction = "テスト用です。"
+end
+
 #投稿
 Post.find_or_create_by!(id: 1) do |post|
   post.image = ActiveStorage::Blob.create_and_upload!(io: File.open("#{Rails.root}/db/fixtures/sample-post1.jpg"), filename:"sample-post1.jpg")
