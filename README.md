@@ -22,7 +22,11 @@
 - 他人が撮影したぬいぐるみの写真を閲覧したい時。
 ​
 ## 設計書
-後ほど作成予定
+- UI Flows (https://drive.google.com/file/d/1az23Zalg_Z5WUHYX414oiDlt12HrGu1J/view?usp=sharing)
+- ER図 (https://drive.google.com/file/d/14IZPNo07G9aCstgMFuGN8OY8fooaTJvt/view?usp=sharing)
+- テーブル定義書 (https://docs.google.com/spreadsheets/d/1vm0oDV5PFjA7fvmKbW_T_BvgtBEDZLg3if18eCqku_g/edit?usp=sharing)
+- アプリケーション詳細設計書 (https://docs.google.com/spreadsheets/d/1jq7MQcFr2Q6Dt2XlFy0_h0t5hFZBDuWbsz_WFdqvuBE/edit?usp=sharing)
+- インフラ設計書 (https://docs.google.com/spreadsheets/d/1aIRc0EKbOmYFhiLp-Osu2qLt4xWnBwUSgobRNalEuwM/edit?usp=sharing)
 ​
 ## 開発環境
 - OS：Linux(CentOS)
