@@ -3,7 +3,7 @@ class Admin::SearchesController < ApplicationController
 
   def search
     @model = params[:model]
-    @content=params[:content]
+    @content = params[:content]
 
     if @model == "post"
       @records = Post.search_for(@content, include_inactive_users: true).page(params[:page]).per(12)
