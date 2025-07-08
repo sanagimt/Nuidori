@@ -1,20 +1,20 @@
 <div class="container my-4">
   <div class="row align-items-center">
     <div class="col-6 mb-4">
-      <h2 class="mb-3">Nuidoriへようこそ</h2>
-      <h4 class="mb-4 text-muted">ぬいと過ごす日常をシェアしよう！</h4>
-      <p class="mb-4">
+      <h2 class="mb-3 top-fade-in top-fade-delay-1">Nuidoriへようこそ</h2>
+      <h4 class="mb-4 text-muted top-fade-in top-fade-delay-2">ぬいと過ごす日常をシェアしよう！</h4>
+      <p class="mb-4 top-fade-in top-fade-delay-3">
         ぬいぐるみと過ごす毎日って、ほんとうに尊い。<br>
         表情、ポーズ、ふとした瞬間…<br>
         そんな「ぬいとの日常」をシェアできるSNSが「Nuidori」です！
       </p>
-      <div>
+      <div class="top-fade-in top-fade-delay-5">
         <%= link_to "新規ユーザー登録", new_user_registration_path, class: "btn btn-primary btn-lg mr-2 mb-2" %>
         <%= link_to "ログイン", new_user_session_path, class: "btn btn-outline-secondary btn-lg mb-2" %>
       </div>
     </div>
 
-    <div class="col-6 text-center">
+    <div class="col-6 text-center top-fade-in top-fade-delay-4">
       <%= image_tag("top_bg1.jpg", class: "img-fluid rounded shadow-sm", alt: "ぬいぐるみと背景") %>
     </div>
   </div>

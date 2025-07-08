@@ -18,6 +18,7 @@ import "../stylesheets/application";
 
 import "../custom/profile_image_preview"
 import "../custom/toy_image_preview"
+import "../custom/top_animation"
 
 Rails.start()
 Turbolinks.start()
