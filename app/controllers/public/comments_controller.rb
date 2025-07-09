@@ -9,7 +9,7 @@ class Public::CommentsController < ApplicationController
       if @comment.save
         format.js
       else
-        format.js { render 'error.js.erb' }
+        format.js { render :error, formats: [:js] }
       end
     end
   end

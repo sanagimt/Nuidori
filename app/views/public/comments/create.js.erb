@@ -13,6 +13,5 @@ document.getElementById("char_count").textContent = "0";
 document.getElementById("submit_comment").disabled = true;
 
 setupCommentFormListeners();
-const submitBtn = document.getElementById("submit_comment");
-console.log("submit disabled:", submitBtn.disabled);
-submitBtn.disabled = true;
+
+console.log("submit disabled:", document.getElementById("submit_comment").disabled);
