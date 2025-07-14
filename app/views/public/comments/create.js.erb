@@ -1,17 +1,17 @@
-document.getElementById("comments").insertAdjacentHTML(
-  "beforeend",
-  "<%= j render partial: 'public/comments/post_comment', locals: { comment: @comment, post: @post } %>"
-);
+{
+  document.getElementById("comments").insertAdjacentHTML(
+    "beforeend",
+    "<%= j render partial: 'public/comments/post_comment', locals: { comment: @comment, post: @post } %>"
+  );
 
-document.getElementById("comment_count").textContent = "<%= @post.comments.count %>";
+  document.getElementById("comment_count").textContent = "<%= @post.comments.count %>";
 
-var noCommentMsg = document.getElementById("no-comment-msg");
-if (noCommentMsg) noCommentMsg.remove();
+  const noCommentMsg = document.getElementById("no-comment-msg");
+  if (noCommentMsg) noCommentMsg.remove();
 
-document.getElementById("comment_textarea").value = "";
-document.getElementById("char_count").textContent = "0";
-document.getElementById("submit_comment").disabled = true;
+  document.getElementById("comment_textarea").value = "";
+  document.getElementById("char_count").textContent = "0";
+  document.getElementById("submit_comment").disabled = true;
 
-setupCommentFormListeners();
-
-console.log("submit disabled:", document.getElementById("submit_comment").disabled);
+  setupCommentFormListeners();
+}
